@@ -3,7 +3,7 @@
 
 
 ## Set working directory (not necessary)
-setwd("~/신랑/투자/시스템트레이딩/Stock_Momentum")
+setwd(""~/your path"")
 
 
 ## Generating file & dataframe names by each month
