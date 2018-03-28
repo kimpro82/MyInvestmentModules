@@ -6,7 +6,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - win -> +100, lose -> -50
 - Monte Carlo simulating 1,000 times
 
-![alt text](https://github.com/kimpro82/Investment-Monitoring-Modules/images/monte_carlo_100.png)
+![alt text](https://github.com/kimpro82/Investment-Monitoring-Modules/blob/master/images/monte_carlo_100.png)
 
 # Boxplot.R
 Drawing boxplots divided by groups and months 
