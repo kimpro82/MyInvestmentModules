@@ -1,7 +1,9 @@
-# Investment-Monitoring-Modules
+# My Investment Modules
 Someday these will be an integrated trading system, but not now. So I am sad.
 
-# R_Monte_Carlo_Simulation (2018.3.28)
+## [Python](/Python#python)
+- [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
-# Boxplot.R (2018.1.11)
-Drawing boxplots divided by groups and months for monitoring multi-strategy investment performance
+## R
+- [Monte-Carlo Simulation (2018.3.28)](/Monte%20Carlo%20Simulation#r_monte_carlo_simulation_20180328r)
+- [Boxplot (2018.1.11)](/Boxplot#boxplot-2018111)
