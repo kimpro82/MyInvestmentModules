@@ -1,13 +1,12 @@
-# XingAPI
+# XingAPI Application Modules
 
 Codes with `XingAPI` from **eBest Investment & Securities**
 
 
-\<Reference>  
-- xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp
-- xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
+**\<Reference>**  
+&nbsp;- xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp  
+&nbsp;- xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
 &nbsp;- xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
-
 
 - [VBA : Login (2021.11.08)](/XingAPI#vba--login-20211108)
 
