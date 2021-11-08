@@ -1,8 +1,8 @@
 # Python
-- Numpy Financial (2021.11.08)
+- [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
 
-## Numpy Financial : TVM (2021.11.08)
+## [Numpy Financial : TVM (2021.11.08)](/Python#python)
 
 - **TVM** : `PV` `FV` `FMT` `NPV` and `IRR`
 - Documentation ☞ https://numpy.org/numpy-financial/latest
