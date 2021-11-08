@@ -11,7 +11,7 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 - [VBA : Login (2021.11.08)](/XingAPI#vba--login-20211108)
 
 
-## [VBA : Login (2021.11.08)](/XingAPI#xingapi)
+## [VBA : Login (2021.11.08)](/XingAPI#xingapi-application-modules)
 
 ```VBA
 Option Explicit                                                                     ' Generate a compile-time error
