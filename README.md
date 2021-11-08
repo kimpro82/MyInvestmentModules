@@ -1,6 +1,9 @@
 # My Investment Modules
 Someday these will be an integrated trading system, but not now. So I am sad.
 
+## [XingAPI]()
+- VBA : Login (2021.11.08)
+
 ## [Python](/Python#python)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
