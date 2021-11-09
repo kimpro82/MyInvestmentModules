@@ -8,14 +8,16 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 &nbsp;- xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
 &nbsp;- xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
-- [VBA : Login 2 (2021.11.09)]()
-- [VBA : Login (2021.11.08)]()
+- [VBA : Login 2 (2021.11.09)](/XingAPI#vba--login-2-20211109)
+- [VBA : Login 1 (2021.11.08)](/XingAPI#vba--login-1-20211108)
 
 
 ## [VBA : Login 2 (2021.11.09)](/XingAPI#my-xingapi-application-modules)
-- advanced from [Login 1 (2021.11.08)]()
+- advanced from [VBA : Login 1 (2021.11.08)](/XingAPI#vba--login-1-20211108)
 - enter login information on the Excel sheet, not on the `InputBox`
 - can choose server type
+
+![VBA : Login 2](Images/XingAPI_VBA_Login_2.gif)
 
 ```VBA
 Option Explicit                                                                     ' Generate a compile-time error
@@ -75,9 +77,9 @@ Private Sub XASession_Login_Login(ByVal szCode As String, ByVal szMsg As String)
 End Sub
 ```
 
-![VBA : Login 2](Images/XingAPI_VBA_Login_2.gif)
-
 
 ## [VBA : Login 1 (2021.11.08)](/XingAPI#my-xingapi-application-modules)
+
+- **the 1st trial** to build login process into `xingAPI` in **VBA**
 
 ![VBA : Login 1](Images/XingAPI_VBA_Login_1.gif)
