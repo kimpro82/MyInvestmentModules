@@ -2,7 +2,8 @@
 Someday these will be an integrated trading system, but not now. So I am sad.
 
 ## [My `xingAPI` Application Modules](/XingAPI#my-xingapi-application-modules)
-- [VBA : Login (2021.11.08)](/XingAPI#vba--login-20211108)
+- [VBA : Login 2(2021.11.09)]()
+- [VBA : Login 1(2021.11.08)]()
 
 ## [My Python Modules](/Python#python)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
