@@ -20,18 +20,18 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 ![VBA : Login 2](Images/XingAPI_VBA_Login_2.gif)
 
 ```VBA
-Option Explicit                                                                     ' Generate a compile-time error
+Option Explicit                                                             ' Generate a compile-time error
 ```
 
 ```VBA
-Dim WithEvents XASession_Login As XASession                                         ' must be declared in the Excel object
+Dim WithEvents XASession_Login As XASession                                 ' must be declared in the Excel object
 ```
 
 ```VBA
 Private Sub btnLogin_Click()
 
     ' Initialize status cells
-    ActiveSheet.Cells(5, 2) = ""                                                         ' .Clear : clear even cell form
+    ActiveSheet.Cells(5, 2) = ""                                            ' .Clear : clear even cell form
     ActiveSheet.Cells(6, 2) = ""
 
     ' Determine server type

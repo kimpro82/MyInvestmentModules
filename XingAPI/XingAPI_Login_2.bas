@@ -1,13 +1,13 @@
-Option Explicit                                                                     ' Generate a compile-time error
+Option Explicit                                                             ' Generate a compile-time error
 
 
-Dim WithEvents XASession_Login As XASession                                         ' must be declared in the Excel object
+Dim WithEvents XASession_Login As XASession                                 ' must be declared in the Excel object
 
 
 Private Sub btnLogin_Click()
 
     ' Initialize status cells
-    ActiveSheet.Cells(5, 2) = ""                                                         ' .Clear : clear even cell form
+    ActiveSheet.Cells(5, 2) = ""                                            ' .Clear : clear even cell form
     ActiveSheet.Cells(6, 2) = ""
 
     ' Determine server type
