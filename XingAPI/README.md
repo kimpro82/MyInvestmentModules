@@ -44,9 +44,9 @@ Private Sub btnLogin_Click()
         ActiveSheet.Cells(6, 2) = "서버를 지정해주세요 : 실서버 / 모의투자"
         Exit Sub
     End If
-    
+
     Set XASession_Login = CreateObject("XA_Session.XASession")
-    
+
     ' Connect server
     If XASession_Login.ConnectServer(server, 0) = False Then
         ActiveSheet.Cells(5, 2) = "서버 접속 실패"
@@ -59,7 +59,7 @@ Private Sub btnLogin_Click()
         ID = ActiveSheet.Cells(2, 2).Value
         pwd = ActiveSheet.Cells(3, 2).Value
         certPwd = ActiveSheet.Cells(4, 2).Value
-        
+
     ' Send login information
     If XASession_Login.Login(ID, pwd, certPwd, 0, False) = False Then
         ActiveSheet.Cells(5, 2) = "로그인정보 전송 실패"
