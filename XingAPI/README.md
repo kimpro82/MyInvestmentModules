@@ -42,7 +42,7 @@ Private Sub readAccounts_Click()
     For i = 0 To nCnt - 1
         szAcct = XASession_Account.GetAccountList(i)                                ' get each account number
 
-        ActiveSheet.Cells(11 + i, 1) = i
+        ActiveSheet.Cells(11 + i, 1) = i + 1
         ActiveSheet.Cells(11 + i, 2) = szAcct
         ActiveSheet.Cells(11 + i, 3) = XASession_Account.GetAccountName(szAcct)
         ActiveSheet.Cells(11 + i, 4) = XASession_Account.GetAcctDetailName(szAcct)  ' get account type
