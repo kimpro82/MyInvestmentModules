@@ -4,6 +4,7 @@ Option Explicit                                                             ' Ge
 Dim WithEvents XASession_Login As XASession                                 ' must be declared in the Excel object
 
 
+' Login
 Private Sub btnLogin_Click()
 
     ' Initialize status cells
