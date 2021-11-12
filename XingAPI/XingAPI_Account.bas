@@ -1,7 +1,8 @@
 Dim WithEvents XASession_Account As XASession
 
 
-Private Sub readAccounts_Click()
+' Read the account list
+Private Sub btnReadAccounts_Click()
 
     ' Initialize account list table
     ActiveSheet.Range("a9:b9") = ""
@@ -11,11 +12,11 @@ Private Sub readAccounts_Click()
 
     Dim nCnt As Integer, i As Integer, szAcct As String
     nCnt = XASession_Account.GetAccountListCount()                                  ' start from 0
-
+    
     ' Output
     ActiveSheet.Cells(9, 1) = XASession_Account.GetServerName()
     ActiveSheet.Cells(9, 2) = nCnt
-    
+
     For i = 0 To nCnt - 1
         szAcct = XASession_Account.GetAccountList(i)                                ' get each account number
 

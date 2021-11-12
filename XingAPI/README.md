@@ -24,6 +24,7 @@ Dim WithEvents XASession_Account As XASession
 ```
 
 ```vba
+' Read the account list
 Private Sub readAccounts_Click()
 
     ' Initialize account list table
@@ -75,6 +76,7 @@ Dim WithEvents XASession_Login As XASession                                 ' mu
 ```
 
 ```vba
+' Login
 Private Sub btnLogin_Click()
 
     ' Initialize status cells
