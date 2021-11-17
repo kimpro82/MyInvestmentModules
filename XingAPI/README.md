@@ -9,13 +9,13 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
 **\<VBA>**  
-- [Request Data : Current Price - T1101 (2021.11.17)]()
+- [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#request-data--current-price---t1101-20211117)
 - [Read Account List (2021.11.10)](/XingAPI#read-account-list-20211110)
 - [Login 2 (2021.11.09)](/XingAPI#login-2-20211109)
 - [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 
 
-## [Request Data : Current Price - T1101 (2021.11.17)]()
+## [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#my-xingapi-application-modules)
 
 - read a stock's current price information (**t1101**)
 
