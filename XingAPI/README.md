@@ -4,16 +4,114 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 
 
 **\<Reference>**  
-&nbsp;- xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp  
-&nbsp;- xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
-&nbsp;- xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
+- xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp  
+- xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
+- xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
-- [VBA : Read Account List (2021.11.10)](/XingAPI#vba--read-account-list-20211110)
-- [VBA : Login 2 (2021.11.09)](/XingAPI#vba--login-2-20211109)
-- [VBA : Login 1 (2021.11.08)](/XingAPI#vba--login-1-20211108)
+**\<VBA>**  
+- [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#request-data--current-price---t1101-20211117)
+- [Read Account List (2021.11.10)](/XingAPI#read-account-list-20211110)
+- [Login 2 (2021.11.09)](/XingAPI#login-2-20211109)
+- [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 
 
-## [VBA : Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
+## [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#my-xingapi-application-modules)
+
+- read a stock's current price information (**t1101**)
+
+![VBA : T1101](Images/XingAPI_VBA_T1101.gif)
+
+```vba
+Dim WithEvents XAQuery_t1101 As XAQuery
+```
+```vba
+' T1101 : Current Price
+Private Sub Request_t1101()
+
+    If XAQuery_t1101 Is Nothing Then
+        Set XAQuery_t1101 = CreateObject("XA_DataSet.XAQuery")                      ' set XAQuery object
+        XAQuery_t1101.ResFileName = "c:\\eBEST\xingAPI\Res\t1101.res"               ' call related .res file
+    End If
+
+    Dim shcode As String
+    shcode = ActiveSheet.Range("R2").Value
+
+    Call XAQuery_t1101.SetFieldData("t1101InBlock", "shcode", 0, shcode)            ' 0 : nOccursIndex, '0' 고정
+
+    If XAQuery_t1101.Request(False) < 0 Then
+        ActiveSheet.Range("R27") = "전송 오류"
+    End If
+
+End Sub
+```
+```vba
+Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
+
+    ActiveSheet.Range("R3") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hname", 0)                               ' 종목명
+    ActiveSheet.Range("Q5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "price", 0)                               ' 현재가
+    Dim sSign As String
+    sSign = GetSign(XAQuery_t1101.GetFieldData("t1101OutBlock", "sign", 0))                                         ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
+    ActiveSheet.Range("S5") = sSign & XAQuery_t1101.GetFieldData("t1101OutBlock", "change", 0)                      ' 전일대비
+    ActiveSheet.Range("T5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "diff", 0) / 100                          ' 등락률
+    ActiveSheet.Range("U5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "volume", 0)                              ' (당일)누적거래량
+
+    Dim i As Integer
+    For i = 1 To 10
+        ActiveSheet.Range("S" & (6 + 11 - i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerho" & i, 0)       ' 매도호가
+        ActiveSheet.Range("R" & (6 + 11 - i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerrem" & i, 0)      ' 매도호가수량
+        ActiveSheet.Range("Q" & (6 + 11 - i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)   ' 직전매도대비수량
+        ActiveSheet.Range("S" & (6 + 10 + i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidho" & i, 0)         ' 매수호가
+        ActiveSheet.Range("T" & (6 + 10 + i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidrem" & i, 0)        ' 매수호가수량
+        ActiveSheet.Range("U" & (6 + 10 + i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)     ' 직전매수대비수량
+    Next i
+
+    ActiveSheet.Range("R27") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hotime", 0)                             ' 수신시간
+
+End Sub
+```
+```vba
+Private Function GetSign(ByVal sSign As String)
+
+    Select Case sSign
+        Case "1"
+            GetSign = "↑"
+        Case "2"
+            GetSign = "▲"
+        Case "4"
+            GetSign = "↓"
+        Case "5"
+            GetSign = "▼"
+        Case Else
+            GetSign = ""
+    End Select
+
+End Function
+```
+```vba
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+    If Not Intersect(Range("R2"), Target) Is Nothing Then
+    ' If Target.Range("R2") Is changed Then                                                 ' doesn't work well
+        Call btnRequestT1101_Click
+    End If
+
+End Sub
+```
+```vba
+Private Sub btnRequestT1101_Click()
+
+    ActiveSheet.Range("R3") = ""
+    ActiveSheet.Range("Q5:U5") = ""
+    ActiveSheet.Range("Q7:U26") = ""
+    ActiveSheet.Range("R27") = ""
+
+    Call Request_t1101
+
+End Sub
+```
+
+
+## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
 
 - read account list with using `XASession`
 
@@ -59,9 +157,9 @@ End Sub
 ```
 
 
-## [VBA : Login 2 (2021.11.09)](/XingAPI#my-xingapi-application-modules)
+## [Login 2 (2021.11.09)](/XingAPI#my-xingapi-application-modules)
 
-- advanced from [VBA : Login 1 (2021.11.08)](/XingAPI#vba--login-1-20211108)
+- advanced from [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 - enter login information on the Excel sheet, not on the `InputBox`
 - can choose server type
 
@@ -129,7 +227,7 @@ End Sub
 ```
 
 
-## [VBA : Login 1 (2021.11.08)](/XingAPI#my-xingapi-application-modules)
+## [Login 1 (2021.11.08)](/XingAPI#my-xingapi-application-modules)
 
 - **the 1st trial** to build login process into `xingAPI` in **VBA**
 
