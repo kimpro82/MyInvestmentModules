@@ -19,7 +19,7 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 
 - read a stock's current price information (**t1101**)
 
-![VBA : T1101]()
+![VBA : T1101](Images/XingAPI_VBA_T1101.gif)
 
 ```vba
 Dim WithEvents XAQuery_t1101 As XAQuery
