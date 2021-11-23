@@ -23,7 +23,7 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 - load bid/offer data into an **array**
 - imporve the time expression
 
-![VBA : T1101 2]()
+![VBA : T1101 2](Images/XingAPI_VBA_T1101_2.gif)
 
 ```vba
 Dim WithEvents XAQuery_t1101 As XAQuery         ' t1101 : 주식 현재가 호가 조회
@@ -152,7 +152,7 @@ End Sub
 
 - read a stock's current price information (**t1101**)
 
-![VBA : T1101](Images/XingAPI_VBA_T1101.gif)
+![VBA : T1101 1](Images/XingAPI_VBA_T1101_1.gif)
 
 
 ## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
