@@ -166,6 +166,7 @@ End Sub
 ## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
 
 - read account list with using `XASession`
+- ※ skip `ActiveSheet.` (2021.11.22)
 
 ![VBA : Read Account List](Images/XingAPI_VBA_Account.gif)
 
@@ -214,6 +215,7 @@ End Sub
 - advanced from [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 - enter login information on the Excel sheet, not on the `InputBox`
 - can choose server type
+- ※ skip `ActiveSheet.` (2021.11.22)
 
 ![VBA : Login 2](Images/XingAPI_VBA_Login_2.gif)
 
