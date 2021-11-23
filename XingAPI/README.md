@@ -1,6 +1,6 @@
 # My `xingAPI` Application Modules
 
-Codes with `XingAPI` from **eBest Investment & Securities**
+Codes with `xingAPI` from **eBest Investment & Securities**
 
 
 **\<Reference>**  
