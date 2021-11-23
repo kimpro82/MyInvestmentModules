@@ -30,6 +30,7 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 Dim WithEvents XAQuery_t1101 As XAQuery         ' t1101 : 주식 현재가 호가 조회
 Dim WithEvents XAQuery_t1102 As XAQuery         ' t1102 : 주식 현재가(시세) 조회 (※ 시장 구분)
 ```
+
 ```vba
 ' T1101 : Current Price without XAReal
 Private Sub Request_t1101()
@@ -49,6 +50,7 @@ Private Sub Request_t1101()
 
 End Sub
 ```
+
 ```vba
 Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
 
@@ -80,6 +82,7 @@ Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
 
 End Sub
 ```
+
 ```vba
 ' T1102 : Get the Market Categoty among KOSPI / KOSPI200 / KOSPI DR / KOSDAQ50 / KOSDAQ / CB
 Private Sub Request_t1102()
@@ -99,6 +102,7 @@ Private Sub Request_t1102()
 
 End Sub
 ```
+
 ```vba
 Private Sub XAQuery_t1102_ReceiveData(ByVal szTrCode As String)
 
@@ -106,6 +110,7 @@ Private Sub XAQuery_t1102_ReceiveData(ByVal szTrCode As String)
 
 End Sub
 ```
+
 ```vba
 Private Function GetSign(ByVal sSign As String)
 
@@ -124,6 +129,7 @@ Private Function GetSign(ByVal sSign As String)
 
 End Function
 ```
+
 ```vba
 Private Sub Worksheet_Change(ByVal Target As Range)
 
@@ -134,6 +140,7 @@ Private Sub Worksheet_Change(ByVal Target As Range)
 
 End Sub
 ```
+
 ```vba
 Private Sub btnRequestT1101_Click()
 
@@ -168,32 +175,32 @@ Dim WithEvents XASession_Account As XASession
 
 ```vba
 ' Read the account list
-Private Sub readAccounts_Click()
+Private Sub btnReadAccounts_Click()
 
     ' Initialize account list table
-    ActiveSheet.Range("a9:b9") = ""
-    ActiveSheet.Range("A11:E30") = ""
+    Range("a9:b9") = ""
+    Range("A11:E30") = ""
 
     Set XASession_Account = CreateObject("XA_Session.XASession")
 
     Dim nCnt As Integer, i As Integer, szAcct As String
-    nCnt = XASession_Account.GetAccountListCount()                                  ' start from 0
-
-    ' Output
-    ActiveSheet.Cells(9, 1) = XASession_Account.GetServerName()
-    ActiveSheet.Cells(9, 2) = nCnt
+    nCnt = XASession_Account.GetAccountListCount()                          ' start from 0
     
-    For i = 0 To nCnt - 1
-        szAcct = XASession_Account.GetAccountList(i)                                ' get each account number
+    ' Output
+    Cells(9, 1) = XASession_Account.GetServerName()
+    Cells(9, 2) = nCnt
 
-        ActiveSheet.Cells(11 + i, 1) = i + 1
-        ActiveSheet.Cells(11 + i, 2) = szAcct
-        ActiveSheet.Cells(11 + i, 3) = XASession_Account.GetAccountName(szAcct)
-        ActiveSheet.Cells(11 + i, 4) = XASession_Account.GetAcctDetailName(szAcct)  ' get account type
-        ActiveSheet.Cells(11 + i, 5) = XASession_Account.GetAcctNickname(szAcct)
+    For i = 0 To nCnt - 1
+        szAcct = XASession_Account.GetAccountList(i)                        ' get each account number
+
+        Cells(11 + i, 1) = i + 1
+        Cells(11 + i, 2) = szAcct
+        Cells(11 + i, 3) = XASession_Account.GetAccountName(szAcct)
+        Cells(11 + i, 4) = XASession_Account.GetAcctDetailName(szAcct)      ' get account type
+        Cells(11 + i, 5) = XASession_Account.GetAcctNickname(szAcct)
 
         If i >= 10 Then
-            ActiveSheet.Cells(11 + i + 1, 2) = "계좌 수가 " & i & "개를 초과하였습니다."
+            Cells(11 + i + 1, 2) = "계좌 수가 " & i & "개를 초과하였습니다."
             Exit Sub
         End If
     Next
@@ -223,17 +230,17 @@ Dim WithEvents XASession_Login As XASession                                 ' mu
 Private Sub btnLogin_Click()
 
     ' Initialize status cells
-    ActiveSheet.Cells(5, 2) = ""                                            ' .Clear : clear even cell form
-    ActiveSheet.Cells(6, 2) = ""
+    Cells(5, 2) = ""                                                        ' .Clear : clear even cell form
+    Cells(6, 2) = ""
 
     ' Determine server type
     Dim server As String
-    If ActiveSheet.Cells(1, 2).Value = "실서버" Then
+    If Cells(1, 2).Value = "실서버" Then
         server = "hts.ebestsec.co.kr"
-    ElseIf ActiveSheet.Cells(1, 2).Value = "모의투자" Then
+    ElseIf Cells(1, 2).Value = "모의투자" Then
         server = "demo.ebestsec.co.kr"
     Else
-        ActiveSheet.Cells(6, 2) = "서버를 지정해주세요 : 실서버 / 모의투자"
+        Cells(6, 2) = "서버를 지정해주세요 : 실서버 / 모의투자"
         Exit Sub
     End If
 
@@ -241,22 +248,22 @@ Private Sub btnLogin_Click()
 
     ' Connect server
     If XASession_Login.ConnectServer(server, 0) = False Then
-        ActiveSheet.Cells(5, 2) = "서버 접속 실패"
+        Cells(5, 2) = "서버 접속 실패"
     Else
-        ActiveSheet.Cells(5, 2) = "서버 접속 성공"
+        Cells(5, 2) = "서버 접속 성공"
     End If
 
     ' Enter ID, password and certificate password
     Dim ID, pwd, certPwd As String
-        ID = ActiveSheet.Cells(2, 2).Value
-        pwd = ActiveSheet.Cells(3, 2).Value
-        certPwd = ActiveSheet.Cells(4, 2).Value
+        ID = Cells(2, 2).Value
+        pwd = Cells(3, 2).Value
+        certPwd = Cells(4, 2).Value
 
     ' Send login information
     If XASession_Login.Login(ID, pwd, certPwd, 0, False) = False Then
-        ActiveSheet.Cells(5, 2) = "로그인정보 전송 실패"
+        Cells(5, 2) = "로그인정보 전송 실패"
     Else
-        ActiveSheet.Cells(5, 2) = "로그인정보 전송 성공"
+        Cells(5, 2) = "로그인정보 전송 성공"
     End If
 
 End Sub
@@ -266,7 +273,7 @@ End Sub
 ' Check the result of login
 Private Sub XASession_Login_Login(ByVal szCode As String, ByVal szMsg As String)
 
-    Sheet2.Cells(6, 2) = szCode & " : " & szMsg
+    Cells(6, 2) = szCode & " : " & szMsg
 
 End Sub
 ```
