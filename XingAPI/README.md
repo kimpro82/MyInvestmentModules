@@ -22,13 +22,13 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 - call **real data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market is *KOSPI* or *KOSDAQ* by `t1102`
 - process flow among objects
-  1. Worksheet_Change() *(※ can be skipped)*
-  2. btnRequestT1101_Click()
-  3. Request_t1101()
-  4. XAQuery_t1101_ReceiveData()
-  5. Request_t1102()
-  6. XAQuery_t1102_ReceiveData()
-  7. XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData()
+  1) Worksheet_Change() *(※ can be skipped)*
+  2) btnRequestT1101_Click()
+  3) Request_t1101()
+  4) XAQuery_t1101_ReceiveData()
+  5) Request_t1102()
+  6) XAQuery_t1102_ReceiveData()
+  7) XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData()
 
 ![VBA : T1101 3]()
 
