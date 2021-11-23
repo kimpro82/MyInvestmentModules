@@ -9,37 +9,41 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
 **\<VBA>**  
+- [Request Data : Current Price - T1101 2 (2021.11.22)]()
 - [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#request-data--current-price---t1101-20211117)
 - [Read Account List (2021.11.10)](/XingAPI#read-account-list-20211110)
 - [Login 2 (2021.11.09)](/XingAPI#login-2-20211109)
 - [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 
 
-## [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#my-xingapi-application-modules)
+## [Request Data : Current Price - T1101 2 (2021.11.22)](/XingAPI#my-xingapi-application-modules)
 
-- read a stock's current price information (**t1101**)
+- advanced from [`T1101 1`](/XingAPI#request-data--current-price---t1101-20211117)
+- add the **market category** of a stock through **t1102**
+- load bid/offer data into an **array**
+- imporve the time expression
 
-![VBA : T1101](Images/XingAPI_VBA_T1101.gif)
+![VBA : T1101 2]()
 
 ```vba
-Dim WithEvents XAQuery_t1101 As XAQuery
+Dim WithEvents XAQuery_t1101 As XAQuery         ' t1101 : 주식 현재가 호가 조회
+Dim WithEvents XAQuery_t1102 As XAQuery         ' t1102 : 주식 현재가(시세) 조회 (※ 시장 구분)
 ```
 ```vba
-' T1101 : Current Price
+' T1101 : Current Price without XAReal
 Private Sub Request_t1101()
 
     If XAQuery_t1101 Is Nothing Then
-        Set XAQuery_t1101 = CreateObject("XA_DataSet.XAQuery")                      ' set XAQuery object
-        XAQuery_t1101.ResFileName = "c:\\eBEST\xingAPI\Res\t1101.res"               ' call related .res file
+        Set XAQuery_t1101 = CreateObject("XA_DataSet.XAQuery")                                  ' set XAQuery object
+        XAQuery_t1101.ResFileName = "c:\\eBEST\xingAPI\Res\t1101.res"                           ' call related .res file
     End If
 
     Dim shcode As String
-    shcode = ActiveSheet.Range("R2").Value
-
-    Call XAQuery_t1101.SetFieldData("t1101InBlock", "shcode", 0, shcode)            ' 0 : nOccursIndex, '0' 고정
+    shcode = Range("G3").Value
+    Call XAQuery_t1101.SetFieldData("t1101InBlock", "shcode", 0, shcode)                        ' 0 : nOccursIndex, '0' 고정
 
     If XAQuery_t1101.Request(False) < 0 Then
-        ActiveSheet.Range("R27") = "전송 오류"
+        Range("H27") = "전송 오류(t1101)"
     End If
 
 End Sub
@@ -47,25 +51,57 @@ End Sub
 ```vba
 Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
 
-    ActiveSheet.Range("R3") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hname", 0)                               ' 종목명
-    ActiveSheet.Range("Q5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "price", 0)                               ' 현재가
+    ' The current price and other informations
+    Range("H3") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hname", 0)                       ' 종목명
+    Range("G5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "price", 0)                       ' 현재가
     Dim sSign As String
-    sSign = GetSign(XAQuery_t1101.GetFieldData("t1101OutBlock", "sign", 0))                                         ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
-    ActiveSheet.Range("S5") = sSign & XAQuery_t1101.GetFieldData("t1101OutBlock", "change", 0)                      ' 전일대비
-    ActiveSheet.Range("T5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "diff", 0) / 100                          ' 등락률
-    ActiveSheet.Range("U5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "volume", 0)                              ' (당일)누적거래량
+    sSign = GetSign(XAQuery_t1101.GetFieldData("t1101OutBlock", "sign", 0))                     ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
+    Range("I5") = sSign & XAQuery_t1101.GetFieldData("t1101OutBlock", "change", 0)              ' 전일대비
+    Range("J5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "diff", 0) / 100                  ' 등락률
+    Range("K5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "volume", 0)                      ' (당일)누적거래량
 
-    Dim i As Integer
+    ' Bid/Offer prices and volumes through an array (faster)
+    Dim arrHoga(20, 5), i As Integer
     For i = 1 To 10
-        ActiveSheet.Range("S" & (6 + 11 - i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerho" & i, 0)       ' 매도호가
-        ActiveSheet.Range("R" & (6 + 11 - i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerrem" & i, 0)      ' 매도호가수량
-        ActiveSheet.Range("Q" & (6 + 11 - i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)   ' 직전매도대비수량
-        ActiveSheet.Range("S" & (6 + 10 + i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidho" & i, 0)         ' 매수호가
-        ActiveSheet.Range("T" & (6 + 10 + i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidrem" & i, 0)        ' 매수호가수량
-        ActiveSheet.Range("U" & (6 + 10 + i)) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)     ' 직전매수대비수량
+        arrHoga(10 - i, 2) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerho" & i, 0)      ' 매도호가
+        arrHoga(10 - i, 1) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerrem" & i, 0)     ' 매도호가수량
+        arrHoga(10 - i, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)  ' 직전매도대비수량
+        arrHoga(9 + i, 2) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidho" & i, 0)         ' 매수호가
+        arrHoga(9 + i, 3) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidrem" & i, 0)        ' 매수호가수량
+        arrHoga(9 + i, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)     ' 직전매수대비수량
     Next i
+    Range("G7:K26").Value = arrHoga
 
-    ActiveSheet.Range("R27") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hotime", 0)                             ' 수신시간
+    ' Receiving time
+    Dim hotime As String
+    hotime = XAQuery_t1101.GetFieldData("t1101OutBlock", "hotime", 0)
+    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2) & ":" & Mid(hotime, 7, 2)
+
+End Sub
+```
+```vba
+' T1102 : Get the Market Categoty among KOSPI / KOSPI200 / KOSPI DR / KOSDAQ50 / KOSDAQ / CB
+Private Sub Request_t1102()
+
+    If XAQuery_t1102 Is Nothing Then
+        Set XAQuery_t1102 = CreateObject("XA_DataSet.XAQuery")
+        XAQuery_t1102.ResFileName = "c:\\eBEST\xingAPI\Res\t1102.res"
+    End If
+
+    Dim shcode As String
+    shcode = Range("G3").Value
+    Call XAQuery_t1102.SetFieldData("t1102InBlock", "shcode", 0, shcode)
+
+    If XAQuery_t1102.Request(False) < 0 Then
+        Range("H27") = "전송 오류(t1102)"
+    End If
+
+End Sub
+```
+```vba
+Private Sub XAQuery_t1102_ReceiveData(ByVal szTrCode As String)
+
+    Range("I3") = XAQuery_t1102.GetFieldData("t1102OutBlock", "janginfo", 0)                    ' 장구분 (※ from t1102)
 
 End Sub
 ```
@@ -90,8 +126,8 @@ End Function
 ```vba
 Private Sub Worksheet_Change(ByVal Target As Range)
 
-    If Not Intersect(Range("R2"), Target) Is Nothing Then
-    ' If Target.Range("R2") Is changed Then                                                 ' doesn't work well
+    If Not Intersect(Range("G3"), Target) Is Nothing Then
+    ' If Target.Range("G3") Is changed Then                                                     ' doesn't work well
         Call btnRequestT1101_Click
     End If
 
@@ -100,15 +136,23 @@ End Sub
 ```vba
 Private Sub btnRequestT1101_Click()
 
-    ActiveSheet.Range("R3") = ""
-    ActiveSheet.Range("Q5:U5") = ""
-    ActiveSheet.Range("Q7:U26") = ""
-    ActiveSheet.Range("R27") = ""
+    Range("H3:I3") = ""
+    Range("G5:K5") = ""
+    Range("G7:K26") = ""
+    Range("H27") = ""
 
     Call Request_t1101
+    Call Request_t1102
 
 End Sub
 ```
+
+
+## [Request Data : Current Price - T1101 (2021.11.17)](/XingAPI#my-xingapi-application-modules)
+
+- read a stock's current price information (**t1101**)
+
+![VBA : T1101](Images/XingAPI_VBA_T1101.gif)
 
 
 ## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
