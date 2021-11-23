@@ -22,6 +22,7 @@ Codes with `XingAPI` from **eBest Investment & Securities**
 - add the **market category** of a stock through **t1102**
 - load bid/offer data into an **array**
 - imporve the time expression
+- skip `ActiveSheet.` (※ including all the previously uploaded codes)
 
 ![VBA : T1101 2](Images/XingAPI_VBA_T1101_2.gif)
 
