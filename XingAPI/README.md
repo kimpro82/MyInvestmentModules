@@ -19,7 +19,7 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 
 ## [Current Price - T1101 3 (2021.11.23)](/XingAPI#my-xingapi-application-modules)
 
-- call **real data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
+- call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market is *KOSPI* or *KOSDAQ* by `t1102`
 - process flow among objects :  
   &nbsp;(1) Worksheet_Change() *(※ can be skipped)*  
