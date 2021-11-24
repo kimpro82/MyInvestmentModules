@@ -10,14 +10,14 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 
 **\<VBA>**
 - [Current Price - T1101 2 (2021.11.23)](/XingAPI#current-price---t1101-2-20211123)
-- [Current Price - T1101 1.1 (2021.11.22)](/XingAPI#current-price---t1101-1-1-20211122)
+- [Current Price - T1101 1.1 (2021.11.22)](/XingAPI#current-price---t1101-11-20211122)
 - [Current Price - T1101 1 (2021.11.17)](/XingAPI#current-price---t1101-1-20211117)
 - [Read Account List (2021.11.10)](/XingAPI#read-account-list-20211110)
 - [Login 2 (2021.11.09)](/XingAPI#login-2-20211109)
 - [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 
 
-## [Current Price - T1101 3 (2021.11.23)](/XingAPI#my-xingapi-application-modules)
+## [Current Price - T1101 2 (2021.11.23)](/XingAPI#my-xingapi-application-modules)
 
 - call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
