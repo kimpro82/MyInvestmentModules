@@ -21,10 +21,10 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 
 - call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
-- **consistentize** t1101's outblocks with real time data  
-&nbsp;- skip the fields of `직전매도대비수량` `직전매수대비수량`  
-&nbsp;- change the time expression to `HH:MM:SS` with skipping the last two digits
-- process flow among objects :  
+- **consistentize** data from `t1101` with real time data  
+&nbsp;- skip the outblock fields of `직전매도대비수량` `직전매수대비수량`  
+&nbsp;- change the time expression to `HH:MM:SS` by skipping the last two digits
+- **process flow** among objects :  
   &nbsp;(1) Worksheet_Change() *(※ can be skipped)*  
   → (2) btnRequestT1101_Click()  
   → (3) Request_t1101()  
