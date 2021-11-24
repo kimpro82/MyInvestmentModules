@@ -9,8 +9,8 @@ Dim WithEvents XAReal_HA_ As XAReal             ' HA : KOSDAQ호가잔량
 
 
 '----------------------------------------------------------------------------------------------------------------------
-' T1101 : Current Price with XAReal
-' Request_t1101() → XAQuery_t1101_ReceiveData()
+' Current Price with XAReal
+' btnRequestT1101_Click() → Request_t1101() → XAQuery_t1101_ReceiveData()
 Private Sub Request_t1101()
 
     ' Reset cells on the excel sheet
@@ -27,14 +27,14 @@ Private Sub Request_t1101()
 
     ' Initialize a XAQuery object
     If XAQuery_t1101 Is Nothing Then
-        Set XAQuery_t1101 = CreateObject("XA_DataSet.XAQuery")                                 ' set XAQuery object
-        XAQuery_t1101.ResFileName = "c:\\eBEST\xingAPI\Res\t1101.res"                          ' call related .res file
+        Set XAQuery_t1101 = CreateObject("XA_DataSet.XAQuery")                                      ' set XAQuery object
+        XAQuery_t1101.ResFileName = "c:\\eBEST\xingAPI\Res\t1101.res"                               ' call related .res file
     End If
 
     ' Read the stock hashcode
     Dim shcode As String
     shcode = Range("G3").Value
-    Call XAQuery_t1101.SetFieldData("t1101InBlock", "shcode", 0, shcode)                       ' 0 : nOccursIndex, '0' 고정
+    Call XAQuery_t1101.SetFieldData("t1101InBlock", "shcode", 0, shcode)                            ' 0 : nOccursIndex, '0' 고정
 
     If XAQuery_t1101.Request(False) < 0 Then
         Range("H27") = "전송 오류"
@@ -47,30 +47,30 @@ End Sub
 Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
 
     ' The current price and other informations
-    Range("H3") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hname", 0)                       ' 종목명
-    Range("G5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "price", 0)                       ' 현재가
+    Range("H3") = XAQuery_t1101.GetFieldData("t1101OutBlock", "hname", 0)                           ' 종목명
+    Range("G5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "price", 0)                           ' 현재가
     Dim sSign As String
-    sSign = GetSign(XAQuery_t1101.GetFieldData("t1101OutBlock", "sign", 0))                     ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
-    Range("I5") = sSign & XAQuery_t1101.GetFieldData("t1101OutBlock", "change", 0)              ' 전일대비
-    Range("J5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "diff", 0) / 100                  ' 등락률
-    Range("K5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "volume", 0)                      ' (당일)누적거래량
+    sSign = GetSign(XAQuery_t1101.GetFieldData("t1101OutBlock", "sign", 0))                         ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
+    Range("I5") = sSign & XAQuery_t1101.GetFieldData("t1101OutBlock", "change", 0)                  ' 전일대비
+    Range("J5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "diff", 0) / 100                      ' 등락률
+    Range("K5") = XAQuery_t1101.GetFieldData("t1101OutBlock", "volume", 0)                          ' (당일)누적거래량
 
     ' Bid/Offer prices and volumes through an array (faster)
     Dim arrHoga(20, 5), i As Integer
     For i = 1 To 10
-        arrHoga(10 - i, 2) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerho" & i, 0)      ' 매도호가
-        arrHoga(10 - i, 1) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerrem" & i, 0)     ' 매도호가수량
-        arrHoga(10 - i, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)  ' 직전매도대비수량
-        arrHoga(9 + i, 2) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidho" & i, 0)         ' 매수호가
-        arrHoga(9 + i, 3) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidrem" & i, 0)        ' 매수호가수량
-        arrHoga(9 + i, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)     ' 직전매수대비수량
+        arrHoga(10 - i, 2) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerho" & i, 0)          ' 매도호가
+        arrHoga(10 - i, 1) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offerrem" & i, 0)         ' 매도호가수량
+        ' arrHoga(10 - i, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)    ' 직전매도대비수량 : Real에서 미제공, 통일성을 위해 생략
+        arrHoga(9 + i, 2) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidho" & i, 0)             ' 매수호가
+        arrHoga(9 + i, 3) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bidrem" & i, 0)            ' 매수호가수량
+        ' arrHoga(9 + i, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)       ' 직전매수대비수량 : Real에서 미제공, 통일성을 위해 생략
     Next i
     Range("G7:K26").Value = arrHoga
 
     ' Receiving time
     Dim hotime As String
     hotime = XAQuery_t1101.GetFieldData("t1101OutBlock", "hotime", 0)
-    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2) & ":" & Mid(hotime, 7, 2)
+    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)              ' string(8) : Real에서 미제공, 통일성을 위해 [6~7] 생략
 
     Call Request_t1102
 
@@ -101,7 +101,7 @@ Private Sub XAQuery_t1102_ReceiveData(ByVal szTrCode As String)
 
     ' Find the market category
     Dim janginfo As String
-    janginfo = XAQuery_t1102.GetFieldData("t1102OutBlock", "janginfo", 0)                       ' 장구분 : from t1102, string(10)
+    janginfo = XAQuery_t1102.GetFieldData("t1102OutBlock", "janginfo", 0)               ' 장구분 : from t1102, string(10)
     Range("I3") = janginfo
 
     ' Determine if the market is KOSPI or KOSDAQ
@@ -137,7 +137,7 @@ Private Sub XAQuery_t1102_ReceiveData(ByVal szTrCode As String)
         Call XAReal_HA_.SetFieldData("InBlock", "shcode", Range("G3").Text)
         Call XAReal_HA_.AdviseRealData
 
-    Else                                                                                        ' Else case : "CB"
+    Else                                                                                ' Else case : "CB"
 
         Range("H27") = "CB 종목의 Real Data 수신이 불가합니다."
 
@@ -150,12 +150,12 @@ End Sub
 Private Sub XAReal_S3__ReceiveRealData(ByVal szTrCode As String)
 
     ' The current price and other informations
-    Range("G5") = XAReal_S3_.GetFieldData("t1101OutBlock", "price", 0)                       ' 현재가
+    Range("G5") = XAReal_S3_.GetFieldData("Outblock", "price")                          ' 현재가
     Dim sSign As String
-    sSign = GetSign(XAReal_S3_.GetFieldData("t1101OutBlock", "sign", 0))                     ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
-    Range("I5") = sSign & XAReal_S3_.GetFieldData("t1101OutBlock", "change", 0)              ' 전일대비
-    Range("J5") = XAReal_S3_.GetFieldData("t1101OutBlock", "diff", 0) / 100                  ' 등락률
-    Range("K5") = XAReal_S3_.GetFieldData("t1101OutBlock", "volume", 0)                      ' (당일)누적거래량
+    sSign = GetSign(XAReal_S3_.GetFieldData("Outblock", "sign"))                        ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
+    Range("I5") = sSign & XAReal_S3_.GetFieldData("Outblock", "change")                 ' 전일대비
+    Range("J5") = XAReal_S3_.GetFieldData("Outblock", "drate") / 100                    ' 등락률 : not "diff"
+    Range("K5") = XAReal_S3_.GetFieldData("Outblock", "volume")                         ' (당일)누적거래량
 
 End Sub
 
@@ -166,19 +166,17 @@ Private Sub XAReal_H1__ReceiveRealData(ByVal szTrCode As String)
     ' Bid/Offer prices and volumes through an array (faster)
     Dim arrHoga(20, 5), i As Integer
     For i = 1 To 10
-        arrHoga(10 - i, 2) = XAReal_H1_.GetFieldData("t1101OutBlock", "offerho" & i, 0)      ' 매도호가
-        arrHoga(10 - i, 1) = XAReal_H1_.GetFieldData("t1101OutBlock", "offerrem" & i, 0)     ' 매도호가수량
-        arrHoga(10 - i, 0) = XAReal_H1_.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)  ' 직전매도대비수량
-        arrHoga(9 + i, 2) = XAReal_H1_.GetFieldData("t1101OutBlock", "bidho" & i, 0)         ' 매수호가
-        arrHoga(9 + i, 3) = XAReal_H1_.GetFieldData("t1101OutBlock", "bidrem" & i, 0)        ' 매수호가수량
-        arrHoga(9 + i, 4) = XAReal_H1_.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)     ' 직전매수대비수량
+        arrHoga(10 - i, 2) = XAReal_H1_.GetFieldData("Outblock", "offerho" & i)         ' 매도호가
+        arrHoga(10 - i, 1) = XAReal_H1_.GetFieldData("Outblock", "offerrem" & i)        ' 매도호가수량
+        arrHoga(9 + i, 2) = XAReal_H1_.GetFieldData("Outblock", "bidho" & i)            ' 매수호가
+        arrHoga(9 + i, 3) = XAReal_H1_.GetFieldData("Outblock", "bidrem" & i)           ' 매수호가수량
     Next i
     Range("G7:K26").Value = arrHoga
 
     ' Receiving time
     Dim hotime As String
-    hotime = XAReal_H1_.GetFieldData("t1101OutBlock", "hotime", 0)
-    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2) & ":" & Mid(hotime, 7, 2)
+    hotime = XAReal_H1_.GetFieldData("Outblock", "hotime")
+    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)  ' string(6)
 
 End Sub
 
@@ -187,12 +185,12 @@ End Sub
 Private Sub XAReal_K3__ReceiveRealData(ByVal szTrCode As String)
 
     ' The current price and other informations
-    Range("G5") = XAReal_K3_.GetFieldData("t1101OutBlock", "price", 0)                       ' 현재가
+    Range("G5") = XAReal_K3_.GetFieldData("Outblock", "price")                          ' 현재가
     Dim sSign As String
-    sSign = GetSign(XAReal_K3_.GetFieldData("t1101OutBlock", "sign", 0))                     ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
-    Range("I5") = sSign & XAReal_K3_.GetFieldData("t1101OutBlock", "change", 0)              ' 전일대비
-    Range("J5") = XAReal_K3_.GetFieldData("t1101OutBlock", "diff", 0) / 100                  ' 등락률
-    Range("K5") = XAReal_K3_.GetFieldData("t1101OutBlock", "volume", 0)                      ' (당일)누적거래량
+    sSign = GetSign(XAReal_K3_.GetFieldData("Outblock", "sign"))                        ' 전일대비구분 (※ 별도 함수 GetSign() 정의 필요)
+    Range("I5") = sSign & XAReal_K3_.GetFieldData("Outblock", "change")                 ' 전일대비
+    Range("J5") = XAReal_K3_.GetFieldData("Outblock", "drate") / 100                    ' 등락률 : not "diff"
+    Range("K5") = XAReal_K3_.GetFieldData("Outblock", "volume")                         ' (당일)누적거래량
 
 End Sub
 
@@ -203,19 +201,17 @@ Private Sub XAReal_HA__ReceiveRealData(ByVal szTrCode As String)
     ' Bid/Offer prices and volumes through an array (faster)
     Dim arrHoga(20, 5), i As Integer
     For i = 1 To 10
-        arrHoga(10 - i, 2) = XAReal_HA_.GetFieldData("t1101OutBlock", "offerho" & i, 0)      ' 매도호가
-        arrHoga(10 - i, 1) = XAReal_HA_.GetFieldData("t1101OutBlock", "offerrem" & i, 0)     ' 매도호가수량
-        arrHoga(10 - i, 0) = XAReal_HA_.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)  ' 직전매도대비수량
-        arrHoga(9 + i, 2) = XAReal_HA_.GetFieldData("t1101OutBlock", "bidho" & i, 0)         ' 매수호가
-        arrHoga(9 + i, 3) = XAReal_HA_.GetFieldData("t1101OutBlock", "bidrem" & i, 0)        ' 매수호가수량
-        arrHoga(9 + i, 4) = XAReal_HA_.GetFieldData("t1101OutBlock", "prebidcha" & i, 0)     ' 직전매수대비수량
+        arrHoga(10 - i, 2) = XAReal_HA_.GetFieldData("Outblock", "offerho" & i)         ' 매도호가
+        arrHoga(10 - i, 1) = XAReal_HA_.GetFieldData("Outblock", "offerrem" & i)        ' 매도호가수량
+        arrHoga(9 + i, 2) = XAReal_HA_.GetFieldData("Outblock", "bidho" & i)            ' 매수호가
+        arrHoga(9 + i, 3) = XAReal_HA_.GetFieldData("Outblock", "bidrem" & i)           ' 매수호가수량
     Next i
     Range("G7:K26").Value = arrHoga
 
     ' Receiving time
     Dim hotime As String
-    hotime = XAReal_HA_.GetFieldData("t1101OutBlock", "hotime", 0)
-    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2) & ":" & Mid(hotime, 7, 2)
+    hotime = XAReal_HA_.GetFieldData("Outblock", "hotime")
+    Range("H27") = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)  ' string(6)
 
 End Sub
 
@@ -244,7 +240,7 @@ End Function
 Private Sub Worksheet_Change(ByVal Target As Range)
 
     If Not Intersect(Range("G3"), Target) Is Nothing Then
-    ' If Target.Range("G3") Is changed Then                                                     ' doesn't work well
+    ' If Target.Range("G3") Is changed Then                                             ' doesn't work well
         Call btnRequestT1101_Click
     End If
 
