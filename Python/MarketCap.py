@@ -24,22 +24,45 @@ soup = BeautifulSoup(response.content, "html.parser")
 # 2.0 Read one stock's data
 
 # section = soup.find('tbody')
-# items = section.find_all('tr', onmouseover="mouseOver(this)")[0]
+# items = section.find_all('tr', onmouseover="mouseOver(this)")[8]
 # # print(items)
 # basic_info = items.get_text()
 # sinfo = basic_info.split("\n")
 # for i in range(len(sinfo)) :
 #     print(i, sinfo[i])
 
+'''
+0
+1 1
+2 삼성전자
+3 78,100
+……
+'''
+
 
 # 2.1 Read one page's data
 
 section = soup.find('tbody')
 items = section.find_all('tr', onmouseover="mouseOver(this)")
+
 for item in items :
     basic_info = item.get_text()
     sinfo = basic_info.split("\n")
-    # sinfo[2] += int((20 - len(sinfo[2])) / 8) * '\t'
-    for i in [1, 2, 3, 15] :
-        print(sinfo[i], end='\t')
+
+    if sinfo[5] != '0' :                                        # Data locations are moved when the price change is 0
+        list = [1, 2, 3, 15]
+    else :
+        list = [1, 2, 3, 11]
+
+    for i in list :                                             # All the ditances between neighboring columns are 20
+        length = 20
+        for char in sinfo[i] :
+            if char >= '가' :                                   # Count 2 spaces when the letter is Korean
+                length -= 2
+            else :
+                length -= 1
+        sinfo[i] += length * ' '
+
+        print(sinfo[i], end='')
+
     print()
