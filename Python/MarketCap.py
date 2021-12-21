@@ -23,13 +23,13 @@ soup = BeautifulSoup(response.content, "html.parser")
 
 # 2.0 Read one stock's data
 
-# section = soup.find('tbody')
-# items = section.find_all('tr', onmouseover="mouseOver(this)")[8]
-# # print(items)
-# basic_info = items.get_text()
-# sinfo = basic_info.split("\n")
-# for i in range(len(sinfo)) :
-#     print(i, sinfo[i])
+section = soup.find('tbody')
+items = section.find_all('tr', onmouseover="mouseOver(this)")[8]
+# print(items)
+basic_info = items.get_text()
+sinfo = basic_info.split("\n")
+for i in range(len(sinfo)) :
+    print(i, sinfo[i])
 
 '''
 0
@@ -66,3 +66,12 @@ for item in items :
         print(sinfo[i], end='')
 
     print()
+
+'''
+1                   삼성전자            78,100              4,662,400
+2                   SK하이닉스          124,500             906,363
+3                   NAVER               375,000             615,988
+4                   삼성바이오로직스    929,000             614,673
+5                   삼성전자우          71,000              584,250
+……
+'''
