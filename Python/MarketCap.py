@@ -51,7 +51,7 @@ for item in items :
 
     # print(sinfo[1] + '\t' + sinfo[2] + '\t' + sinfo[3] + '\t' + sinfo[15])
 
-    if sinfo[5] != '0' :                                        # Data locations are moved when the price change is 0
+    if sinfo[5] != '0' :                                        # data locations are moved when the price change is 0
         list = [1, 2, 3, 15]
     else :
         list = [1, 2, 3, 11]
@@ -60,7 +60,7 @@ for item in items :
     for i in range(len(list)) :
         spaces = length[i]
         for char in sinfo[list[i]] :
-            if char >= '가' :                                   # Count 2 spaces when the letter is Korean
+            if char >= '가' :                                   # count 2 spaces when the letter is Korean
                 spaces -= 2
             else :
                 spaces -= 1
@@ -99,7 +99,7 @@ for page in range(1, pages + 1) :
         sinfo = basic_info.split("\n")
 
         # Set the required elements' location and their maximum size
-        if sinfo[5] != '0' :                                    # Data locations are moved when the price change is 0
+        if sinfo[5] != '0' :                                    # data locations are moved when the price change is 0
             list = [1, 2, 3, 15]
         else :
             list = [1, 2, 3, 11]
@@ -112,7 +112,7 @@ for page in range(1, pages + 1) :
 
             # Find the exact length of the text
             for char in sinfo[list[i]] :
-                if char >= '가' :                               # Count 2 spaces when the letter is Korean
+                if char >= '가' :                               # count 2 spaces when the letter is Korean
                     spaces -= 2
                 else :
                     spaces -= 1
