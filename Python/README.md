@@ -1,10 +1,12 @@
 # Python
 
-- [Crawling (Naver) : Get the **Top Market Cap.** Stocks from **KOSPI** (2021.12.22)]()
+- [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from *KOSPI* (2021.12.22)]()
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
 
-## [Crawling (Naver) : Get the **Top Market Cap.** Stocks from **KOSPI** (2021.12.22)](/Python#python)
+## [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from *KOSPI* (2021.12.22)](/Python#python)
+- Crawling data from *Naver*
+- Use `request` and `BeautifulSoup`
 
 #### 0. Read byte stream from url
 ```python
