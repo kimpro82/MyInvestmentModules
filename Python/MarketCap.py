@@ -24,7 +24,7 @@ soup = BeautifulSoup(response.content, "html.parser")
 # 2.0 Read one stock's data
 
 section = soup.find('tbody')
-items = section.find_all('tr', onmouseover="mouseOver(this)")[8]
+items = section.find_all('tr', onmouseover="mouseOver(this)")[0]
 # print(items)
 basic_info = items.get_text()
 sinfo = basic_info.split("\n")
@@ -35,7 +35,7 @@ for i in range(len(sinfo)) :
 0
 1 1
 2 삼성전자
-3 78,100
+3 79,400
 ……
 '''
 
@@ -49,29 +49,32 @@ for item in items :
     basic_info = item.get_text()
     sinfo = basic_info.split("\n")
 
+    # print(sinfo[1] + '\t' + sinfo[2] + '\t' + sinfo[3] + '\t' + sinfo[15])
+
     if sinfo[5] != '0' :                                        # Data locations are moved when the price change is 0
         list = [1, 2, 3, 15]
     else :
         list = [1, 2, 3, 11]
+    length = [4, 20, 10, 10]
 
-    for i in list :                                             # All the ditances between neighboring columns are 20
-        length = 20
-        for char in sinfo[i] :
+    for i in range(len(list)) :                                 # All the ditances between neighboring columns are 20
+        spaces = length[i]
+        for char in sinfo[list[i]] :
             if char >= '가' :                                   # Count 2 spaces when the letter is Korean
-                length -= 2
+                spaces -= 2
             else :
-                length -= 1
-        sinfo[i] += length * ' '
+                spaces -= 1
+        sinfo[list[i]] += spaces * ' '
 
-        print(sinfo[i], end='')
+        print(sinfo[list[i]], end='')
 
     print()
 
 '''
-1                   삼성전자            78,100              4,662,400
-2                   SK하이닉스          124,500             906,363
-3                   NAVER               375,000             615,988
-4                   삼성바이오로직스    929,000             614,673
-5                   삼성전자우          71,000              584,250
+1   삼성전자            79,400    4,740,007
+2   SK하이닉스          127,000   924,563
+3   NAVER               378,500   621,737
+4   삼성바이오로직스    901,000   596,147
+5   삼성전자우          71,700    590,010
 ……
 '''
