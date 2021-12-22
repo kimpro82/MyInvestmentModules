@@ -35,11 +35,13 @@ sinfo = basic_info.split("\n")
 for i in range(len(sinfo)) :
     print(i, sinfo[i])
 ```
-> 0  
-> 1 1  
-> 2 삼성전자  
-> 3 79,400  
-> ……
+```
+0
+1 1
+2 삼성전자
+3 79,400
+……
+```
 
 #### 1.1 Read one page's data
 ```python
@@ -71,12 +73,14 @@ for item in items :
 
     print()
 ```
-> 1 &nbsp;&nbsp; 삼성전자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 79,400&nbsp;&nbsp;&nbsp; 4,740,007  
-> 2 &nbsp;&nbsp; SK하이닉스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 127,000&nbsp;&nbsp; 924,563  
-> 3 &nbsp;&nbsp; NAVER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 378,500&nbsp;&nbsp; 621,737  
-> 4 &nbsp;&nbsp; 삼성바이오로직스&nbsp;&nbsp;&nbsp;&nbsp; 901,000&nbsp;&nbsp; 596,147  
-> 5 &nbsp;&nbsp; 삼성전자우&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 71,700&nbsp;&nbsp;&nbsp; 590,010  
+```
+1    삼성전자             79,400    4,740,007
+2    SK하이닉스           127,000   924,563
+3    NAVER                378,500   621,737
+4    삼성바이오로직스     901,000   596,147
+5    삼성전자우           71,700    590,010
 ……
+```
 
 #### 1.2 Read plural pages' data
 ```python
@@ -126,13 +130,15 @@ for page in range(1, pages + 1) :
 
         print()
 ```
-> &nbsp;&nbsp;&nbsp;1 삼성전자&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;79,400 4,740,007  
-> &nbsp;&nbsp;&nbsp;2 SK하이닉스&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;127,000 &nbsp;&nbsp;924,563  
-> &nbsp;&nbsp;&nbsp;3 NAVER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;378,500 &nbsp;&nbsp;621,737  
-> ……  
-> &nbsp;&nbsp;73 한국타이어앤테크놀로지&nbsp;&nbsp;&nbsp;&nbsp;39,850 &nbsp;&nbsp;&nbsp;49,364  
-> ……  
-> &nbsp;100 한솔케미칼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;293,500 &nbsp;&nbsp;&nbsp;33,269
+```
+   1 삼성전자                  79,400 4,740,007
+   2 SK하이닉스               127,000   924,563
+   3 NAVER                    378,500   621,737
+……
+  73 한국타이어앤테크놀로지    39,850    49,364
+……
+ 100 한솔케미칼               293,500    33,269
+```
 
 
 ## [Numpy Financial : TVM (2021.11.08)](/Python#python)
