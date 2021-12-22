@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# 1. Read byte stream from url
+# 0. Read byte stream from url
 
 url = 'https://finance.naver.com/sise/sise_market_sum.naver'
 params = {
@@ -21,7 +21,7 @@ soup = BeautifulSoup(response.content, "html.parser")
 # print(type(soup))                                             # <class 'bs4.BeautifulSoup'>
 
 
-# 2.0 Read one stock's data
+# 1.0 Read one stock's data
 
 section = soup.find('tbody')
 items = section.find_all('tr', onmouseover="mouseOver(this)")[0]
@@ -40,7 +40,7 @@ for i in range(len(sinfo)) :
 '''
 
 
-# 2.1 Read one page's data
+# 1.1 Read one page's data
 
 section = soup.find('tbody')
 items = section.find_all('tr', onmouseover="mouseOver(this)")
@@ -80,7 +80,7 @@ for item in items :
 '''
 
 
-# 2.2 Read plural pages' data
+# 1.2 Read plural pages' data
 
 pages = 2                                                       # input the last page's number
 
