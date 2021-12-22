@@ -1,6 +1,6 @@
 # Python
 
-- [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from *KOSPI* (2021.12.22)]()
+- [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from *KOSPI* (2021.12.22)](/Python#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
 
