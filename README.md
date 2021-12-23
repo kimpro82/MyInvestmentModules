@@ -11,7 +11,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
 
 ## [My Python Modules](/Python#python)
-- [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from *KOSPI* (2021.12.22)](/Python#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
+- [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from ***KOSPI*** (2021.12.22)](/Python#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
 ## My R Modules
