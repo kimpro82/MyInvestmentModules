@@ -2,7 +2,6 @@
 
 Codes with `KIS Developers` from **Korea Investment & Securities Co., Ltd.**
 
-
 **\<Reference>**  
 - KIS 트레이딩 오픈API 개발자 센터 ☞ https://apiportal.koreainvestment.com/
 - 파이썬으로 배우는 오픈API 트레이딩 초급 예제 ☞ https://wikidocs.net/book/7559
@@ -16,6 +15,9 @@ Codes with `KIS Developers` from **Korea Investment & Securities Co., Ltd.**
 ## Oauth (2022.04.19)
 
 - Oauth : Open Authorization
+
+### 01) 보안인증키 발급
+  https://wikidocs.net/159336
 
 #### Key.py (not uploaded)
 ```python
@@ -33,8 +35,6 @@ import json
 import Key
 ```
 ```python
-## 01) 보안인증키 발급
-
 APP_KEY = Key.key
 APP_SECRET = Key.secret
 URL_BASE = "https://openapivts.koreainvestment.com:29443"           ## 모의투자
@@ -57,9 +57,11 @@ res = requests.post(URL, headers=headers, data=json.dumps(body))
 ACCESS_TOKEN = res.json()["access_token"]
 # print(ACCESS_TOKEN)                                               ## Success
 ```
-```python
-## 02) 해쉬키(Hashkey) 발급
 
+#### 02) 해쉬키(Hashkey) 발급
+  https://wikidocs.net/159337
+
+```python
 def hashkey(datas) :
 
     PATH = "uapi/hashkey"

@@ -1,6 +1,10 @@
 # My Investment Modules
 Someday these will be an integrated trading system, but not now. So I am sad.
 
+## [My `KIS Developers` Application Modules]()
+**\<Python>**
+- [Oauth]()
+
 ## [My `xingAPI` Application Modules](/XingAPI#my-xingapi-application-modules)
 **\<VBA>**
 - [Current Price - T1101 2 (2021.11.23)](/XingAPI#current-price---t1101-2-20211123)
