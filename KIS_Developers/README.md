@@ -1,10 +1,38 @@
+# My `KIS Developers` Application Modules
+
+Codes with `KIS Developers` from **Korea Investment & Securities Co., Ltd.**
+
+
+**\<Reference>**  
+- KIS 트레이딩 오픈API 개발자 센터 ☞ https://apiportal.koreainvestment.com/
+- 파이썬으로 배우는 오픈API 트레이딩 초급 예제 ☞ https://wikidocs.net/book/7559
+- 파이썬으로 배우는 한국투자증권 Websocket 사용 예제 ☞ https://wikidocs.net/book/7847
+- KIS Developers (Github) ☞ https://github.com/koreainvestment/open-trading-api
+
+**\<Python>**
+- Oauth (2022.04.19)
+
+
+## Oauth (2022.04.19)
+
+- Oauth : Open Authorization
+
+#### Key.py (not uploaded)
+```python
+key = ""
+secret = ""
+
+key2 = ""
+secret2 = ""
+```
+
+#### Oauth.py
+```python
 import requests
 import json
 import Key
-
-
-## 03. 서비스 연결 (Oauth)
-
+```
+```python
 ## 01) 보안인증키 발급
 
 APP_KEY = Key.key
@@ -28,8 +56,8 @@ res = requests.post(URL, headers=headers, data=json.dumps(body))
 
 ACCESS_TOKEN = res.json()["access_token"]
 # print(ACCESS_TOKEN)                                               ## Success
-
-
+```
+```python
 ## 02) 해쉬키(Hashkey) 발급
 
 def hashkey(datas) :
@@ -47,7 +75,8 @@ def hashkey(datas) :
     hashkey = res.json()["HASH"]
 
     return hashkey
-
+```
+```python
 datas = {
     "CANO": '00000000',
     "ACNT_PRDT_CD": "01",
@@ -59,3 +88,4 @@ datas = {
 }
 
 print(hashkey(datas))                                               ## Success
+```
