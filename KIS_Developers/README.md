@@ -14,10 +14,10 @@ Codes with `KIS Developers` from *Korea Investment & Securities Co., Ltd.*
 
 ## [Oauth (2022.04.19)](#list)
 
-  Oauth : Open Authorization
+Oauth; Open Authorization
 
 ### 01) 보안인증키 발급
-  https://wikidocs.net/159336
+&nbsp;&nbsp; - https://wikidocs.net/159336
 
 #### Key.py (not uploaded)
 ```python
@@ -59,7 +59,7 @@ ACCESS_TOKEN = res.json()["access_token"]
 ```
 
 #### 02) 해쉬키(Hashkey) 발급
-  https://wikidocs.net/159337
+&nbsp;&nbsp; - https://wikidocs.net/159337
 
 #### Oauth.py
 ```python
