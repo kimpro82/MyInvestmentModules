@@ -8,13 +8,13 @@ Codes with `KIS Developers` from **Korea Investment & Securities Co., Ltd.**
 - 파이썬으로 배우는 한국투자증권 Websocket 사용 예제 ☞ https://wikidocs.net/book/7847
 - KIS Developers (Github) ☞ https://github.com/koreainvestment/open-trading-api
 
-**\<Python>**
-- Oauth (2022.04.19)
+## \<List>
+- [Oauth (2022.04.19)](#oauth-20220419)
 
 
-## Oauth (2022.04.19)
+## [Oauth (2022.04.19)](#list)
 
-- Oauth : Open Authorization
+  Oauth : Open Authorization
 
 ### 01) 보안인증키 발급
   https://wikidocs.net/159336
