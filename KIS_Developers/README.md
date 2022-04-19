@@ -1,6 +1,6 @@
 # My `KIS Developers` Application Modules
 
-Codes with `KIS Developers` from **Korea Investment & Securities Co., Ltd.**
+Codes with `KIS Developers` from *Korea Investment & Securities Co., Ltd.*
 
 **\<Reference>**  
 - KIS 트레이딩 오픈API 개발자 센터 ☞ https://apiportal.koreainvestment.com/
@@ -61,6 +61,7 @@ ACCESS_TOKEN = res.json()["access_token"]
 #### 02) 해쉬키(Hashkey) 발급
   https://wikidocs.net/159337
 
+#### Oauth.py
 ```python
 def hashkey(datas) :
 
