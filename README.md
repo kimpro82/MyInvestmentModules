@@ -1,9 +1,9 @@
 # My Investment Modules
 Someday these will be an integrated trading system, but not now. So I am sad.
 
-## [My `KIS Developers` Application Modules]()
+## [My `KIS Developers` Application Modules](/KIS_Developers#my-kis-developers-application-modules)
 **\<Python>**
-- [Oauth]()
+- [Oauth (2022.04.19)](/KIS_Developers#oauth-20220419)
 
 ## [My `xingAPI` Application Modules](/XingAPI#my-xingapi-application-modules)
 **\<VBA>**
