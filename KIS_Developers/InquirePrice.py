@@ -10,6 +10,7 @@ import Oauth                                                        ## call Oaut
 
 APP_KEY = Key.key
 APP_SECRET = Key.secret
+ACCESS_TOKEN = Oauth.ACCESS_TOKEN
 
 URL_BASE = "https://openapivts.koreainvestment.com:29443"           ## 모의투자
 PATH = "uapi/domestic-stock/v1/quotations/inquire-price"
@@ -18,7 +19,7 @@ URL = f"{URL_BASE}/{PATH}"
 # https://openapivts.koreainvestment.com:29443/uapi/domestic-stock/v1/quotations/inquire-price
 
 headers = {"Content-Type":"application/json", 
-           "authorization": f"Bearer {Oauth.ACCESS_TOKEN}",
+           "authorization": f"Bearer {ACCESS_TOKEN}",
            "appKey":APP_KEY,
            "appSecret":APP_SECRET,
            "tr_id":"FHKST01010100"}
@@ -57,4 +58,5 @@ params = {
 
 res = requests.get(URL, headers=headers, params=params)
 # print(res.json())                                                 # success; call all data
-print(res.json()['output'][:]['stck_clpr'])
+for i in range(0, 10) :
+    print(res.json()['output'][i]['stck_bsop_date'], res.json()['output'][i]['stck_clpr'], res.json()['output'][i]['prdy_ctrt'], res.json()['output'][i]['acml_vol'])
