@@ -9,4 +9,5 @@ secret = Key.secret
 
 broker = mojito.KoreaInvestment(api_key=key, api_secret=secret)
 resp = broker.fetch_price("005930")
-pprint.pprint(resp)                                                 # success
+# pprint.pprint(resp)                                               # success; full data in json
+print(resp['output']['stck_prpr'])                                  # success
