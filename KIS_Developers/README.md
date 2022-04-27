@@ -10,7 +10,7 @@ Codes with `KIS Developers` from *Korea Investment & Securities Co., Ltd.*
 - KIS Developers (Github) ☞ https://github.com/koreainvestment/open-trading-api
 
 
-## \<List>
+### \<List>
 - [Inquire Price (2022.04.26)](#inquire-price-20220426)
 - [Oauth (2022.04.19)](#oauth-20220419)
 
