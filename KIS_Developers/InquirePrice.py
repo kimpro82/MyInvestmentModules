@@ -31,7 +31,7 @@ params = {
 
 res = requests.get(URL, headers=headers, params=params)
 # print(res.json())                                                 # success; call all data
-# print(res.json()['output']['stck_prpr'])                          # success
+print(res.json()['output']['stck_prpr'])                          # success
 
 
 ## 02) 주식현재가 일자별

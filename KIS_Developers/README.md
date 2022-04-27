@@ -18,7 +18,7 @@ Codes with `KIS Developers` from *Korea Investment & Securities Co., Ltd.*
 ## [Inquire Price (2022.04.26)](#list)
 
 - Call a specific stock's current price and daily price-related data  
-- ※ Need to improve not to call the API access token more than one times
+※ Need to improve not to call the API access token more than one times
 
 ### 01) 주식현재가 시세
 &nbsp;&nbsp; - https://wikidocs.net/159339
@@ -54,7 +54,10 @@ params = {
 
 res = requests.get(URL, headers=headers, params=params)
 # print(res.json())                                                 # success; call all data
-# print(res.json()['output']['stck_prpr'])                          # success
+print(res.json()['output']['stck_prpr'])                          # success
+```
+```
+66100
 ```
 
 ### 02) 주식현재가 일자별
