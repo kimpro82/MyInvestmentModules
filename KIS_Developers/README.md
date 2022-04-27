@@ -12,14 +12,15 @@ Codes with `KIS Developers` from *Korea Investment & Securities Co., Ltd.*
 
 
 ### \<List>
-- [`mojito` - The First Attempt (2022.04.27)]()
+- [`mojito` - The First Attempt (2022.04.27)](#mojito---the-first-attempt-20220427)
 - [Inquire Price (2022.04.26)](#inquire-price-20220426)
 - [Oauth (2022.04.19)](#oauth-20220419)
 
 
 ## [`mojito` - The First Attempt (2022.04.27)](#list)
 
-- `mojito` ; a wrapper module for OPEN API including *KIS Developers*
+`mojito` ; a wrapper module for OPEN API including *KIS Developers*
+
 - Very convenient!
 
 #### Installation

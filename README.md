@@ -3,6 +3,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 
 ## [My `KIS Developers` Application Modules](/KIS_Developers#my-kis-developers-application-modules)
 **\<Python>**
+- [`mojito` - The First Attempt (2022.04.27)](/KIS_Developers#mojito---the-first-attempt-20220427)
 - [Inquire Price (2022.04.26)](/KIS_Developers#inquire-price-20220426)
 - [Oauth (2022.04.19)](/KIS_Developers#oauth-20220419)
 
