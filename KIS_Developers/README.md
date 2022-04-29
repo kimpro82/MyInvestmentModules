@@ -8,11 +8,52 @@ Codes with `KIS Developers` from *Korea Investment & Securities Co., Ltd.*
 - 파이썬으로 배우는 오픈API 트레이딩 초급 예제 ☞ https://wikidocs.net/book/7559
 - 파이썬으로 배우는 한국투자증권 Websocket 사용 예제 ☞ https://wikidocs.net/book/7847
 - KIS Developers (Github) ☞ https://github.com/koreainvestment/open-trading-api
+- 모히토 (Mojito) (Github) ☞ https://github.com/sharebook-kr/mojito
 
 
 ### \<List>
+- [`mojito` - The First Attempt (2022.04.27)](#mojito---the-first-attempt-20220427)
 - [Inquire Price (2022.04.26)](#inquire-price-20220426)
 - [Oauth (2022.04.19)](#oauth-20220419)
+
+
+## [`mojito` - The First Attempt (2022.04.27)](#list)
+
+`mojito` ; a wrapper module for OPEN API including *KIS Developers*
+
+- Very convenient!
+
+#### Installation
+```shell
+$ pip install mojito2
+```
+
+#### mojitoTest.py
+```python
+import mojito
+import pprint
+import Key
+
+# print(mojito.__version__)                                         # test : ok
+
+key = Key.key
+secret = Key.secret
+```
+```python
+broker = mojito.KoreaInvestment(api_key=key, api_secret=secret)
+resp = broker.fetch_price("005930")
+# pprint.pprint(resp)                                               # success; full data in json
+print(resp['output']['stck_prpr'])                                  # success
+```
+```
+65000
+```
+
+#### ※ Caution
+Don't name the file as `mojito.py` that causes an error like the below (☞ [see](https://www.tradingbro.co.kr/t/mojito/505)) :
+```
+AttributeError: partially initialized module 'mojito' has no attribute 'KoreaInvestment' (most likely due to a circular import)
+```
 
 
 ## [Inquire Price (2022.04.26)](#list)
