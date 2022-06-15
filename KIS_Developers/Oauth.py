@@ -7,27 +7,31 @@ import Key
 
 ## 01) 보안인증키 발급
 
-APP_KEY = Key.key
-APP_SECRET = Key.secret
-URL_BASE = "https://openapivts.koreainvestment.com:29443"           ## 모의투자
+ACCESS_TOKEN = None
 
-headers = {"content-type" : "application/json"}
-body = {
-    "grant_type" : "client_credentials",
-    "appkey" : APP_KEY, 
-    "appsecret" : APP_SECRET,
-}
+if ACCESS_TOKEN is None :                                               ## to avoid repetitive token requests
 
-PATH = "oauth2/tokenP"
+    APP_KEY = Key.key
+    APP_SECRET = Key.secret
+    URL_BASE = "https://openapivts.koreainvestment.com:29443"           ## 모의투자
 
-URL = f"{URL_BASE}/{PATH}"
-# print(URL)                                                        ## https://openapivts.koreainvestment.com:29443/oauth2/token
+    headers = {"content-type" : "application/json"}
+    body = {
+        "grant_type" : "client_credentials",
+        "appkey" : APP_KEY, 
+        "appsecret" : APP_SECRET,
+    }
 
-res = requests.post(URL, headers=headers, data=json.dumps(body))
-# print(res.text)                                                   ## {"access_token":"ACCESS_TOKEN","token_type":"Bearer","expires_in":86400}
+    PATH = "oauth2/tokenP"
 
-ACCESS_TOKEN = res.json()["access_token"]
-# print(ACCESS_TOKEN)                                               ## Success
+    URL = f"{URL_BASE}/{PATH}"
+    # print(URL)                                                        ## https://openapivts.koreainvestment.com:29443/oauth2/token
+
+    res = requests.post(URL, headers=headers, data=json.dumps(body))
+    # print(res.text)                                                   ## {"access_token":"ACCESS_TOKEN","token_type":"Bearer","expires_in":86400}
+
+    ACCESS_TOKEN = res.json()["access_token"]
+    # print(ACCESS_TOKEN)                                               ## Success
 
 
 ## 02) 해쉬키(Hashkey) 발급
