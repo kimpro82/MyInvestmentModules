@@ -1,7 +1,7 @@
 import requests
 
 import Key                                                          ## save keys seperately
-import Oauth                                                        ## call Oauth.ACCESS_TOKEN
+import Oauth2 as Oauth                                              ## call Oauth.ACCESS_TOKEN
 
 
 ## 04. 현재가 조회 
