@@ -9,15 +9,21 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
 **\<VBA>**
-- [Current Price - T1101 2 (2021.11.23)](/XingAPI#current-price---t1101-2-20211123)
-- [Current Price - T1101 1.1 (2021.11.22)](/XingAPI#current-price---t1101-11-20211122)
-- [Current Price - T1101 1 (2021.11.17)](/XingAPI#current-price---t1101-1-20211117)
-- [Read Account List (2021.11.10)](/XingAPI#read-account-list-20211110)
-- [Login 2 (2021.11.09)](/XingAPI#login-2-20211109)
-- [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
+- [Current Price - T1101 2.1 (2022.06.17)](#current-price---t1101-21-20220617)
+- [Current Price - T1101 2.0 (2021.11.23)](#current-price---t1101-20-20211123)
+- [Current Price - T1101 1.1 (2021.11.22)](#current-price---t1101-11-20211122)
+- [Current Price - T1101 1.0 (2021.11.17)](#current-price---t1101-10-20211117)
+- [Read Account List 1.0 (2021.11.10)](#read-account-list-10-20211110)
+- [Login 2.0 (2021.11.09)](#login-20-20211109)
+- [Login 1.0 (2021.11.08)](#login-10-20211108)
 
 
-## [Current Price - T1101 2 (2021.11.23)](/XingAPI#my-xingapi-application-modules)
+## [Current Price - T1101 2.1 (2022.06.17)](#my-xingapi-application-modules)
+
+![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
+
+
+## [Current Price - T1101 2 (2021.11.23)](#my-xingapi-application-modules)
 
 - call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
@@ -33,7 +39,7 @@ Codes with `xingAPI` from **eBest Investment & Securities**
   → (6) XAQuery_t1102_ReceiveData()  
   → (7) XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData()
 
-![VBA : T1101 2](Images/XingAPI_VBA_T1101_2.0.gif)
+![VBA : T1101 2.0](Images/XingAPI_VBA_T1101_2.0.gif)
 
 ```vba
 Dim WithEvents XAQuery_t1101 As XAQuery         ' t1101 : 주식 현재가 호가 조회
@@ -305,9 +311,9 @@ End Sub
 ```
 
 
-## [Current Price - T1101 1.1 (2021.11.22)](/XingAPI#my-xingapi-application-modules)
+## [Current Price - T1101 1.1 (2021.11.22)](my-xingapi-application-modules)
 
-- advanced from [T1101 1 (2021.11.17)](/XingAPI#request-data--current-price---t1101-20211117)
+- advanced from [T1101 1.0 (2021.11.17)](request-data--current-price---t1101-10-20211117)
 - add the **market category** of a stock through `t1102`
 - load bid/offer data into an **array**
 - imporve the time expression (`HH:MM:SS`)
@@ -316,19 +322,19 @@ End Sub
 ![VBA : T1101 1.1](Images/XingAPI_VBA_T1101_1.1.gif)
 
 
-## [Current Price - T1101 1 (2021.11.17)](/XingAPI#my-xingapi-application-modules)
+## [Current Price - T1101 1.0 (2021.11.17)](my-xingapi-application-modules)
 
 - read a stock's current price information (**t1101**)
 
-![VBA : T1101 1](Images/XingAPI_VBA_T1101_1.0.gif)
+![VBA : T1101 1.0](Images/XingAPI_VBA_T1101_1.0.gif)
 
 
-## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
+## [Read Account List 1.0 (2021.11.10)](my-xingapi-application-modules)
 
 - read account list with using `XASession`
 - ※ skip `ActiveSheet.` (2021.11.22)
 
-![VBA : Read Account List](Images/XingAPI_VBA_Account.gif)
+![VBA : Read Account List 1.0](Images/XingAPI_VBA_Account.gif)
 
 ```vba
 Dim WithEvents XASession_Account As XASession
@@ -370,14 +376,14 @@ End Sub
 ```
 
 
-## [Login 2 (2021.11.09)](/XingAPI#my-xingapi-application-modules)
+## [Login 2.0 (2021.11.09)](my-xingapi-application-modules)
 
-- advanced from [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
+- advanced from [Login 1.0 (2021.11.08)](login-10-20211108)
 - enter login information on the Excel sheet, not on the `InputBox`
 - can choose server type
 - ※ skip `ActiveSheet.` (2021.11.22)
 
-![VBA : Login 2](Images/XingAPI_VBA_Login_2.0.gif)
+![VBA : Login 2.0](Images/XingAPI_VBA_Login_2.0.gif)
 
 ```vba
 Option Explicit                                                             ' Generate a compile-time error
@@ -441,8 +447,8 @@ End Sub
 ```
 
 
-## [Login 1 (2021.11.08)](/XingAPI#my-xingapi-application-modules)
+## [Login 1.0 (2021.11.08)](my-xingapi-application-modules)
 
 - **the 1st trial** to build login process into `xingAPI` in **VBA**
 
-![VBA : Login 1](Images/XingAPI_VBA_Login_1.0.gif)
+![VBA : Login 1.0](Images/XingAPI_VBA_Login_1.0.gif)
