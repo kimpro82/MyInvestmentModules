@@ -33,7 +33,7 @@ Codes with `xingAPI` from **eBest Investment & Securities**
   → (6) XAQuery_t1102_ReceiveData()  
   → (7) XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData()
 
-![VBA : T1101 2](Images/XingAPI_VBA_T1101_2.gif)
+![VBA : T1101 2](Images/XingAPI_VBA_T1101_2.0.gif)
 
 ```vba
 Dim WithEvents XAQuery_t1101 As XAQuery         ' t1101 : 주식 현재가 호가 조회
@@ -320,7 +320,7 @@ End Sub
 
 - read a stock's current price information (**t1101**)
 
-![VBA : T1101 1](Images/XingAPI_VBA_T1101_1.gif)
+![VBA : T1101 1](Images/XingAPI_VBA_T1101_1.0.gif)
 
 
 ## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
@@ -377,7 +377,7 @@ End Sub
 - can choose server type
 - ※ skip `ActiveSheet.` (2021.11.22)
 
-![VBA : Login 2](Images/XingAPI_VBA_Login_2.gif)
+![VBA : Login 2](Images/XingAPI_VBA_Login_2.0.gif)
 
 ```vba
 Option Explicit                                                             ' Generate a compile-time error
@@ -445,4 +445,4 @@ End Sub
 
 - **the 1st trial** to build login process into `xingAPI` in **VBA**
 
-![VBA : Login 1](Images/XingAPI_VBA_Login_1.gif)
+![VBA : Login 1](Images/XingAPI_VBA_Login_1.0.gif)
