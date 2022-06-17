@@ -13,8 +13,8 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 | Main Version | Component | Date | Latest | Link |
 |:-:|:--|:-:|:-:|:-:|
 | v0.311 | Current Price - T1101 2.1 | 2022.06.16 | Latest | [Link](#v0311--current-price--t1101-21-20220617) |
-| | Login 2.01 | 2022.06.16 | Latest | [Link]() |
-| | Read Account List 1.01 | 2022.06.16 | Latest | [Link]() |
+| | Login 2.01 | | Latest | |
+| | Read Account List 1.01 | | Latest | |
 | v0.31 | Current Price - T1101 2.0 | 2021.11.23 | | [Link](#v031--current-price--t1101-2-20211123) |
 | v0.301 | Current Price - T1101 1.1 | 2021.11.22 | | [Link](#v0301--current-price--t1101-11-20211122) |
 | v0.3 | Current Price - T1101 1.0 | 2021.11.17 | | [Link](#v03--current-price--t1101-10-20211117) |
