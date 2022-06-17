@@ -8,7 +8,7 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 - xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
-**\<VBA>**
+**\<List>**
 - [Current Price - T1101 2.1 (2022.06.17)](#current-price---t1101-21-20220617)
 - [Current Price - T1101 2.0 (2021.11.23)](#current-price---t1101-20-20211123)
 - [Current Price - T1101 1.1 (2021.11.22)](#current-price---t1101-11-20211122)
@@ -18,12 +18,12 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 - [Login 1.0 (2021.11.08)](#login-10-20211108)
 
 
-## [Current Price - T1101 2.1 (2022.06.17)](#my-xingapi-application-modules)
+## [Current Price - T1101 2.1 (2022.06.17)](#list)
 
 ![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
 
 
-## [Current Price - T1101 2 (2021.11.23)](#my-xingapi-application-modules)
+## [Current Price - T1101 2 (2021.11.23)](#list)
 
 - call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
@@ -311,7 +311,7 @@ End Sub
 ```
 
 
-## [Current Price - T1101 1.1 (2021.11.22)](my-xingapi-application-modules)
+## [Current Price - T1101 1.1 (2021.11.22)](#list)
 
 - advanced from [T1101 1.0 (2021.11.17)](request-data--current-price---t1101-10-20211117)
 - add the **market category** of a stock through `t1102`
@@ -322,14 +322,14 @@ End Sub
 ![VBA : T1101 1.1](Images/XingAPI_VBA_T1101_1.1.gif)
 
 
-## [Current Price - T1101 1.0 (2021.11.17)](my-xingapi-application-modules)
+## [Current Price - T1101 1.0 (2021.11.17)](#list)
 
 - read a stock's current price information (**t1101**)
 
 ![VBA : T1101 1.0](Images/XingAPI_VBA_T1101_1.0.gif)
 
 
-## [Read Account List 1.0 (2021.11.10)](my-xingapi-application-modules)
+## [Read Account List 1.0 (2021.11.10)](#list)
 
 - read account list with using `XASession`
 - ※ skip `ActiveSheet.` (2021.11.22)
@@ -376,7 +376,7 @@ End Sub
 ```
 
 
-## [Login 2.0 (2021.11.09)](my-xingapi-application-modules)
+## [Login 2.0 (2021.11.09)](#list)
 
 - advanced from [Login 1.0 (2021.11.08)](login-10-20211108)
 - enter login information on the Excel sheet, not on the `InputBox`
@@ -447,7 +447,7 @@ End Sub
 ```
 
 
-## [Login 1.0 (2021.11.08)](my-xingapi-application-modules)
+## [Login 1.0 (2021.11.08)](#list)
 
 - **the 1st trial** to build login process into `xingAPI` in **VBA**
 
