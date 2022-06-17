@@ -30,6 +30,108 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 
 ![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
 
+#### Mainly changed part of `XingAPI_Login_2.01.bas`
+```vba
+' Login
+Private Sub btnLogin_Click()
+
+    ……
+
+    ' Enter ID, password and certificate password
+    Dim ID As String, pwd As String, certPwd As String
+    ……
+
+End Sub
+```
+
+#### Mainly changed part of `XingAPI_T1101_2.1.bas`
+```vba
+' Request_t1101() → XAQuery_t1101_ReceiveData() → Request_t1102()
+Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
+
+    ' The current price and other informations
+    ……
+
+    ' Bid/Offer prices and volumes through an array (faster)
+    Dim arrHoga(22, 5) As Variant, i As Integer
+        For i = 1 To 10
+        ……
+        arrHoga(10 - i, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)  ' 직전매도대비수량 : Real에서 미제공, Public arrHoga(i, 1)에 저장하여 전달
+        ……
+        arrHoga(9 + i, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0) ' 직전매수대비수량 : Real에서 미제공, Public arrHoga(i, 3)에 저장하여 전달
+    Next i
+
+    arrHoga(20, 1) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offer", 0)                ' 매도호가수량합
+    ' arrHoga(20, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha", 0)        ' 직전매도대비수량합 : 장종료시 엉터리값
+    arrHoga(20, 3) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bid", 0)                  ' 매수호가수량합
+    ' arrHoga(20, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha", 0)          ' 직전매수대비수량합 : 장종료시 엉터리값
+
+    ' Receiving time and note
+    ……
+    arrHoga(21, 0) = "시간"
+    arrHoga(22, 0) = "비고"
+    arrHoga(21, 1) = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)    ' string(8) : Real에서 미제공, 통일성을 위해 hotime(4:5) 생략
+
+    ' Print on sheet
+    Range("G7:K29").Value = arrHoga
+    arrHoga0 = arrHoga                                                                      ' arrHoga - arrHoga0 를 구하는 데 이용
+
+    ……
+
+End Sub
+```
+```vba
+' XAQuery_t1102_ReceiveData() → XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData() ②
+Private Sub XAReal_H1__ReceiveRealData(ByVal szTrCode As String)
+
+    ' Bid/Offer prices and volumes through an array (faster)
+    Dim arrHoga(22, 5) As Variant, i As Integer
+
+    'test
+    ' Debug.Print XAReal_H1_.GetFieldData("Outblock", "offerho" & 1) & " " & arrHoga0(9, 2) ' OK
+
+    If XAReal_H1_.GetFieldData("Outblock", "offerho" & 1) = arrHoga0(9, 2) Then             ' 호가 변동이 없다면
+        For i = 1 To 10
+            ……
+            arrHoga(10 - i, 0) = arrHoga(10 - i, 1) - arrHoga0(10 - i, 1)                   ' 직전매도대비수량 : Real에서 미제공, Public arrHoga(i, 1)에 저장하여 전달
+            ……
+            arrHoga(9 + i, 4) = arrHoga(9 + i, 3) - arrHoga0(9 + i, 3)                      ' 직전매수대비수량 : Real에서 미제공, Public arrHoga(i, 3)에 저장하여 전달
+        Next i
+    Else                                                                                    ' 호가 변동이 있다면 : arrHoga - arrHoga0를 이용한 직전매도/매수대비수량 계산값 의미 없음
+        For i = 1 To 10
+            ……
+            arrHoga(10 - i, 0) = 0                                                          ' 직전매도대비수량 : 0 (임시)
+            ……
+            arrHoga(9 + i, 4) = 0                                                           ' 직전매수대비수량 : 0 (임시)
+        Next i
+    End If
+
+    arrHoga(20, 1) = XAReal_H1_.GetFieldData("Outblock", "totofferrem")                     ' 매도호가수량합
+    arrHoga(20, 0) = arrHoga(20, 1) - arrHoga0(20, 1)                                       ' 직전매도대비수량 : Real에서 미제공, Public arrHoga(20, 1)에 저장하여 전달
+    arrHoga(20, 3) = XAReal_H1_.GetFieldData("Outblock", "totbidrem")                       ' 매수호가수량합
+    arrHoga(20, 4) = arrHoga(20, 3) - arrHoga0(20, 3)                                       ' 직전매수대비수량 : Real에서 미제공, Public arrHoga(20, 3)에 저장하여 전달
+
+    ' Receiving time and note
+    ……
+    arrHoga(21, 0) = "시간"
+    arrHoga(22, 0) = "비고"
+    arrHoga(21, 1) = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)    ' string(8) : Real에서 미제공, 통일성을 위해 hotime(4:5) 생략
+    
+    ' Print on sheet
+    Range("G7:K29").Value = arrHoga
+    arrHoga0 = arrHoga                                                                      ' arrHoga - arrHoga0 를 구하는 데 이용
+
+End Sub
+```
+```vba
+' XAQuery_t1102_ReceiveData() → XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData() ④
+Private Sub XAReal_HA__ReceiveRealData(ByVal szTrCode As String)
+
+    ' …… simmilar with XAReal_H1__ReceiveRealData() ……
+
+End Sub
+```
+
 
 ## [v0.31 : Current Price - T1101 2 (2021.11.23)](#list)
 
