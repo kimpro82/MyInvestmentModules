@@ -135,12 +135,13 @@ End Sub
 
 ## [v0.31 : Current Price - T1101 2 (2021.11.23)](#list)
 
-- call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
-- determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
-- **consistentize** data from `t1101` with real time data  
-&nbsp;- skip the outblock fields of `직전매도대비수량` `직전매수대비수량`  
-&nbsp;- change the time expression to `HH:MM:SS` by skipping the last two digits
-- **process flow** among objects :  
+- Call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
+- Determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
+- **Consistentize** data from `t1101` with real time data  
+&nbsp;- Skip the outblock fields of `직전매도대비수량` `직전매수대비수량`  
+&nbsp;- Change the time expression to `HH:MM:SS` by skipping the last two digits
+<!--
+- **Process flow** among objects :  
   &nbsp;(1) Worksheet_Change() *(※ can be skipped)*  
   → (2) btnRequestT1101_Click()  
   → (3) Request_t1101()  
@@ -148,6 +149,7 @@ End Sub
   → (5) Request_t1102()  
   → (6) XAQuery_t1102_ReceiveData()  
   → (7) XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData()
+!-->
 
 ![VBA : T1101 2.0](Images/XingAPI_VBA_T1101_2.0.gif)
 
@@ -423,26 +425,26 @@ End Sub
 
 ## [v0.301 : Current Price - T1101 1.1 (2021.11.22)](#list)
 
-- advanced from [T1101 1.0 (2021.11.17)](request-data--current-price---t1101-10-20211117)
-- add the **market category** of a stock through `t1102`
-- load bid/offer data into an **array**
-- imporve the time expression (`HH:MM:SS`)
-- skip `ActiveSheet.` (※ including all the previously uploaded codes)
+- Advanced from [T1101 1.0 (2021.11.17)](request-data--current-price---t1101-10-20211117)
+- Add the **market category** of a stock through `t1102`
+- Load bid/offer data into an **array**
+- Imporve the time expression (`HH:MM:SS`)
+- Skip `ActiveSheet.` (※ including all the previously uploaded codes)
 
 ![VBA : T1101 1.1](Images/XingAPI_VBA_T1101_1.1.gif)
 
 
 ## [v0.3 : Current Price - T1101 1.0 (2021.11.17)](#list)
 
-- read a stock's current price information (**t1101**)
+- Read a stock's current price information (**t1101**)
 
 ![VBA : T1101 1.0](Images/XingAPI_VBA_T1101_1.0.gif)
 
 
 ## [v0.2 : Read Account List 1.0 (2021.11.10)](#list)
 
-- read account list with using `XASession`
-- ※ skip `ActiveSheet.` (2021.11.22)
+- Read account list with using `XASession`
+- ※ Skip `ActiveSheet.` (2021.11.22)
 
 ![VBA : Read Account List 1.0](Images/XingAPI_VBA_Account.gif)
 
@@ -488,10 +490,10 @@ End Sub
 
 ## [v0.11 : Login 2.0 (2021.11.09)](#list)
 
-- advanced from [Login 1.0 (2021.11.08)](login-10-20211108)
-- enter login information on the Excel sheet, not on the `InputBox`
-- can choose server type
-- ※ skip `ActiveSheet.` (2021.11.22)
+- Advanced from [Login 1.0 (2021.11.08)](login-10-20211108)
+- Enter login information on the Excel sheet, not on the `InputBox`
+- Can choose server type
+- ※ Skip `ActiveSheet.` (2021.11.22)
 
 ![VBA : Login 2.0](Images/XingAPI_VBA_Login_2.0.gif)
 
@@ -559,6 +561,6 @@ End Sub
 
 ## [v0.1 : Login 1.0 (2021.11.08)](#list)
 
-- **the 1st trial** to build login process into `xingAPI` in **VBA**
+- **The 1st trial** to build login process into `xingAPI` in **VBA**
 
 ![VBA : Login 1.0](Images/XingAPI_VBA_Login_1.0.gif)
