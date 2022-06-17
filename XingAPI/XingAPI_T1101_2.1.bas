@@ -3,9 +3,6 @@ Option Explicit                                                                 
 
 
 '-------------------------------------------------------------------------------
-Dim WithEvents XASession_Login As XASession                                     ' must be declared in the Excel object
-Dim WithEvents XASession_Account As XASession
-
 Dim WithEvents XAQuery_t1101 As XAQuery                                         ' t1101 : 주식 현재가 호가 조회
 Dim WithEvents XAQuery_t1102 As XAQuery                                         ' t1102 : 주식 현재가(시세) 조회 (※ 시장 구분)
 
@@ -13,95 +10,6 @@ Dim WithEvents XAReal_S3_ As XAReal                                             
 Dim WithEvents XAReal_H1_ As XAReal                                             ' H1 : KOSPI호가잔량
 Dim WithEvents XAReal_K3_ As XAReal                                             ' K3 : KOSDAQ체결
 Dim WithEvents XAReal_HA_ As XAReal                                             ' HA : KOSDAQ호가잔량
-
-Dim WithEvents XAQuery_t1444 As XAQuery
-
-
-
-'-------------------------------------------------------------------------------
-' Login
-Private Sub btnLogin_Click()
-
-    ' Initialize status cells
-    Cells(5, 2) = ""                                                            ' .Clear : clear even cell form
-    Cells(6, 2) = ""
-
-    ' Determine server type
-    Dim server As String
-    If Cells(1, 2).Value = "실서버" Then
-        server = "hts.ebestsec.co.kr"
-    ElseIf Cells(1, 2).Value = "모의투자" Then
-        server = "demo.ebestsec.co.kr"
-    Else
-        Cells(6, 2) = "서버를 지정해주세요 : 실서버 / 모의투자"
-        Exit Sub
-    End If
-
-    Set XASession_Login = CreateObject("XA_Session.XASession")
-
-    ' Connect server
-    If XASession_Login.ConnectServer(server, 0) = False Then
-        Cells(5, 2) = "서버 접속 실패"
-    Else
-        Cells(5, 2) = "서버 접속 성공"
-    End If
-
-    ' Enter ID, password and certificate password
-    Dim ID As String, pwd As String, certPwd As String
-    ID = Cells(2, 2).Value
-    pwd = Cells(3, 2).Value
-    certPwd = Cells(4, 2).Value
-
-    ' Send login information
-    If XASession_Login.Login(ID, pwd, certPwd, 0, False) = False Then
-        Cells(5, 2) = "로그인정보 전송 실패"
-    Else
-        Cells(5, 2) = "로그인정보 전송 성공"
-    End If
-
-End Sub
-
-
-' Check the result of login
-Private Sub XASession_Login_Login(ByVal szCode As String, ByVal szMsg As String)
-
-    Cells(6, 2) = szCode & " : " & szMsg
-
-End Sub
-
-
-' Read the account list
-Private Sub btnReadAccounts_Click()
-
-    ' Initialize account list table
-    Range("a9:b9") = ""
-    Range("A11:E30") = ""
-
-    Set XASession_Account = CreateObject("XA_Session.XASession")
-
-    Dim nCnt As Integer, i As Integer, szAcct As String
-    nCnt = XASession_Account.GetAccountListCount()                              ' start from 0
-
-    ' Output
-    Cells(9, 1) = XASession_Account.GetServerName()
-    Cells(9, 2) = nCnt
-
-    For i = 0 To nCnt - 1
-        szAcct = XASession_Account.GetAccountList(i)                            ' get each account number
-
-        Cells(11 + i, 1) = i + 1
-        Cells(11 + i, 2) = szAcct
-        Cells(11 + i, 3) = XASession_Account.GetAccountName(szAcct)
-        Cells(11 + i, 4) = XASession_Account.GetAcctDetailName(szAcct)          ' get account type
-        Cells(11 + i, 5) = XASession_Account.GetAcctNickname(szAcct)
-
-        If i >= 10 Then
-            Cells(11 + i + 1, 2) = "계좌 수가 " & i & "개를 초과하였습니다."
-            Exit Sub
-        End If
-    Next
-
-End Sub
 
 
 
