@@ -18,12 +18,12 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 - [Login 1.0 (2021.11.08)](#login-10-20211108)
 
 
-## [Current Price - T1101 2.1 (2022.06.17)](#list)
+## [v0.311 : Current Price - T1101 2.1 (2022.06.17)](#list)
 
 ![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
 
 
-## [Current Price - T1101 2 (2021.11.23)](#list)
+## [v0.31 : Current Price - T1101 2 (2021.11.23)](#list)
 
 - call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
 - determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
@@ -311,7 +311,7 @@ End Sub
 ```
 
 
-## [Current Price - T1101 1.1 (2021.11.22)](#list)
+## [v0.301 : Current Price - T1101 1.1 (2021.11.22)](#list)
 
 - advanced from [T1101 1.0 (2021.11.17)](request-data--current-price---t1101-10-20211117)
 - add the **market category** of a stock through `t1102`
@@ -322,14 +322,14 @@ End Sub
 ![VBA : T1101 1.1](Images/XingAPI_VBA_T1101_1.1.gif)
 
 
-## [Current Price - T1101 1.0 (2021.11.17)](#list)
+## [v0.3 : Current Price - T1101 1.0 (2021.11.17)](#list)
 
 - read a stock's current price information (**t1101**)
 
 ![VBA : T1101 1.0](Images/XingAPI_VBA_T1101_1.0.gif)
 
 
-## [Read Account List 1.0 (2021.11.10)](#list)
+## [v0.2 : Read Account List 1.0 (2021.11.10)](#list)
 
 - read account list with using `XASession`
 - ※ skip `ActiveSheet.` (2021.11.22)
@@ -376,7 +376,7 @@ End Sub
 ```
 
 
-## [Login 2.0 (2021.11.09)](#list)
+## [v0.11 : Login 2.0 (2021.11.09)](#list)
 
 - advanced from [Login 1.0 (2021.11.08)](login-10-20211108)
 - enter login information on the Excel sheet, not on the `InputBox`
@@ -447,7 +447,7 @@ End Sub
 ```
 
 
-## [Login 1.0 (2021.11.08)](#list)
+## [v0.1 : Login 1.0 (2021.11.08)](#list)
 
 - **the 1st trial** to build login process into `xingAPI` in **VBA**
 
