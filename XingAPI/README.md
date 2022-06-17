@@ -8,6 +8,9 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 - xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
+**\<Architecture>**
+![Architecture](Images/XingAPI_VBA_Architecture_20220315.png)
+
 **\<List>**
 
 | Main Version | Component | Date | Latest | Link |
