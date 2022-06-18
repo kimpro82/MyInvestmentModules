@@ -3,21 +3,23 @@
 Codes with `xingAPI` from **eBest Investment & Securities**
 
 
-**\<Reference>**  
+**\<Reference>**
+
 - xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp  
 - xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
 **\<Architecture>**
+
 ![Architecture](Images/XingAPI_VBA_Architecture_20220315.png)
 
 **\<List>**
 
 | Main Version | Component | Date | Latest | Link |
 |:-:|:--|:-:|:-:|:-:|
-| v0.311 | Current Price - T1101 2.1 | 2022.06.16 | Latest | [Link](#v0311--current-price--t1101-21-20220617) |
-| | Login 2.01 | | Latest | |
-| | Read Account List 1.01 | | Latest | |
+| v0.311 | Current Price - T1101 2.1 | 2022.06.16 | ○ | [Link](#v0311--current-price--t1101-21-20220617) |
+| | Login 2.01 | | ○ | |
+| | Read Account List 1.01 | | ○ | |
 | v0.31 | Current Price - T1101 2.0 | 2021.11.23 | | [Link](#v031--current-price--t1101-2-20211123) |
 | v0.301 | Current Price - T1101 1.1 | 2021.11.22 | | [Link](#v0301--current-price--t1101-11-20211122) |
 | v0.3 | Current Price - T1101 1.0 | 2021.11.17 | | [Link](#v03--current-price--t1101-10-20211117) |
@@ -28,9 +30,14 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 
 ## [v0.311 : Current Price - T1101 2.1 (2022.06.17)](#list)
 
+- Add `매도호가수량합`(`totofferrem`) `매수호가수량합`(`totbidrem`) fields
+- Get `직전매도대비수량` `직전매수대비수량` by *sliding window* algorithm
+- Do **not** save the data
+
 ![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
 
 #### Mainly changed part of `XingAPI_Login_2.01.bas`
+- Correct the syntax to declare plural variables in a line (☜ [Declare Plural Variable (2022.06.04)](https://github.com/kimpro82/MyPractice/tree/master/VBA#declare-plural-variable-20220604))
 ```vba
 ' Login
 Private Sub btnLogin_Click()
