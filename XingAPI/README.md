@@ -3,28 +3,152 @@
 Codes with `xingAPI` from **eBest Investment & Securities**
 
 
-**\<Reference>**  
+### **\<Reference>**
+
 - xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp  
 - xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
 - xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
 
-**\<VBA>**
-- [Current Price - T1101 2 (2021.11.23)](/XingAPI#current-price---t1101-2-20211123)
-- [Current Price - T1101 1.1 (2021.11.22)](/XingAPI#current-price---t1101-11-20211122)
-- [Current Price - T1101 1 (2021.11.17)](/XingAPI#current-price---t1101-1-20211117)
-- [Read Account List (2021.11.10)](/XingAPI#read-account-list-20211110)
-- [Login 2 (2021.11.09)](/XingAPI#login-2-20211109)
-- [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
+### **\<Architecture>**
+
+![Architecture](Images/XingAPI_VBA_Architecture_20220315.png)
+
+### **\<List>**
+
+| Main Version | Component | Date | Latest | Link |
+|:-:|:--|:-:|:-:|:-:|
+| v0.311 | Current Price - T1101 2.1 | 2022.06.16 | ○ | [Link](#v0311--current-price---t1101-21-20220617) |
+| | Login 2.01 | | ○ | |
+| | Read Account List 1.01 | | ○ | |
+| v0.31 | Current Price - T1101 2.0 | 2021.11.23 | | [Link](#v031--current-price---t1101-2-20211123) |
+| v0.301 | Current Price - T1101 1.1 | 2021.11.22 | | [Link](#v0301--current-price---t1101-11-20211122) |
+| v0.3 | Current Price - T1101 1.0 | 2021.11.17 | | [Link](#v03--current-price---t1101-10-20211117) |
+| v0.2 | Read Account List 1.0 | 2021.11.10 | | [Link](#v02--read-account-list-10-20211110) |
+| v0.11 | Login 2.0 | 2021.11.09 | | [Link](#v011--login-20-20211109) |
+| v0.1 | Login 1.0 | 2021.11.08 | | [Link](#v01--login-10-20211108) |
 
 
-## [Current Price - T1101 2 (2021.11.23)](/XingAPI#my-xingapi-application-modules)
+## [v0.311 : Current Price - T1101 2.1 (2022.06.17)](#list)
 
-- call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
-- determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
-- **consistentize** data from `t1101` with real time data  
-&nbsp;- skip the outblock fields of `직전매도대비수량` `직전매수대비수량`  
-&nbsp;- change the time expression to `HH:MM:SS` by skipping the last two digits
-- **process flow** among objects :  
+- Add `매도호가수량합`(`totofferrem`) `매수호가수량합`(`totbidrem`) fields
+- Get `직전매도대비수량` `직전매수대비수량` by *sliding window* algorithm
+- Do **not** save the data
+
+![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
+
+#### Mainly changed part of `XingAPI_Login_2.01.bas`
+- Correct the syntax to declare plural variables in a line ☜ [Declare Plural Variable (2022.06.04)](https://github.com/kimpro82/MyPractice/tree/master/VBA#declare-plural-variable-20220604)
+```vba
+' Login
+Private Sub btnLogin_Click()
+
+    ……
+
+    ' Enter ID, password and certificate password
+    Dim ID As String, pwd As String, certPwd As String
+    ……
+
+End Sub
+```
+
+#### Mainly changed part of `XingAPI_T1101_2.1.bas`
+```vba
+' Request_t1101() → XAQuery_t1101_ReceiveData() → Request_t1102()
+Private Sub XAQuery_t1101_ReceiveData(ByVal szTrCode As String)
+
+    ' The current price and other informations
+    ……
+
+    ' Bid/Offer prices and volumes through an array (faster)
+    Dim arrHoga(22, 5) As Variant, i As Integer
+        For i = 1 To 10
+        ……
+        arrHoga(10 - i, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha" & i, 0)  ' 직전매도대비수량 : Real에서 미제공, Public arrHoga(i, 1)에 저장하여 전달
+        ……
+        arrHoga(9 + i, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha" & i, 0) ' 직전매수대비수량 : Real에서 미제공, Public arrHoga(i, 3)에 저장하여 전달
+    Next i
+
+    arrHoga(20, 1) = XAQuery_t1101.GetFieldData("t1101OutBlock", "offer", 0)                ' 매도호가수량합
+    ' arrHoga(20, 0) = XAQuery_t1101.GetFieldData("t1101OutBlock", "preoffercha", 0)        ' 직전매도대비수량합 : 장종료시 엉터리값
+    arrHoga(20, 3) = XAQuery_t1101.GetFieldData("t1101OutBlock", "bid", 0)                  ' 매수호가수량합
+    ' arrHoga(20, 4) = XAQuery_t1101.GetFieldData("t1101OutBlock", "prebidcha", 0)          ' 직전매수대비수량합 : 장종료시 엉터리값
+
+    ' Receiving time and note
+    ……
+    arrHoga(21, 0) = "시간"
+    arrHoga(22, 0) = "비고"
+    arrHoga(21, 1) = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)    ' string(8) : Real에서 미제공, 통일성을 위해 hotime(4:5) 생략
+
+    ' Print on sheet
+    Range("G7:K29").Value = arrHoga
+    arrHoga0 = arrHoga                                                                      ' arrHoga - arrHoga0 를 구하는 데 이용
+
+    ……
+
+End Sub
+```
+```vba
+' XAQuery_t1102_ReceiveData() → XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData() ②
+Private Sub XAReal_H1__ReceiveRealData(ByVal szTrCode As String)
+
+    ' Bid/Offer prices and volumes through an array (faster)
+    Dim arrHoga(22, 5) As Variant, i As Integer
+
+    'test
+    ' Debug.Print XAReal_H1_.GetFieldData("Outblock", "offerho" & 1) & " " & arrHoga0(9, 2) ' OK
+
+    If XAReal_H1_.GetFieldData("Outblock", "offerho" & 1) = arrHoga0(9, 2) Then             ' 호가 변동이 없다면
+        For i = 1 To 10
+            ……
+            arrHoga(10 - i, 0) = arrHoga(10 - i, 1) - arrHoga0(10 - i, 1)                   ' 직전매도대비수량 : Real에서 미제공, Public arrHoga(i, 1)에 저장하여 전달
+            ……
+            arrHoga(9 + i, 4) = arrHoga(9 + i, 3) - arrHoga0(9 + i, 3)                      ' 직전매수대비수량 : Real에서 미제공, Public arrHoga(i, 3)에 저장하여 전달
+        Next i
+    Else                                                                                    ' 호가 변동이 있다면 : arrHoga - arrHoga0를 이용한 직전매도/매수대비수량 계산값 의미 없음
+        For i = 1 To 10
+            ……
+            arrHoga(10 - i, 0) = 0                                                          ' 직전매도대비수량 : 0 (임시)
+            ……
+            arrHoga(9 + i, 4) = 0                                                           ' 직전매수대비수량 : 0 (임시)
+        Next i
+    End If
+
+    arrHoga(20, 1) = XAReal_H1_.GetFieldData("Outblock", "totofferrem")                     ' 매도호가수량합
+    arrHoga(20, 0) = arrHoga(20, 1) - arrHoga0(20, 1)                                       ' 직전매도대비수량 : Real에서 미제공, Public arrHoga(20, 1)에 저장하여 전달
+    arrHoga(20, 3) = XAReal_H1_.GetFieldData("Outblock", "totbidrem")                       ' 매수호가수량합
+    arrHoga(20, 4) = arrHoga(20, 3) - arrHoga0(20, 3)                                       ' 직전매수대비수량 : Real에서 미제공, Public arrHoga(20, 3)에 저장하여 전달
+
+    ' Receiving time and note
+    ……
+    arrHoga(21, 0) = "시간"
+    arrHoga(22, 0) = "비고"
+    arrHoga(21, 1) = Left(hotime, 2) & ":" & Mid(hotime, 3, 2) & ":" & Mid(hotime, 5, 2)    ' string(8) : Real에서 미제공, 통일성을 위해 hotime(4:5) 생략
+    
+    ' Print on sheet
+    Range("G7:K29").Value = arrHoga
+    arrHoga0 = arrHoga                                                                      ' arrHoga - arrHoga0 를 구하는 데 이용
+
+End Sub
+```
+```vba
+' XAQuery_t1102_ReceiveData() → XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData() ④
+Private Sub XAReal_HA__ReceiveRealData(ByVal szTrCode As String)
+
+    ' …… simmilar with XAReal_H1__ReceiveRealData() ……
+
+End Sub
+```
+
+
+## [v0.31 : Current Price - T1101 2 (2021.11.23)](#list)
+
+- Call **real time data** through `XAReal`; `_S3_` `_H1_` `_K3_` `_HA_`
+- Determine if the market category is *KOSPI* or *KOSDAQ* by `t1102`
+- **Consistentize** data from `t1101` with real time data  
+&nbsp;- Skip the outblock fields of `직전매도대비수량` `직전매수대비수량`  
+&nbsp;- Change the time expression to `HH:MM:SS` by skipping the last two digits
+<!--
+- **Process flow** among objects :  
   &nbsp;(1) Worksheet_Change() *(※ can be skipped)*  
   → (2) btnRequestT1101_Click()  
   → (3) Request_t1101()  
@@ -32,8 +156,9 @@ Codes with `xingAPI` from **eBest Investment & Securities**
   → (5) Request_t1102()  
   → (6) XAQuery_t1102_ReceiveData()  
   → (7) XAReal_S3/H1_ReceiveRealData() or XAReal_K3/HA_ReceiveRealData()
+!-->
 
-![VBA : T1101 2](Images/XingAPI_VBA_T1101_2.gif)
+![VBA : T1101 2.0](Images/XingAPI_VBA_T1101_2.0.gif)
 
 ```vba
 Dim WithEvents XAQuery_t1101 As XAQuery         ' t1101 : 주식 현재가 호가 조회
@@ -305,30 +430,30 @@ End Sub
 ```
 
 
-## [Current Price - T1101 1.1 (2021.11.22)](/XingAPI#my-xingapi-application-modules)
+## [v0.301 : Current Price - T1101 1.1 (2021.11.22)](#list)
 
-- advanced from [T1101 1 (2021.11.17)](/XingAPI#request-data--current-price---t1101-20211117)
-- add the **market category** of a stock through `t1102`
-- load bid/offer data into an **array**
-- imporve the time expression (`HH:MM:SS`)
-- skip `ActiveSheet.` (※ including all the previously uploaded codes)
+- Advanced from [T1101 1.0 (2021.11.17)](request-data--current-price---t1101-10-20211117)
+- Add the **market category** of a stock through `t1102`
+- Load bid/offer data into an **array**
+- Imporve the time expression (`HH:MM:SS`)
+- Skip `ActiveSheet.` (※ including all the previously uploaded codes)
 
 ![VBA : T1101 1.1](Images/XingAPI_VBA_T1101_1.1.gif)
 
 
-## [Current Price - T1101 1 (2021.11.17)](/XingAPI#my-xingapi-application-modules)
+## [v0.3 : Current Price - T1101 1.0 (2021.11.17)](#list)
 
-- read a stock's current price information (**t1101**)
+- Read a stock's current price information (**t1101**)
 
-![VBA : T1101 1](Images/XingAPI_VBA_T1101_1.gif)
+![VBA : T1101 1.0](Images/XingAPI_VBA_T1101_1.0.gif)
 
 
-## [Read Account List (2021.11.10)](/XingAPI#my-xingapi-application-modules)
+## [v0.2 : Read Account List 1.0 (2021.11.10)](#list)
 
-- read account list with using `XASession`
-- ※ skip `ActiveSheet.` (2021.11.22)
+- Read account list with using `XASession`
+- ※ Skip `ActiveSheet.` (2021.11.22)
 
-![VBA : Read Account List](Images/XingAPI_VBA_Account.gif)
+![VBA : Read Account List 1.0](Images/XingAPI_VBA_Account.gif)
 
 ```vba
 Dim WithEvents XASession_Account As XASession
@@ -370,14 +495,14 @@ End Sub
 ```
 
 
-## [Login 2 (2021.11.09)](/XingAPI#my-xingapi-application-modules)
+## [v0.11 : Login 2.0 (2021.11.09)](#list)
 
-- advanced from [Login 1 (2021.11.08)](/XingAPI#login-1-20211108)
-- enter login information on the Excel sheet, not on the `InputBox`
-- can choose server type
-- ※ skip `ActiveSheet.` (2021.11.22)
+- Advanced from [Login 1.0 (2021.11.08)](login-10-20211108)
+- Enter login information on the Excel sheet, not on the `InputBox`
+- Can choose server type
+- ※ Skip `ActiveSheet.` (2021.11.22)
 
-![VBA : Login 2](Images/XingAPI_VBA_Login_2.gif)
+![VBA : Login 2.0](Images/XingAPI_VBA_Login_2.0.gif)
 
 ```vba
 Option Explicit                                                             ' Generate a compile-time error
@@ -441,8 +566,8 @@ End Sub
 ```
 
 
-## [Login 1 (2021.11.08)](/XingAPI#my-xingapi-application-modules)
+## [v0.1 : Login 1.0 (2021.11.08)](#list)
 
-- **the 1st trial** to build login process into `xingAPI` in **VBA**
+- **The 1st trial** to build login process into `xingAPI` in **VBA**
 
-![VBA : Login 1](Images/XingAPI_VBA_Login_1.gif)
+![VBA : Login 1.0](Images/XingAPI_VBA_Login_1.0.gif)
