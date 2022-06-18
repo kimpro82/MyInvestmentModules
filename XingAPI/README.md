@@ -37,7 +37,7 @@ Codes with `xingAPI` from **eBest Investment & Securities**
 ![VBA : T1101 2.1](Images/XingAPI_VBA_T1101_2.1.gif)
 
 #### Mainly changed part of `XingAPI_Login_2.01.bas`
-- Correct the syntax to declare plural variables in a line (☜ [Declare Plural Variable (2022.06.04)](https://github.com/kimpro82/MyPractice/tree/master/VBA#declare-plural-variable-20220604))
+- Correct the syntax to declare plural variables in a line ☜ [Declare Plural Variable (2022.06.04)](https://github.com/kimpro82/MyPractice/tree/master/VBA#declare-plural-variable-20220604)
 ```vba
 ' Login
 Private Sub btnLogin_Click()
