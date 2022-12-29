@@ -88,3 +88,38 @@
   [1] "Arithmetic mean 2: 1.0204070827279 ± 0.0131895453967714"
   [1] "Geometric mean 2: 1.00029970882788 ± 0.0128234253639529"
   ```
+
+## [Monte Carlo Simulation (2018.03.28)](#list)
+
+- Suppose a Binomial dist., n=100, p=0.3333 / win -> +100, lose -> -50 / run 1,000 times
+- It seems …… useless???
+
+  ![monte_carlo_100](./Images/Monte_Carlo_100.png)
+
+  <details>
+    <summary>Codes : Monte_Carlo_Simulation_20180328.R</summary>
+
+  ```R
+  m <- 1000; n <- 100; p <- 0.3333
+  win <- 100; lose <- -50
+  binom.raw <- matrix(nrow=m, ncol=n)
+  earn <- matrix(nrow=m, ncol=n)
+  earn.avg <-c()
+
+  for (i in 1:m) {
+    binom.raw[i,] <- rbinom(n, 1, p)
+    for (j in 1:n ) {
+      ifelse(binom.raw[i,j] == 1, earn[i,j] <- win, earn[i,j] <- lose)
+    }
+    earn.avg[i] <- mean(earn[i,])
+  }
+
+  summary(earn.avg)
+
+  windows(width=12, height=7)
+  par(mfrow=c(1,2)) 
+    plot(rank(earn.avg),earn.avg)
+      abline(h=mean(earn.avg), col="red")
+    hist(earn.avg)
+  ```
+  </details>
