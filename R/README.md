@@ -5,6 +5,7 @@
 
 - [Arithmetic Mean vs Geometrical Mean (2022.12.29)](#arithmetic-mean-vs-geometrical-mean-20221229)
 - [Monte Carlo Simulation (2018.03.28)](#monte-carlo-simulation-20180328)
+- [Boxplot (2018.01.11)](#boxplot-20180111)
 
 
 ## [Arithmetic Mean vs Geometrical Mean (2022.12.29)](#list)
@@ -123,5 +124,81 @@
     plot(rank(earn.avg),earn.avg)
       abline(h=mean(earn.avg), col="red")
     hist(earn.avg)
+  ```
+  </details>
+
+
+# [Boxplot (2018.01.11)](#list)
+
+- Drawing boxplots divided by groups and months for monitoring multi-strategy investment performance
+
+  ![Boxplot_1_total](./Images/Boxplot_1_total_201801.png)  
+  ![Boxplot_2_groups](./Images/Boxplot_2_groups_201801.png)  
+  ![Boxplot_3_subset](./Images/Boxplot_3_subset_201801.png)
+
+  <details>
+    <summary>Codes : Boxplot.R</summary>
+
+  ```r
+  ## Set working directory (not necessary)
+  setwd(""~/your path"")
+
+  ## Generating file & dataframe names by each month
+  ## Target Period : '17.1 ~ '18.01
+  file.yymm <- c(1701:1712, 1801:1802)
+  file.name <- sprintf('stock_history_%s.csv', file.yymm)
+  df.name <- sprintf('stk.history.%s', file.yymm)
+
+  ## Making dataframes by each month data
+  for (i in 1:length(file.yymm)) {
+    assign(df.name[i], read.csv(file.name[i], header=T))
+    print(sprintf('stk.history.%s', file.yymm[i]))
+  }
+
+  ## Merging mothly data
+  ## These ugly codes should be upgraded!
+  stk.history <- c()
+  for (i in 1:length(file.yymm)) {
+    stk.history <- rbind(stk.history.1701,
+                        stk.history.1702,
+                        stk.history.1703,
+                        stk.history.1704,
+                        stk.history.1705,
+                        stk.history.1706,
+                        stk.history.1707,
+                        stk.history.1708,
+                        stk.history.1709,
+                        stk.history.1710,
+                        stk.history.1711,
+                        stk.history.1712,
+                        stk.history.1801,
+                        stk.history.1802)
+  }
+
+  ## Checking the structure of the merged dataframe
+  str(stk.history)
+
+
+  attach(stk.history)
+
+  ## Boxplot 1
+  windows(width=10, height=7)
+  boxplot(수익률 ~ YYMM, main="Monthly Performace (Total)")
+  abline(h=0, col='red')
+
+  ## Boxplot 2
+  windows(width=10, height=7)
+  boxplot(수익률 ~ 그룹 + YYMM, 
+            main="Comparing Groups : Traditional vs DayTrading",
+            col=c('skyblue','pink'))
+  abline(h=0, col='red')
+
+  ## Boxplot 3
+  windows(width=10, height=7)
+  boxplot(수익률 ~ YYMM, subset=그룹=='DayTrading',
+            main="DayTrading Performance", col=c('pink'))
+  abline(h=0, col='red')
+
+  detach(stk.history)
   ```
   </details>
