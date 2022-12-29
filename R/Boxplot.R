@@ -1,6 +1,8 @@
 ## Drawing boxplots divided by groups and months
 ## for monitoring multi-strategy investment performance
 
+## 2018.1.11
+
 
 ## Set working directory (not necessary)
 setwd(""~/your path"")
@@ -68,4 +70,3 @@ abline(h=0, col='red')
 
 
 detach(stk.history)
-
