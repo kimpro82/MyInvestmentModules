@@ -7,7 +7,9 @@
 
 ## [Arithmetic Mean vs Geometrical Mean (2022.12.29)](#list)
 
-![Arithmetic Mean vs Geometrical Mean](./Images/Mean_20221229.png)
+- Generally, the geometrical mean tends to be lower than the arithmetic mean.
+
+  ![Arithmetic Mean vs Geometrical Mean](./Images/Mean_20221229.png)
 
   <details>
     <summary>Codes : Mean.r</summary>
