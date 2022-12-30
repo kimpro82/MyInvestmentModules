@@ -3,7 +3,7 @@
 Someday these will be an integrated trading system, but not now. So I am sad.
 
 
-## [My `KIS Developers` Application Modules](/KIS_Developers#my-kis-developers-application-modules)
+## [My `KIS Developers` Application Modules](./KIS_Developers)
 
 **\<Python>**
 
@@ -12,7 +12,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - [Oauth (2022.04.19)](/KIS_Developers#oauth-20220419)
 
 
-## [My `xingAPI` Application Modules](/XingAPI#my-xingapi-application-modules)
+## [My `xingAPI` Application Modules](./XingAPI)
 
 **\<VBA>**
 
@@ -29,13 +29,14 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 | v0.1 | Login 1.0 | 2021.11.08 | | [Link](/XingAPI#v01--login-10-20211108) |
 
 
-## [My Python Modules](/Python#python)
+## [My Python Modules](./Python)
 
 - [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from ***KOSPI*** (2021.12.22)](/Python#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python#numpy-financial--tvm-20211108)
 
 
-## My R Modules
+## [My R Modules](./R)
 
-- [Monte-Carlo Simulation (2018.3.28)](/Monte%20Carlo%20Simulation#r_monte_carlo_simulation_20180328r)
-- [Boxplot (2018.1.11)](/Boxplot#boxplot-2018111)
+- [Arithmetic Mean vs Geometrical Mean (2022.12.29)](./R/README.md#arithmetic-mean-vs-geometrical-mean-20221229)
+- [Monte Carlo Simulation (2018.03.28)](./R/README.md#monte-carlo-simulation-20180328)
+- [Boxplot (2018.01.11)](./R/README.md#boxplot-20180111)
