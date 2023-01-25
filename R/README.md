@@ -54,7 +54,7 @@
   [1] "Geometric mean: 1"
   ```
 
-- Stop …… did you forget this formula?
+- Stop …… did you forget this formula? Don't disappoint your primary school!
   ```
   (a + b) / 2 ≥ sqrt(a · b)
   ```
