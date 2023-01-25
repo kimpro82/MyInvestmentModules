@@ -42,7 +42,7 @@
   print(paste("Arithmetic mean:", aMean))
   print(paste("Geometric mean:", gMean))
   ```
-  </detail>
+  </details>
 
   ```
   # Case 1
