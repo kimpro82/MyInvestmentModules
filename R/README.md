@@ -3,9 +3,61 @@
 
 ### \<List>
 
+- [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](#arithmetic-mean-vs-geometrical-mean-2-20230124)
 - [Arithmetic Mean vs Geometrical Mean (2022.12.29)](#arithmetic-mean-vs-geometrical-mean-20221229)
 - [Monte Carlo Simulation (2018.03.28)](#monte-carlo-simulation-20180328)
 - [Boxplot (2018.01.11)](#boxplot-20180111)
+
+
+## [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](#list)
+
+- Although testing some extreme cases, it seems **never** be able for the *geometrical mean* to beat the *arithmetic mean*.
+
+  ![An extreme case](./Images/Mean2_20230124.png)
+
+  <details>
+    <summary>Codes : Mean2.r</summary>
+
+  ```r
+  # Case 1
+
+  case1 <- c(seq(1, 1.2, by=0.01), seq(1, 0.8, by=-0.01))
+  # case1 <- seq(1.2, 0.8, by=-0.01)
+  plot(case1)
+  abline(h = 1)
+
+  aMean <- mean(case1)
+  gMean <- exp(mean(log(case1)))
+
+  print(paste("Arithmetic mean:", aMean))
+  print(paste("Geometric mean:", gMean))
+  ```
+  ```r
+  # Case 2
+
+  case2 <- c(2, 0.5)
+  aMean <- mean(case2)
+  gMean <- exp(mean(log(case2)))
+
+  print(paste("Arithmetic mean:", aMean))
+  print(paste("Geometric mean:", gMean))
+  ```
+  </details>
+
+  ```
+  # Case 1
+  [1] "Arithmetic mean: 1"
+  [1] "Geometric mean: 0.993102769755157"
+
+  # Case 2
+  [1] "Arithmetic mean: 1.25"
+  [1] "Geometric mean: 1"
+  ```
+
+- Stop …… did you forget this formula? Don't disappoint your primary school!
+  ```
+  (a + b) / 2 ≥ sqrt(a · b)
+  ```
 
 
 ## [Arithmetic Mean vs Geometrical Mean (2022.12.29)](#list)
@@ -100,7 +152,7 @@
   ![monte_carlo_100](./Images/Monte_Carlo_100.png)
 
   <details>
-    <summary>Codes : Monte_Carlo_Simulation_20180328.R</summary>
+    <summary>Codes : Monte_Carlo_Simulation.R</summary>
 
   ```R
   m <- 1000; n <- 100; p <- 0.3333
