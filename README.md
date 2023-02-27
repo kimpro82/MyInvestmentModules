@@ -41,3 +41,8 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - [Arithmetic Mean vs Geometrical Mean (2022.12.29)](./R/README.md#arithmetic-mean-vs-geometrical-mean-20221229)
 - [Monte Carlo Simulation (2018.03.28)](./R/README.md#monte-carlo-simulation-20180328)
 - [Boxplot (2018.01.11)](./R/README.md#boxplot-20180111)
+
+
+## [Gurus' Strategies](./GurusStrategies/README.md)
+
+Digests by *ChatGPT* (not 100% accuracy guaranteed)
