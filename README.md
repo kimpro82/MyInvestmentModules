@@ -3,6 +3,11 @@
 Someday these will be an integrated trading system, but not now. So I am sad.
 
 
+## [My `Upbit Open API` Application Modules](./Upbit)
+
+- [Init. (2022.04.27)](./Upbit/README.md#init-20220427)
+
+
 ## [My `KIS Developers` Application Modules](./KIS_Developers)
 
 **\<Python>**
@@ -43,6 +48,6 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - [Boxplot (2018.01.11)](./R/README.md#boxplot-20180111)
 
 
-## [Gurus' Strategies](./GurusStrategies/README.md)
+## [Gurus' Strategies](./GurusStrategies)
 
 Digests by *ChatGPT* (not 100% accuracy guaranteed)
