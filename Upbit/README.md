@@ -14,7 +14,7 @@
 - Practices to get balance, ticker, candle data(minute) and orderbook by *Upbit Open API*
 - Use the original API code, not `pyupbit`
 
-  <details open>
+  <details>
       <summary>Codes : key_sample.py</summary>
 
   ```python
@@ -31,7 +31,7 @@
   But I'm not entirely convinced that this is the correct way to use `os.environ`.
   </details>
 
-  <details open>
+  <details>
       <summary>Codes : test_balance.py</summary>
 
   ```python
@@ -79,7 +79,7 @@
     ……
   ```
   </details>
-  <details open>
+  <details>
     <summary>Codes : test_ticker.py</summary>
 
   ```python
@@ -112,7 +112,7 @@
     ……
   ```
   </details>
-  <details open>
+  <details>
       <summary>Codes : test_orderbook.py</summary>
 
   ```python
@@ -138,14 +138,17 @@
   ### Output
   ```
   [{'market': 'KRW-BTC',
-    'orderbook_units': [{'ask_price': 39107000.0,
-                        'ask_size': 0.00020457,
-                        'bid_price': 39090000.0,
-                        'bid_size': 0.02306676},
+    'orderbook_units': [{'ask_price': 39106000.0,
+                        'ask_size': 0.05116399,
+                        'bid_price': 39079000.0,
+                        'bid_size': 0.06953873},
                         ……
+    'timestamp': 1682865310319,
+    'total_ask_size': 2.5738719399999996,
+    'total_bid_size': 5.978590620000001}]
   ```
   </details>
-  <details open>
+  <details>
       <summary>Codes : test_candle_minute.py</summary>
 
   ```python
@@ -185,41 +188,5 @@
     'trade_price': 39107000.0,
     'unit': 1},
   ……
-  ```
-  </details>
-  <details open>
-      <summary>Codes : test_orderbook.py</summary>
-
-  ```python
-  import pprint
-  import requests
-  ```
-  ```python
-  URL = "https://api.upbit.com/v1/orderbook"
-  params = {
-      "markets": ["KRW-BTC"],
-  }
-  headers = {
-      "accept": "application/json",
-  }
-  response = requests.get(URL, params=params, headers=headers, timeout=1)
-  ```
-  ```python
-  # Test
-  if __name__ == "__main__" :
-      pprint.pprint(response.json())
-  ```
-
-  ### Output
-  ```
-  [{'market': 'KRW-BTC',
-    'orderbook_units': [{'ask_price': 39106000.0,
-                        'ask_size': 0.05116399,
-                        'bid_price': 39079000.0,
-                        'bid_size': 0.06953873},
-                        ……
-    'timestamp': 1682865310319,
-    'total_ask_size': 2.5738719399999996,
-    'total_bid_size': 5.978590620000001}]
   ```
   </details>
