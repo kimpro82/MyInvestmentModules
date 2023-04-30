@@ -4,17 +4,17 @@ test_ticker.py
 2023.04.27
 """
 
-import requests
 import pprint
+import requests
 
-url = "https://api.upbit.com/v1/ticker"
+URL = "https://api.upbit.com/v1/ticker"
 params = {
     "markets": ["KRW-BTC"],
 }
 headers = {
     "accept": "application/json",
 }
-response = requests.get(url, params=params, headers=headers, timeout=1)
+response = requests.get(URL, params=params, headers=headers, timeout=1)
 
 # Test
 if __name__ == "__main__" :
