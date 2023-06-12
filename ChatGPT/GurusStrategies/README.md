@@ -1,4 +1,4 @@
-# [Gurus' Strategies](../README.md#gurus-strategies)
+# [Gurus' Strategies](../../README.md#chatgpts-answers)
 
 Digests by *ChatGPT* (not 100% accuracy guaranteed)
 
