@@ -1,6 +1,6 @@
 # [10 Effective Short-Term Timeframe Investment Strategies](../../README.md#chatgpts-answers)
 
-Digests by *ChatGPT* (not 100% accuracy guaranteed)
+Written by *ChatGPT* (not 100% accuracy guaranteed)
 
 
 ## [10 Effective Short-Term Timeframe Investment Strategies](#list)

@@ -50,7 +50,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 
 ## [*ChatGPT*'s Answers](./ChatGPT/)
 
-Digests by *ChatGPT* (not 100% accuracy guaranteed)
+Written by *ChatGPT* (not 100% accuracy guaranteed)
 
 - [10 Effective Short-Term Timeframe Investment Strategies (2023.06.12)](./ChatGPT/ShortTermTimeframe/README.md)
 - [Gurus' Strategies (2023.02.27)](./ChatGPT/GurusStrategies/README.md)
