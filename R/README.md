@@ -3,11 +3,74 @@
 
 ### \<List>
 
+- [Download Stock Price Data with `tidyquant` (2023.06.18)](#download-stock-price-data-with-tidyquant-20230618)
 - [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](#arithmetic-mean-vs-geometrical-mean-2-20230124)
 - [Arithmetic Mean vs Geometrical Mean (2022.12.29)](#arithmetic-mean-vs-geometrical-mean-20221229)
 - [Monte Carlo Simulation (2018.03.28)](#monte-carlo-simulation-20180328)
 - [Boxplot (2018.01.11)](#boxplot-20180111)
 
+
+## [Download Stock Price Data with `tidyquant` (2023.06.18)](#list)
+
+- Download daily stock price data into a `.csv` file  
+  - 8 columns : `symbol` `date` `open` `high` `low` `close` `volume` `adjusted`
+
+  <br><details>
+    <summary>Codes : TidyquantInit.r</summary>
+
+  ```r
+  # 필요한 라이브러리를 로드합니다
+  if (!requireNamespace("tidyquant")) {
+      install.packages("tidyquant")
+  }
+  library(tidyquant)
+
+  # 작업 디렉토리를 설정합니다. 해당 경로에 저장될 것입니다.
+  setwd({path})
+
+  # 다운로드 받을 종목의 심볼을 정의합니다
+  symbols <- c("122630.KS", "252670.KS")  # KODEX 레버리지, KODEX 200선물인버스2X
+
+  # 데이터를 다운로드할 기간을 설정합니다
+  start_date <- "2022-01-01"
+  end_date <- "2022-12-31"
+
+  # 종목 데이터를 다운로드합니다
+  data <- tq_get(symbols, from = start_date, to = end_date)
+  head(data)
+  str(data)
+
+  # 데이터프레임을 CSV 파일로 저장합니다
+  current_datetime <- format(Sys.time(), "%Y%m%d_%H%M%S")
+  write.csv(data, file = paste0("stock_data_", current_datetime, ".csv"))
+  ```
+  </details>
+  <details open="">
+    <summary>Output</summary>
+
+  ```text
+  # A tibble: 6 x 8
+    symbol    date        open  high   low close   volume adjusted
+    <chr>     <date>     <dbl> <dbl> <dbl> <dbl>    <dbl>    <dbl>
+  1 122630.KS 2022-01-04 24030 24120 23700 23945 14785180    23945
+  2 122630.KS 2022-01-05 23820 23885 23005 23265 18355770    23265
+  3 122630.KS 2022-01-06 22920 23370 22800 22850 21266580    22850
+  4 122630.KS 2022-01-07 23120 23475 23035 23380 14437010    23380
+  5 122630.KS 2022-01-10 23295 23335 22670 22985 16135230    22985
+  6 122630.KS 2022-01-11 23090 23345 22885 23135 15460780    23135
+  ```
+  ```text
+  tibble [488 x 8] (S3: tbl_df/tbl/data.frame)
+  $ symbol  : chr [1:488] "122630.KS" "122630.KS" "122630.KS" "122630.KS" ...
+  $ date    : Date[1:488], format: "2022-01-04" "2022-01-05" "2022-01-06" "2022-01-07" ...
+  $ open    : num [1:488] 24030 23820 22920 23120 23295 ...
+  $ high    : num [1:488] 24120 23885 23370 23475 23335 ...
+  $ low     : num [1:488] 23700 23005 22800 23035 22670 ...
+  $ close   : num [1:488] 23945 23265 22850 23380 22985 ...
+  $ volume  : num [1:488] 14785180 18355770 21266580 14437010 16135230 ...
+  $ adjusted: num [1:488] 23945 23265 22850 23380 22985 ...
+  ```
+  </details>
 
 ## [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](#list)
 
