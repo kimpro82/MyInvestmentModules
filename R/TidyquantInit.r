@@ -1,5 +1,6 @@
-# Trading ETFs with a Human Index
+# Download Stock Price Data with tidyquant
 # 2023.06.17
+
 
 # 필요한 라이브러리를 로드합니다
 if (!requireNamespace("tidyquant")) {
