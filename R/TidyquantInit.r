@@ -9,7 +9,7 @@ if (!requireNamespace("tidyquant")) {
 library(tidyquant)
 
 # 작업 디렉토리를 설정합니다. 해당 경로에 저장될 것입니다.
-setwd("D:/문서/개발/R/quant")
+setwd({path})
 
 # 다운로드 받을 종목의 심볼을 정의합니다
 symbols <- c("122630.KS", "252670.KS")  # KODEX 레버리지, KODEX 200선물인버스2X
