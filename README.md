@@ -42,6 +42,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 
 ## [My R Modules](./R)
 
+- [Download Stock Price Data with `tidyquant` (2023.06.18)](./R/README.md#download-stock-price-data-with-tidyquant-20230618)
 - [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](./R/README.md#arithmetic-mean-vs-geometrical-mean-2-20230124)
 - [Arithmetic Mean vs Geometrical Mean (2022.12.29)](./R/README.md#arithmetic-mean-vs-geometrical-mean-20221229)
 - [Monte Carlo Simulation (2018.03.28)](./R/README.md#monte-carlo-simulation-20180328)
