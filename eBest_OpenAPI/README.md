@@ -66,8 +66,8 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
   OAuth        :
   {'access_token': '******',
-  'expires_in': 105831,
-  'scope': 'oob',
-  'token_type': 'Bearer'}
+   'expires_in': 105831,
+   'scope': 'oob',
+   'token_type': 'Bearer'}
   ```
   </details>
