@@ -58,3 +58,16 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
       pprint.pprint(res.json())                               # Ok
   ```
   </details>
+  <details open = "">
+    <summary>Output</summary>
+
+  ```txt
+  URL          :  https://openapi.ebestsec.co.kr:8080/oauth2/token
+
+  OAuth        :
+  {'access_token': '******',
+  'expires_in': 105831,
+  'scope': 'oob',
+  'token_type': 'Bearer'}
+  ```
+  </details>
