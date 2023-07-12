@@ -3,24 +3,24 @@
 Someday these will be an integrated trading system, but not now. So I am sad.
 
 
-## [My `Upbit Open API` Application Modules](./Upbit)
+## [`Upbit Open API`](./Upbit)
 
 - [Init. (2022.04.27)](./Upbit/README.md#init-20220427)
 
 
-## [My `KIS Developers` Application Modules](./KIS_Developers)
+## [`KIS Developers`](./KIS_Developers)
 
 - [`mojito` - The First Attempt (2022.04.27)](/KIS_Developers/README.md#mojito---the-first-attempt-20220427)
 - [Inquire Price (2022.04.26)](/KIS_Developers/README.md#inquire-price-20220426)
 - [Oauth (2022.04.19)](/KIS_Developers/README.md#oauth-20220419)
 
 
-## [My `eBest OPEN API` Application Modules](./eBest_OpenAPI/)
+## [`eBest OPEN API`](./eBest_OpenAPI/)
 
 - [Oauth (2023.07.11)](./eBest_OpenAPI/README.md#oauth-20230711)
 
 
-## [My `xingAPI` Application Modules](./XingAPI)
+## [`eBest xingAPI`](./XingAPI)
 
 **\<VBA>**
 
@@ -37,13 +37,13 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 | v0.1 | Login 1.0 | 2021.11.08 | | [Link](/XingAPI/README.md#v01--login-10-20211108) |
 
 
-## [My Python Modules](./Python)
+## [*Python* Modules](./Python)
 
 - [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from ***KOSPI*** (2021.12.22)](/Python/README.md#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python/README.md#numpy-financial--tvm-20211108)
 
 
-## [My R Modules](./R)
+## [*R* Modules](./R)
 
 - [Download Stock Price Data with `tidyquant` (2023.06.18)](./R/README.md#download-stock-price-data-with-tidyquant-20230618)
 - [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](./R/README.md#arithmetic-mean-vs-geometrical-mean-2-20230124)
