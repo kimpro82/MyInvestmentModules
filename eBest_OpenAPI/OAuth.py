@@ -8,8 +8,8 @@ import pprint
 import requests
 import Key
 
-APP_KEY = Key.mockKey
-APP_SECRET = Key.mockSecret
+APP_KEY     = Key.MOCK_KEY
+APP_SECRET  = Key.MOCK_SECRET
 
 header      = {
     "content-type"  : "application/x-www-form-urlencoded"
