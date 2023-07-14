@@ -68,6 +68,8 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
       print(df)
   ```
   </details>
+  <details open = "">
+    <summary>Output</summary>
 
   ```txt
       rank     hname  salesgrowth  operatingincomegrowt  ordinaryincomegrowth  liabilitytoequity  enterpriseratio      eps       bps    roe  shcode    per    pbr    peg
@@ -85,6 +87,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
   [100 rows x 14 columns]
   ```
+  </details>
 
 
 ## [Oauth (2023.07.11)](#list)
