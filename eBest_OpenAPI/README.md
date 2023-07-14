@@ -7,11 +7,11 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 - eBest OPEN API Portal https://openapi.ebestsec.co.kr/ 
 
 ### \<List>
-- [재무순위종합(t3341) 조회 (2023.07.14)](#재무순위종합t3341-조회-20230714)
+- [재무순위종합(t3341, 2023.07.14)](#재무순위종합t3341-20230714)
 - [Oauth (2023.07.11)](#oauth-20230711)
 
 
-## [재무순위종합(t3341) 조회 (2023.07.14)](#list)
+## [재무순위종합(t3341) (2023.07.14)](#list)
 
 - [eBest OPEN API](https://openapi.ebestsec.co.kr) > [API 가이드 > 주식 > [주식] 투자정보](https://openapi.ebestsec.co.kr/apiservice#G_73142d9f-1983-48d2-8543-89b75535d34c#A_3dbce945-a73c-475c-9758-88d9922ab94e) > 재무순위종합
 
@@ -90,6 +90,8 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 ## [Oauth (2023.07.11)](#list)
 
 - Oauth; Open Authorization
+- [eBest OPEN API](https://openapi.ebestsec.co.kr) > [API 가이드 > OAuth 인증 > 접근토큰 발급](https://openapi.ebestsec.co.kr/apiservice#G_ffd2def7-a118-40f7-a0ab-cd4c6a538a90#A_33bd887a-6652-4209-88cd-5324bc7c5e36)
+- [eBest OPEN API](https://openapi.ebestsec.co.kr) > [OPEN API > OPEN API 이용안내](https://openapi.ebestsec.co.kr/howto-use) > 03. 접근토큰 발급
 
   <details>
     <summary>Codes : Key.py (not uploaded)</summary>
