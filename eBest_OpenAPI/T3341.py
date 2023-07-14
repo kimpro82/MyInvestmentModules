@@ -31,7 +31,7 @@ body       = {
         "gubun1"    : "3",                                  # 3 : 세전계속이익증가율
         "gubun2"    : "1",                                  # 1 : 고정
         "idx"       : 0
-  }
+    }
 }
 
 res = requests.post(URL, headers=header, data=json.dumps(body), timeout=1)

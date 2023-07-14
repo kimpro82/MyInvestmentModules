@@ -29,10 +29,6 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
   import OAuth
   ```
   ```py
-
-  import OAuth
-
-
   URL_BASE    = "https://openapi.ebestsec.co.kr:8080"
   PATH        = "stock/investinfo"
   URL         = f"{URL_BASE}/{PATH}"
@@ -52,7 +48,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
           "gubun1"    : "3",                                  # 3 : 세전계속이익증가율
           "gubun2"    : "1",                                  # 1 : 고정
           "idx"       : 0
-    }
+      }
   }
 
   res = requests.post(URL, headers=header, data=json.dumps(body), timeout=1)
