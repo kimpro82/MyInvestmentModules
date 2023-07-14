@@ -26,7 +26,7 @@ header      = {
 }
 
 body       = {
-    "t3341InBlock": {
+    "t3341InBlock"  : {
         "gubun"     : "0",                                  # 0 : 전체
         "gubun1"    : "3",                                  # 3 : 세전계속이익증가율
         "gubun2"    : "1",                                  # 1 : 고정
