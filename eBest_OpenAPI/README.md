@@ -13,7 +13,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
 ## [재무순위종합(t3341) (2023.07.14)](#list)
 
-- [eBest OPEN API](https://openapi.ebestsec.co.kr) > [API 가이드 > 주식 > [주식] 투자정보](https://openapi.ebestsec.co.kr/apiservice#G_73142d9f-1983-48d2-8543-89b75535d34c#A_3dbce945-a73c-475c-9758-88d9922ab94e) > 재무순위종합
+- [eBest OPEN API](https://openapi.ebestsec.co.kr) > [API 가이드 > 주식 > [주식] 투자정보](https://openapi.ebestsec.co.kr/apiservice#G_73142d9f-1983-48d2-8543-89b75535d34c#A_580d2770-a7a9-49e3-9ec1-49ed8bc734a2) > 재무순위종합
 
 
   <details>
@@ -43,7 +43,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
   }
 
   body       = {
-      "t3341InBlock": {
+      "t3341InBlock"  : {
           "gubun"     : "0",                                  # 0 : 전체
           "gubun1"    : "3",                                  # 3 : 세전계속이익증가율
           "gubun2"    : "1",                                  # 1 : 고정
