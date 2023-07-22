@@ -1,5 +1,5 @@
 """
-eBest Open API / t1716
+eBest Open API / 외인기관종목별동향 (t1716)
 2023.07.21
 
 이 코드는 eBest Open API에서 t1716 TR을 호출하기 위한 예시 코드입니다.
