@@ -1,5 +1,5 @@
 """
-eBest Open API / RequestTR
+eBest Open API / request_tr
 2023.07.21
 
 이 코드는 eBest Open API에서 TR을 호출하여 데이터를 조회하고 CSV 파일로 저장하는 코드입니다.
