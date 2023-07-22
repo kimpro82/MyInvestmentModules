@@ -129,6 +129,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 ## [외인기관종목별동향(t1716, 2023.07.21)](#list)
 
 - [eBest OPEN API](https://openapi.ebestsec.co.kr) > [API 가이드 > 주식 > [주식] 외인/기관](https://openapi.ebestsec.co.kr/apiservice?group_id=73142d9f-1983-48d2-8543-89b75535d34c&api_id=90378c39-f93e-4f95-9670-f76e5c924cc6) > 외인기관종목별동향 (t1716)
+- Only save parameters, that will be called by `request_tr()` in [Request TR (2023.07.21)](#request-tr-20230721)
 
   <details>
     <summary>Codes : t1716.py</summary>
@@ -259,24 +260,25 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 - Advanced from [Oauth (2023.07.11)](#oauth-20230711)
 
   <details>
-    <summary>Mainly changed codes : Key.py (not uploaded)</summary>
+    <summary>key.py (not uploaded)</summary>
 
-    - Add comments
-    ```python
-    """
-    eBest Open API / key
-    2023.07.11
+  - Add comments
+  ```python
+  """
+  eBest Open API / key
+  2023.07.11
 
-    이 파일은 eBest Open API를 사용하기 위해 필요한 애플리케이션 키와 비밀 키를 저장하는 파일입니다.
-    애플리케이션 키는 API 호출에 필요한 인증을 위해 사용되며, 반드시 비밀로 유지되어야 합니다.
-    따라서 이 파일은 외부에 노출되지 않도록 주의해야 합니다.
-    """
+  이 파일은 eBest Open API를 사용하기 위해 필요한 애플리케이션 키와 비밀 키를 저장하는 파일입니다.
+  애플리케이션 키는 API 호출에 필요한 인증을 위해 사용되며, 반드시 비밀로 유지되어야 합니다.
+  따라서 이 파일은 외부에 노출되지 않도록 주의해야 합니다.
+  """
 
-    ……
-    ```
+  MOCK_KEY    = "{your app key}"
+  MOCK_SECRET = "{your secret key}"
+  ```
   </details>
   <details>
-    <summary>Mainly changed codes : Oauth.py</summary>
+    <summary>Codes : oauth2.py</summary>
 
   ```py
   """
@@ -296,7 +298,8 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
   """
   ```
   ```py
-  ……
+  import pprint
+  import requests
 
   import key
   ```
@@ -459,10 +462,10 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
   <details>
     <summary>Codes : Key.py (not uploaded)</summary>
 
-    ```python
-    MOCK_KEY    = "{your app key}"
-    MOCK_SECRET = "{your secret key}"
-    ```
+  ```python
+  MOCK_KEY    = "{your app key}"
+  MOCK_SECRET = "{your secret key}"
+  ```
   </details>
   <details>
     <summary>Codes : Oauth.py</summary>
