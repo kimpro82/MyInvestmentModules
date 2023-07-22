@@ -135,7 +135,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
   ```py
   """
-  eBest Open API / t1716
+  eBest Open API / 외인기관종목별동향 (t1716)
   2023.07.21
 
   이 코드는 eBest Open API에서 t1716 TR을 호출하기 위한 예시 코드입니다.
@@ -264,7 +264,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
     - Add comments
     ```python
     """
-    eBest Open API / Key
+    eBest Open API / key
     2023.07.11
 
     이 파일은 eBest Open API를 사용하기 위해 필요한 애플리케이션 키와 비밀 키를 저장하는 파일입니다.
@@ -280,7 +280,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
   ```py
   """
-  eBest Open API / OAuth2
+  eBest Open API / 접근토큰 발급 (token)
   2023.07.21
 
   이 코드는 eBest Open API 서버에 OAuth 토큰을 요청하는 함수를 포함한 코드입니다.
@@ -288,10 +288,10 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
   사용 전 준비사항:
   1. eBest Open API 개발자 센터에서 앱 키와 시크릿 키를 발급받아야 합니다.
-  2. Key.py 파일에 발급받은 앱 키와 시크릿 키를 저장해야 합니다. (예: MOCK_KEY, MOCK_SECRET)
+  2. key.py 파일에 발급받은 앱 키와 시크릿 키를 저장해야 합니다. (예: MOCK_KEY, MOCK_SECRET)
 
   개선사항:
-  1. OAuth.py (2023.07.11)의 코드를 OAuth()라는 함수로 재작성하였습니다.
+  1. OAuth.py (2023.07.11)의 코드를 oauth()라는 함수로 재작성하였습니다.
   2. test 변수의 값(True/False)에 따라 return값이 달라집니다.
   """
   ```
