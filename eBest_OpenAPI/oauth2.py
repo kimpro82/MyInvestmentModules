@@ -7,10 +7,10 @@ OAuth 토큰은 API를 호출할 때 인증 정보로 사용되며, API 호출�
 
 사용 전 준비사항:
 1. eBest Open API 개발자 센터에서 앱 키와 시크릿 키를 발급받아야 합니다.
-2. Key.py 파일에 발급받은 앱 키와 시크릿 키를 저장해야 합니다. (예: MOCK_KEY, MOCK_SECRET)
+2. key.py 파일에 발급받은 앱 키와 시크릿 키를 저장해야 합니다. (예: MOCK_KEY, MOCK_SECRET)
 
 개선사항:
-1. OAuth.py (2023.07.11)의 코드를 OAuth()라는 함수로 재작성하였습니다.
+1. OAuth.py (2023.07.11)의 코드를 oauth()라는 함수로 재작성하였습니다.
 2. test 변수의 값(True/False)에 따라 return값이 달라집니다.
 """
 
