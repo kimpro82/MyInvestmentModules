@@ -1,5 +1,5 @@
 """
-eBest Open API / OAuth2
+eBest Open API / 접근토큰 발급 (token)
 2023.07.21
 
 이 코드는 eBest Open API 서버에 OAuth 토큰을 요청하는 함수를 포함한 코드입니다.
