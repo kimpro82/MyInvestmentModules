@@ -17,7 +17,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 ## [Request TR (2023.07.21)](#list)
 
 - Common functions
-  - `request_tr()` : request *t**** tr*
+  - `request_tr()` : request *\<t\*\*\*\*> tr*
   - `save_csv()`   : save data from pandas dataframe to a `.csv` file
 
   <details>
@@ -74,9 +74,9 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
       조회된 데이터를 CSV 파일로 저장하는 함수입니다.
 
       Parameters:
-          df (pandas.DataFrame)   : 조회된 데이터가 담긴 DataFrame 객체입니다.
-          tr_name (str)           : 저장할 파일의 이름을 지정하는 매개변수입니다.
-          shcode (str, optional)  : 종목코드를 지정하는 매개변수입니다. 기본값은 ""(빈 문자열)입니다.
+          data_frame (pandas.DataFrame) : 조회된 데이터가 담긴 DataFrame 객체입니다.
+          tr_name (str)                 : 저장할 파일의 이름을 지정하는 매개변수입니다.
+          shcode (str, optional)        : 종목코드를 지정하는 매개변수입니다. 기본값은 ""(빈 문자열)입니다.
 
       Returns:
           None
@@ -157,7 +157,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
           period (int, optional)  : 조회 기간을 지정하는 매개변수입니다. 기본값은 365일(1년)입니다.
 
       Returns:
-          tuple                   : URL, 헤더, 바디 정보, 함수 이름, 반환 데이터 태그, 종목코드를 포함하는 튜플을 반환합니다.
+          tuple                   : url, 헤더, 바디 정보, 함수 이름, 반환 데이터 태그, 종목코드를 포함하는 튜플을 반환합니다.
       """
 
       _url_base   = "https://openapi.ebestsec.co.kr:8080"
