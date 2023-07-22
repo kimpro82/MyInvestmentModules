@@ -21,7 +21,7 @@ def t1716(shcode = "005930", todt = "", period = 365) :
         period (int, optional)  : 조회 기간을 지정하는 매개변수입니다. 기본값은 365일(1년)입니다.
 
     Returns:
-        tuple                   : URL, 헤더, 바디 정보, 함수 이름, 반환 데이터 태그, 종목코드를 포함하는 튜플을 반환합니다.
+        tuple                   : url, 헤더, 바디 정보, 함수 이름, 반환 데이터 태그, 종목코드를 포함하는 튜플을 반환합니다.
     """
 
     _url_base   = "https://openapi.ebestsec.co.kr:8080"
