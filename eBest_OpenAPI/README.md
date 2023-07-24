@@ -258,7 +258,8 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
 ## [Oauth 2 (2023.07.21)](#list)
 
-- Advanced from [Oauth (2023.07.11)](#oauth-20230711)
+- Advanced from [Oauth (2023.07.11)](#oauth-20230711)  
+  : A function structure has been introduced into the same actual execution content.
 
   <details>
     <summary>Codes : key.py (not uploaded)</summary>
