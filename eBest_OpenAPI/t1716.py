@@ -41,10 +41,11 @@ def t1716(shcode = "005930", todt = "", period = 365) :
     _seoul_timezone = pytz.timezone('Asia/Seoul')
     _seoul_dt       = datetime.now(_seoul_timezone)
     _todt           = _seoul_dt.strftime('%Y%m%d') if todt == "" else todt
-    _fromdt         = (_seoul_dt - timedelta(period)).strftime("%Y%m%d")
+    _todt_datetime = datetime.strptime(_todt, '%Y%m%d').astimezone(_seoul_timezone)
+    _fromdt = (_todt_datetime - timedelta(period)).strftime("%Y%m%d")
 
-    _body       = {
-        "t1716InBlock": {
+    _body           = {
+        "t1716InBlock" : {
             "shcode"    : shcode,                           # 종목코드
             "gubun"     : "1",                              # 0:일간순매수 1:기간내누적순매수
             "fromdt"    : _fromdt,                          # 시작일자 : YYYYMMDD (default : 종료일자로부터 1년 전)
