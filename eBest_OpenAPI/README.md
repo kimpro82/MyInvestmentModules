@@ -7,11 +7,237 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 - eBest OPEN API Portal https://openapi.ebestsec.co.kr/ 
 
 ### \<List>
+- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](#request-외인기관종목별동향t1716-tr-20230725)
+- [Request TR 2 (2023.07.25)](#request-tr-220230725)
+- [외인기관종목별동향 2 (t1716, 2023.07.25)](#외인기관종목별동향-2t1716-20230725)
 - [Request TR (2023.07.21)](#request-tr-20230721)
-- [외인기관종목별동향(t1716, 2023.07.21)](#외인기관종목별동향t1716-20230721)
+- [외인기관종목별동향 (t1716, 2023.07.21)](#외)
 - [Oauth 2 (2023.07.21)](#oauth-2-20230721)
 - [재무순위종합(t3341, 2023.07.14)](#재무순위종합t3341-20230714)
 - [Oauth (2023.07.11)](#oauth-20230711)
+
+
+## [Request 외인기관종목별동향(t1716) TR (2023.07.25)](#list)
+
+- Call the **t1716 TR** from *eBest Open API* by `t1716()` from `t1716_2.py` and `request_tr()` and `save_csv()` from `request_tr_2.py`
+- Merge the obtained data into a single DataFrame and saves it as a CSV file.
+
+  <details>
+    <summary>Codes : request_t1716.py</summary>
+
+  ```py
+  """
+  eBest Open API / 외인기관종목별동향 (t1716) 실행
+  2023.07.25
+
+  이 코드는 eBest Open API에서 t1716 TR을 호출하여 주어진 종목 코드와 조회 기간에 따른 외인과 기관의 순매매 정보를 조회하고,
+  이를 하나의 DataFrame으로 병합한 뒤 하나의 CSV 파일로 저장하는 작업을 수행합니다.
+
+  Parameters  :
+      TR_NAME (str)       : TR을 호출하는 함수의 이름으로 사용될 문자열입니다.
+      shcodes (list)      : 조회할 종목 코드들이 담긴 리스트입니다.
+      todts (list)        : 조회를 종료할 날짜들이 담긴 리스트입니다.
+      YEARS (int)         : 조회 기간의 연도 수를 나타내는 정수입니다.
+      PERIOD (int)        : 조회 기간을 나타내는 정수로, 최대 366일까지 조회가 가능합니다.
+      unique_keys (list)  : 중복된 열을 제거하기 위해 사용될 DataFrame의 열 이름들이 담긴 리스트입니다.
+
+  Returns     :
+      None
+
+  History     :
+      1   2023.07.21  최초 작성
+      2   2023.07.25  request_tr()의 리턴값을 병합하여 하나의 CSV 파일로 출력
+  """
+  ```
+  ```py
+  import time
+  import t1716_2 as t1716
+  import request_tr_2 as request_tr
+  import pandas as pd
+  ```
+  ```py
+  if __name__ == "__main__":
+
+      TR_NAME = "t1716"
+      shcodes = ["122630", "252670", "233740", "251340"]
+      todts   = []
+      YEARS   = 10
+      for i in range(0, YEARS):
+          todts.append(str(2022 - i) + "1231")
+      PERIOD  = 366
+          # It seems to have a maximum value of 366 (why not 365? considering leap years)
+      unique_keys = ["date"]                                                      # to remove duplicated columns
+
+      # print(todts)                                                              # Ok
+
+      for shcode in shcodes:
+          merged_df = pd.DataFrame()
+          for todt in todts:
+              results = request_tr.request_tr(t1716.t1716(shcode=shcode, todt=todt, period=PERIOD))
+              merged_df = pd.concat([merged_df, results[0]])
+              print(f"{TR_NAME} / {shcode} 종목 / {todt} 데이터를 수신하였습니다.")
+              time.sleep(1)
+          merged_df.drop_duplicates(subset=unique_keys, keep='first', inplace=True)
+          request_tr.save_csv(data_frame=merged_df, tr_name=TR_NAME, shcode=shcode)
+  ```
+
+  </details>
+  <details open="">
+    <summary>Output</summary>
+
+  ```txt
+  t1716 / 122630 종목 / 20221231 데이터를 수신하였습니다.
+  t1716 / 122630 종목 / 20211231 데이터를 수신하였습니다.
+  ……
+  t1716 / 122630 종목 / 20131231 데이터를 수신하였습니다.
+  파일 저장을 완료하였습니다. : Data/T1716_122630_20230726_080833.csv
+  t1716 / 252670 종목 / 20221231 데이터를 수신하였습니다.
+  t1716 / 252670 종목 / 20211231 데이터를 수신하였습니다.
+  ……
+  t1716 / 252670 종목 / 20131231 데이터를 수신하였습니다.
+  파일 저장을 완료하였습니다. : Data/T1716_252670_20230726_080845.csv
+  ……
+  파일 저장을 완료하였습니다. : Data/T1716_251340_20230726_080908.csv
+  ```
+  </details>
+
+
+## [Request TR 2 (2023.07.25)](#list)
+
+- Advanced from [Request TR (2023.07.21)](#request-tr-20230721)
+  - `request_tr()`: Change the parameters' type : *tuple* → *dictionary*
+  - `save_csv()`  : Exclude *pandas.DataFrame*'s index values when saving
+
+  <details>
+    <summary>Mainly changed codes : request_tr_2.py</summary>
+
+  ```python
+  def request_tr(results):
+      """
+      ……
+
+      Parameters :
+          results (dict)      : t****() 함수의 리턴값인 딕셔너리입니다.
+
+      ……
+      """
+
+      _url            = results["url"]
+      _header         = results["header"]
+      _body           = results["body"]
+      _tr_name        = results["tr_name"]
+      _out_block_tag  = results["out_block_tag"]
+      _shcode         = results["shcode"]
+
+      ……
+  ```
+  ```py
+  def save_csv(data_frame, tr_name, shcode=""):
+      ……
+
+      ……
+      data_frame.to_csv(_path, index=False)
+      ……
+  ```
+  ```py
+  if __name__ == "__main__":
+
+      import pprint
+      import t1716_2 as t1716
+
+      tr_output = request_tr(t1716.t1716(shcode="005930", period=365))             # 삼성전자, 1년치 일일 데이터
+      pprint.pprint(tr_output)
+      save_csv(*tr_output)
+  ```
+  </details>
+  <details open="">
+    <summary>Output</summary>
+
+  ```txt
+  (         date  close sign  change   diff    volume  krx_0008  krx_0018  krx_0009   pgmvol  fsc_listing fsc_sjrate  fsc_0009  gm_volume  gm_value
+  0    20230726  70000    3       0   0.00         0         0         0         0        0   3165243552      53.02         0          0         0
+  1    20230725  70000    5    -400  -0.57  13500986     49193    -23280   1844693  -940037   3165243552      53.02   1895393     249469     17471
+  2    20230724  70400    2     100   0.14  13360061  -2249447  -2985631    576591  2421837   3164288196      53.01    582022     187872     13236
+  3    20230721  70300    5    -700  -0.99  16528926   3655097   1135251  -3232093  -823435   3161284337      52.95  -2740185     690377     48199
+  4    20230720  71000    5    -700  -0.98   9732730    980710  -1071133   -296382   190441   3164847957      53.01   1200568     212026     15104
+  ..        ...    ...  ...     ...    ...       ...       ...       ...       ...      ...          ...        ...       ...        ...       ...
+  244  20220801  61300    5    -100  -0.16  13154816    530487  -1367169    240197   313794   2974186694      49.82    -66871     186169     11311
+  245  20220729  61400    5    -500  -0.81  15093120   1235234   1473091    616021 -1623959   2973939771      49.82     77992     690338     42576
+  246  20220728  61900    2     100   0.16  10745302   -208569  -1255580     81602   695515   2975485738      49.84   1398272     155172      9639
+  247  20220727  61800    2     100   0.16   7320997     47874     15345    620603  -330594   2973391951      49.81    930383      87069      5349
+  248  20220726  61700    2     600   0.98   6597211   -549225   -534799    811790   137251   2972792162      49.80    555180      47626      2933
+
+  [249 rows x 15 columns],
+  't1716',
+  '005930')
+  ```
+  ```txt
+  파일 저장을 완료하였습니다. : Data/T1716_005930_20230726_080802.csv
+  ```
+  </details>
+
+
+## [외인기관종목별동향 2 (t1716, 2023.07.25)](#list)
+
+- Advanced from [외인기관종목별동향(t1716, 2023.07.21)](#외인기관종목별동향t1716-20230721)  
+  : Change `t1716()`'s return type : *tuple* → *dictionary*
+
+  <details>
+    <summary>Mainly changed codes : t1716_2.py</summary>
+
+  ```python
+  def t1716(shcode = "005930", todt = "", period = 366):
+      """
+      ……
+
+      Returns     :
+          dict                    : 함수 호출 시 반환되는 값들을 딕셔너리로 묶어 반환합니다.
+      """
+
+      ……
+
+      return {
+          'url'           : _url,
+          'header'        : _header,
+          'body'          : _body,
+          'tr_name'       : t1716.__name__,
+          'out_block_tag' : _out_block_tag,
+          'shcode'        : shcode
+      }
+  ```
+  ```py
+  if __name__ == "__main__":
+
+      ……
+
+      results = t1716()                                       # 함수 호출 결과를 딕셔너리로 받음
+      pprint.pprint(results)
+  ```
+  </details>
+  <details open="">
+    <summary>Output</summary>
+
+  ```txt
+  {'body': {'t1716InBlock': {'frggubun': '1',
+                            'fromdt': '20220725',
+                            'gubun': '0',
+                            'orggubun': '1',
+                            'prapp': 100,
+                            'prgubun': '1',
+                            'shcode': '005930',
+                            'todt': '20230726'}},
+  'header': {'authorization': None,
+              'content-type': 'application/json; charset=UTF-8',
+              'mac_address': '',
+              'tr_cd': 't1716',
+              'tr_cont': 'N',
+              'tr_cont_key': ''},
+  'out_block_tag': 'OutBlock',
+  'shcode': '005930',
+  'tr_name': 't1716',
+  'url': 'https://openapi.ebestsec.co.kr:8080/stock/frgr-itt'}
+  ```
+  </details>
 
 
 ## [Request TR (2023.07.21)](#list)
@@ -126,7 +352,7 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
   </details>
 
 
-## [외인기관종목별동향(t1716, 2023.07.21)](#list)
+## [외인기관종목별동향 (t1716, 2023.07.21)](#list)
 
 - [eBest OPEN API](https://openapi.ebestsec.co.kr) > [API 가이드 > 주식 > [주식] 외인/기관](https://openapi.ebestsec.co.kr/apiservice?group_id=73142d9f-1983-48d2-8543-89b75535d34c&api_id=90378c39-f93e-4f95-9670-f76e5c924cc6) > 외인기관종목별동향 (t1716)
 - Only save parameters, that will be called by `request_tr()` in [Request TR (2023.07.21)](#request-tr-20230721)
