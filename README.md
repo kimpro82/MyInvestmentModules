@@ -17,6 +17,9 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 
 ## [*eBest OPEN API*](./eBest_OpenAPI/)
 
+- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](./eBest_OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
+- [Request TR 2 (2023.07.25)](./eBest_OpenAPI/README.md#request-tr-220230725)
+- [외인기관종목별동향 2 (t1716, 2023.07.25)](./eBest_OpenAPI/README.md#외인기관종목별동향-2t1716-20230725)
 - [Request TR (2023.07.21)](./eBest_OpenAPI/README.md#request-tr-20230721)
 - [외인기관종목별동향(t1716, 2023.07.21)](./eBest_OpenAPI/README.md#외인기관종목별동향t1716-20230721)
 - [Oauth 2 (2023.07.21)](./eBest_OpenAPI/README.md#oauth-2-20230721)
