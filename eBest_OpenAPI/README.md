@@ -43,10 +43,6 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
 
   Returns     :
       None
-
-  History     :
-      1   2023.07.21  최초 작성
-      2   2023.07.25  request_tr()의 리턴값을 병합하여 하나의 CSV 파일로 출력
   """
   ```
   ```py
