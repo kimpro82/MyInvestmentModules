@@ -66,19 +66,22 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
           todts.append(str(2022 - i) + "1231")
       PERIOD  = 366
           # It seems to have a maximum value of 366 (why not 365? considering leap years)
-      unique_keys = ["date"]                                                      # to remove duplicated columns
+      unique_keys = ["shcode", "date"]                                            # to remove duplicated columns
 
       # print(todts)                                                              # Ok
 
+      merged_df = pd.DataFrame()
       for shcode in shcodes:
-          merged_df = pd.DataFrame()
+          merged_df_2 = pd.DataFrame()
           for todt in todts:
               results = request_tr.request_tr(t1716.t1716(shcode=shcode, todt=todt, period=PERIOD))
-              merged_df = pd.concat([merged_df, results[0]])
+              merged_df_2 = pd.concat([merged_df_2, results[0]])
               print(f"{TR_NAME} / {shcode} 종목 / {todt} 데이터를 수신하였습니다.")
               time.sleep(1)
-          merged_df.drop_duplicates(subset=unique_keys, keep='first', inplace=True)
-          request_tr.save_csv(data_frame=merged_df, tr_name=TR_NAME, shcode=shcode)
+          merged_df_2["shcode"] = shcode
+          merged_df = pd.concat([merged_df, merged_df_2])
+      merged_df.drop_duplicates(subset=unique_keys, keep='first', inplace=True)
+      request_tr.save_csv(data_frame=merged_df, tr_name=TR_NAME)
   ```
 
   </details>
@@ -89,15 +92,8 @@ Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
   t1716 / 122630 종목 / 20221231 데이터를 수신하였습니다.
   t1716 / 122630 종목 / 20211231 데이터를 수신하였습니다.
   ……
-  t1716 / 122630 종목 / 20131231 데이터를 수신하였습니다.
-  파일 저장을 완료하였습니다. : Data/T1716_122630_20230726_080833.csv
-  t1716 / 252670 종목 / 20221231 데이터를 수신하였습니다.
-  t1716 / 252670 종목 / 20211231 데이터를 수신하였습니다.
-  ……
-  t1716 / 252670 종목 / 20131231 데이터를 수신하였습니다.
-  파일 저장을 완료하였습니다. : Data/T1716_252670_20230726_080845.csv
-  ……
-  파일 저장을 완료하였습니다. : Data/T1716_251340_20230726_080908.csv
+  t1716 / 251340 종목 / 20131231 데이터를 수신하였습니다.
+  파일 저장을 완료하였습니다. : Data/T1716_20230726_092217.csv
   ```
   </details>
 
