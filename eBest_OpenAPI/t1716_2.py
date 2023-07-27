@@ -1,9 +1,13 @@
 """
 eBest Open API / 외인기관종목별동향 (t1716)
-2023.07.21
+2023.07.25
 
 이 코드는 eBest Open API에서 t1716 TR을 호출하기 위한 코드입니다.
 t1716 TR은 주식 시장의 기관 및 외인 순매매 정보를 조회하는 TR입니다.
+
+History :
+    1 2023.07.21 최초 작성
+    2 2023.07.25 t1716()의 리턴값을 딕셔너리 타입으로 변경
 """
 
 
@@ -11,17 +15,17 @@ from datetime import datetime, timedelta
 import pytz
 
 
-def t1716(shcode = "005930", todt = "", period = 365) :
+def t1716(shcode = "005930", todt = "", period = 366):
     """
     eBest Open API에서 t1716 TR을 호출하기 위한 URL, 헤더 및 바디 정보를 반환하는 함수입니다.
 
-    Parameters:
+    Parameters  :
         shcode (str, optional)  : 종목코드를 지정하는 매개변수입니다. 기본값은 "005930"(삼성전자)로 설정됩니다.
         todt (str, optional)    : 조회를 종료할 날짜를 지정하는 매개변수입니다. 기본값은 오늘 날짜로 설정됩니다.
         period (int, optional)  : 조회 기간을 지정하는 매개변수입니다. 기본값은 365일(1년)입니다.
 
-    Returns:
-        tuple                   : url, 헤더, 바디 정보, 함수 이름, 반환 데이터 태그, 종목코드를 포함하는 튜플을 반환합니다.
+    Returns     :
+        dict                    : 함수 호출 시 반환되는 값들을 딕셔너리로 묶어 반환합니다.
     """
 
     _url_base   = "https://openapi.ebestsec.co.kr:8080"
@@ -41,42 +45,37 @@ def t1716(shcode = "005930", todt = "", period = 365) :
     _seoul_timezone = pytz.timezone('Asia/Seoul')
     _seoul_dt       = datetime.now(_seoul_timezone)
     _todt           = _seoul_dt.strftime('%Y%m%d') if todt == "" else todt
-    _todt_datetime = datetime.strptime(_todt, '%Y%m%d').astimezone(_seoul_timezone)
-    _fromdt = (_todt_datetime - timedelta(period)).strftime("%Y%m%d")
+    _todt_datetime  = datetime.strptime(_todt, '%Y%m%d').astimezone(_seoul_timezone)
+    _fromdt         = (_todt_datetime - timedelta(period)).strftime("%Y%m%d")
 
     _body           = {
-        "t1716InBlock" : {
+        "t1716InBlock": {
             "shcode"    : shcode,                           # 종목코드
-            "gubun"     : "1",                              # 0:일간순매수 1:기간내누적순매수
+            "gubun"     : "0",                              # 0:일간순매수 1:기간내누적순매수
             "fromdt"    : _fromdt,                          # 시작일자 : YYYYMMDD (default : 종료일자로부터 1년 전)
             "todt"      : _todt,                            # 종료일자 : YYYYMMDD
-            "prapp"     : 0,                                # 프로그램매매 감산 적용율 - %단위
-            "prgubun"   : "0",                              # PR적용구분(0:적용안함1:적용)
+            "prapp"     : 100,                              # 프로그램매매 감산 적용율 - %단위
+            "prgubun"   : "1",                              # PR적용구분(0:적용안함1:적용)
             "orggubun"  : "1",                              # 기관적용(0:미적용 1:적용)
             "frggubun"  : "1"                               # 외인적용(0:미적용 1:적용)
         }
     }
 
-    _out_block_tag = "OutBlock"
+    _out_block_tag  = "OutBlock"
 
-    return _url, _header, _body, t1716.__name__, _out_block_tag, shcode
+    return {
+        'url'           : _url,
+        'header'        : _header,
+        'body'          : _body,
+        'tr_name'       : t1716.__name__,
+        'out_block_tag' : _out_block_tag,
+        'shcode'        : shcode
+    }
 
 
 if __name__ == "__main__":
 
     import pprint
 
-    url, header, body, tr_name, out_block_tag, shcode_ = t1716()
-
-    print("URL              :")
-    pprint.pprint(url)
-    print("\nheader           :")
-    pprint.pprint(header)
-    print("\nbody             :")
-    pprint.pprint(body)
-    print("\ntr name          :")
-    pprint.pprint(tr_name)
-    print("\nOutBlockTag      :")
-    pprint.pprint(out_block_tag)
-    print("\nshcode           :")
-    pprint.pprint(shcode_)
+    results = t1716()                                       # 함수 호출 결과를 딕셔너리로 받음
+    pprint.pprint(results)
