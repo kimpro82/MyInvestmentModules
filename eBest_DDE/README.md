@@ -10,7 +10,9 @@
 ## [Real-time Current Price Data with DDE (2023.12.21)](#list)
 
 - Practice DDE and VBA integration to maximize productivity
+
   ![Output](./Images/DDE_CurrentPrice.gif)
+
 - Receive real-time information about the current price and remaining orders for the selected stock
   - The range of selectable stocks can be expanded by adding stock code data
 - Improvements
