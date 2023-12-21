@@ -16,7 +16,7 @@
 - Receive real-time information about the current price and remaining orders for the selected stock
   - The range of selectable stocks can be expanded by adding stock code data
 - Improvements
-  - Resolve the issue of temporarily displaying `#N/A`` when the stock is changed
+  - Resolve the issue of temporarily displaying `#N/A` when the stock is changed
   - Change the time display format : `hhmmss` -> `hh:mm:ss`
   - Insert a comma for thousands in the change rate
 - Code
