@@ -10,6 +10,7 @@
 ## [Real-time Current Price Data with DDE (2023.12.21)](#list)
 
 - Practice DDE and VBA integration to maximize productivity
+  - Replace to request data from [*XingAPI*](/XingAPI/README.md)
 
   ![Output](./Images/DDE_CurrentPrice.gif)
 
