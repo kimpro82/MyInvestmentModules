@@ -22,7 +22,7 @@
   - Insert commas to separate thousands in the *difference*(`전일대비`) item
 - Code
   <details>
-    <summary>Code : DDE_CurrentPrice.bas</summary>
+    <summary>DDE_CurrentPrice.bas</summary>
 
   ```vba
   Option Explicit
