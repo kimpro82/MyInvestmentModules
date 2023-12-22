@@ -3,19 +3,24 @@
 Someday these will be an integrated trading system, but not now. So I am sad.
 
 
-## [*eBest OPEN API*](./eBest_OpenAPI/)
+## [*eBest DDE*](/eBest_DDE/)
 
-- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](./eBest_OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
-- [Request TR 2 (2023.07.25)](./eBest_OpenAPI/README.md#request-tr-2-20230725)
-- [외인기관종목별동향 2 (t1716, 2023.07.25)](./eBest_OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
-- [Request TR (2023.07.21)](./eBest_OpenAPI/README.md#request-tr-20230721)
-- [외인기관종목별동향 (t1716, 2023.07.21)](./eBest_OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
-- [Oauth 2 (2023.07.21)](./eBest_OpenAPI/README.md#oauth-2-20230721)
-- [재무순위종합(t3341, 2023.07.14)](./eBest_OpenAPI/README.md#재무순위종합t3341-20230714)
-- [Oauth (2023.07.11)](./eBest_OpenAPI/README.md#oauth-20230711)
+- [Real-time Current Price Data with DDE (2023.12.21)](/eBest_DDE/README.md#real-time-current-price-data-with-dde-20231221)
 
 
-## [*eBest xingAPI*](./XingAPI)
+## [*eBest OPEN API*](/eBest_OpenAPI/)
+
+- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](/eBest_OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
+- [Request TR 2 (2023.07.25)](/eBest_OpenAPI/README.md#request-tr-2-20230725)
+- [외인기관종목별동향 2 (t1716, 2023.07.25)](/eBest_OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
+- [Request TR (2023.07.21)](/eBest_OpenAPI/README.md#request-tr-20230721)
+- [외인기관종목별동향 (t1716, 2023.07.21)](/eBest_OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
+- [Oauth 2 (2023.07.21)](/eBest_OpenAPI/README.md#oauth-2-20230721)
+- [재무순위종합(t3341, 2023.07.14)](/eBest_OpenAPI/README.md#재무순위종합t3341-20230714)
+- [Oauth (2023.07.11)](/eBest_OpenAPI/README.md#oauth-20230711)
+
+
+## [*eBest xingAPI*](/XingAPI)
 
 **\<VBA>**
 
@@ -32,36 +37,36 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 | v0.1 | Login 1.0 | 2021.11.08 | | [Link](/XingAPI/README.md#v01--login-10-20211108) |
 
 
-## [*KIS Developers*](./KIS_Developers)
+## [*KIS Developers*](/KIS_Developers)
 
 - [`mojito` - The First Attempt (2022.04.27)](/KIS_Developers/README.md#mojito---the-first-attempt-20220427)
 - [Inquire Price (2022.04.26)](/KIS_Developers/README.md#inquire-price-20220426)
 - [Oauth (2022.04.19)](/KIS_Developers/README.md#oauth-20220419)
 
 
-## [*Upbit Open API*](./Upbit)
+## [*Upbit Open API*](/Upbit)
 
-- [Init. (2022.04.27)](./Upbit/README.md#init-20220427)
+- [Init. (2023.04.27)](/Upbit/README.md#init-20230427)
 
 
-## [*Python* Modules](./Python)
+## [*Python* Modules](/Python)
 
 - [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from ***KOSPI*** (2021.12.22)](/Python/README.md#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python/README.md#numpy-financial--tvm-20211108)
 
 
-## [*R* Modules](./R)
+## [*R* Modules](/R)
 
-- [Download Stock Price Data with `tidyquant` (2023.06.18)](./R/README.md#download-stock-price-data-with-tidyquant-20230618)
-- [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](./R/README.md#arithmetic-mean-vs-geometrical-mean-2-20230124)
-- [Arithmetic Mean vs Geometrical Mean (2022.12.29)](./R/README.md#arithmetic-mean-vs-geometrical-mean-20221229)
-- [Monte Carlo Simulation (2018.03.28)](./R/README.md#monte-carlo-simulation-20180328)
-- [Boxplot (2018.01.11)](./R/README.md#boxplot-20180111)
+- [Download Stock Price Data with `tidyquant` (2023.06.18)](/R/README.md#download-stock-price-data-with-tidyquant-20230618)
+- [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](/R/README.md#arithmetic-mean-vs-geometrical-mean-2-20230124)
+- [Arithmetic Mean vs Geometrical Mean (2022.12.29)](/R/README.md#arithmetic-mean-vs-geometrical-mean-20221229)
+- [Monte Carlo Simulation (2018.03.28)](/R/README.md#monte-carlo-simulation-20180328)
+- [Boxplot (2018.01.11)](/R/README.md#boxplot-20180111)
 
 
-## [*ChatGPT*'s Answers](./ChatGPT/)
+## [*ChatGPT*'s Answers](/ChatGPT/)
 
 Written by *ChatGPT* (not 100% accuracy guaranteed)
 
-- [10 Effective Short-Term Timeframe Investment Strategies (2023.06.12)](./ChatGPT/ShortTermTimeframe/README.md)
-- [Gurus' Strategies (2023.02.27)](./ChatGPT/GurusStrategies/README.md)
+- [10 Effective Short-Term Timeframe Investment Strategies (2023.06.12)](/ChatGPT/ShortTermTimeframe/README.md)
+- [Gurus' Strategies (2023.02.27)](/ChatGPT/GurusStrategies/README.md)
