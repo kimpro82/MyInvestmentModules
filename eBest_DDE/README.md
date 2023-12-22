@@ -19,7 +19,7 @@
 - Improvements
   - Resolve the issue of temporarily displaying `#N/A` when the stock is changed
   - Change the time display format : `hhmmss` -> `hh:mm:ss`
-  - Insert a comma for thousands in the change rate
+  - Insert commas to separate thousands in the *difference*(`전일대비`) item
 - Code
   <details>
     <summary>Code : DDE_CurrentPrice.bas</summary>
