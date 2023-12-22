@@ -6,10 +6,10 @@
 - [Wikidocs] 암호화폐 자동매매를 위한 파이썬과 CCXT ☞ https://wikidocs.net/book/8616
 
 ### \<List>
-- [Init. (2022.04.27)](#init-20220427)
+- [Init. (2023.04.27)](#init-20230427)
 
 
-## [Init. (2022.04.27)](#list)
+## [Init. (2023.04.27)](#list)
 
 - Practices to get balance, ticker, candle data(minute) and orderbook by *Upbit Open API*
 - Use the original API code, not `pyupbit`
