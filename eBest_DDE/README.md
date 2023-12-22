@@ -18,7 +18,7 @@
   - The range of selectable stocks can be expanded by adding stock code data
 - Improvements
   - Resolve the issue of temporarily displaying `#N/A` when the stock is changed
-  - Change the time display format : `hhmmss` -> `hh:mm:ss`
+  - Change the time(`시간`) display format : `hhmmss` -> `hh:mm:ss`
   - Insert commas to separate thousands in the *difference*(`전일대비`) item
 - Code
   <details>
