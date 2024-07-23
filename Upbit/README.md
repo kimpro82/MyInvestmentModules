@@ -335,7 +335,7 @@
 - Use the original API code, not `pyupbit`
 
   <details>
-      <summary>Codes : key_sample.py</summary>
+      <summary>Code : key_sample.py</summary>
 
   ```python
   import os
@@ -352,7 +352,7 @@
   </details>
 
   <details>
-      <summary>Codes : test_balance.py</summary>
+      <summary>Code : test_balance.py</summary>
 
   ```python
   import os
@@ -400,7 +400,7 @@
   ```
   </details>
   <details>
-    <summary>Codes : test_ticker.py</summary>
+    <summary>Code : test_ticker.py</summary>
 
   ```python
   import pprint
@@ -433,7 +433,7 @@
   ```
   </details>
   <details>
-      <summary>Codes : test_orderbook.py</summary>
+      <summary>Code : test_orderbook.py</summary>
 
   ```python
   import pprint
@@ -469,7 +469,7 @@
   ```
   </details>
   <details>
-      <summary>Codes : test_candle_minute.py</summary>
+      <summary>Code : test_candle_minute.py</summary>
 
   ```python
   import pprint
