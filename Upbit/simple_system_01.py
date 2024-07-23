@@ -9,15 +9,14 @@ Upbit Auto Trader Version 0.1 / Author : kimpro82
 """
 
 import asyncio
+import json
+import sys
+import uuid
+from datetime import datetime
 import aiohttp
 import websockets
-import json
-import time
-import sys
-from datetime import datetime
 from key import UPBIT_ACCESS_KEY, UPBIT_SECRET_KEY
 import jwt  # PyJWT
-import uuid
 
 BASE_URL = "https://api.upbit.com/v1"
 
@@ -173,7 +172,7 @@ async def trade_logic(session):
     top_ticker = await fetch_top_traded_ticker(session)
     total_balance_krw = sum(float(balance['balance']) * float(balance['avg_buy_price']) if balance['currency'] != 'KRW' else float(balance['balance']) for balance in balances)
     top_ticker_balance = next((balance for balance in balances if balance['currency'] == top_ticker['market'].split('-')[1]), None)
-    
+
     if top_ticker_balance:
         top_ticker_balance_value = float(top_ticker_balance['balance']) * float(top_ticker['trade_price'])
         top_ticker_ratio = top_ticker_balance_value / total_balance_krw
@@ -220,14 +219,14 @@ async def print_console():
         hours = (total_seconds % 86400) // 3600
         minutes = (total_seconds % 3600) // 60
         seconds = total_seconds % 60
-        
+
         elapsed_time_formatted = f"{days:02d} {hours:02d}:{minutes:02d}:{seconds:02d}"
 
         # current_time을 초 단위로 변환하고, 소수점 둘째 자리까지 반올림
         current_time_str = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
         output = [
-            f"Upbit Auto Trader Version 0.1 / Author : kimpro82\n\n",
+            "Upbit Auto Trader Version 0.1 / Author : kimpro82\n\n",
             f"프로그램 실행 시작 시간 : {start_time.strftime('%Y-%m-%d %H:%M:%S')}\n",
             f"실행 후  경과 시간      : {elapsed_time_formatted}\n",
             f"현재화면 출력 시간      : {current_time_str}\n",
@@ -236,15 +235,15 @@ async def print_console():
         async with aiohttp.ClientSession() as session:
             balances = await fetch_balances(session)
             orders = await fetch_orders(session)
-        
+
         # 잔고 및 원화 환산 금액 출력
         output.append("\n[잔고 데이터]\n")
-        
+
         for balance in balances:
             if isinstance(balance, dict) and 'currency' in balance and 'balance' in balance:
                 currency = f"{balance['currency']:<6}"  # 여섯 칸으로 통일
                 amount = f"{float(balance['balance']):14,.2f}"  # 14자리, 세 자리마다 쉼표, 소수점 두 자리
-                
+
                 # avg_buy_price와 unit_currency를 이용해 원화 환산 금액 계산
                 avg_buy_price = float(balance.get('avg_buy_price', 0))
                 unit_currency = balance['unit_currency']
