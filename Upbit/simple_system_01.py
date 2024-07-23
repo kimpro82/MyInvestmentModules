@@ -1,11 +1,11 @@
 """
 Upbit Auto Trader Version 0.1 / Author : kimpro82
 
-This program interacts with Upbit's REST API to:
-- Fetch market data in real-time using WebSockets
-- Place buy orders if the top-traded asset's balance is below 49% of the account's evaluation
-- Place sell orders for non-top-traded assets or if the top-traded asset's balance exceeds 51%
-- Display account balances and recent orders on the console, refreshing every second
+이 프로그램은 Upbit의 REST API를 사용하여 다음 작업을 수행합니다:
+- WebSocket을 이용하여 실시간 시세 데이터 조회
+- 거래대금 1위 종목의 잔고가 계좌 평가 금액의 49% 미만일 경우, 50%에 미달하는 만큼 매수
+- 거래대금 1위 종목이 아닌 종목의 잔고나 1위 종목의 평가 금액이 51%를 초과할 경우, 50%로부터 초과분만큼 매도
+- 계좌 잔고 및 최근 거래내역을 콘솔에 출력하며, 매초 새로 고침
 """
 
 import asyncio
@@ -21,8 +21,13 @@ import uuid
 
 BASE_URL = "https://api.upbit.com/v1"
 
-# JWT 토큰 생성 함수
 def generate_jwt_token():
+    """
+    Upbit API를 호출하기 위한 JWT 토큰을 생성합니다.
+    
+    Returns:
+        str: 인증을 위한 JWT 토큰 문자열 (Bearer 타입)
+    """
     payload = {
         'access_key': UPBIT_ACCESS_KEY,
         'nonce': str(uuid.uuid4()),
@@ -30,8 +35,12 @@ def generate_jwt_token():
     token = jwt.encode(payload, UPBIT_SECRET_KEY, algorithm='HS256')
     return f"Bearer {token}"
 
-# 비동기 시세 조회 함수 (WebSocket 이용)
 async def fetch_market_data():
+    """
+    WebSocket을 통해 실시간으로 시세 데이터를 받아옵니다.
+    
+    주의: 현재 시세 데이터는 디버깅 목적으로만 출력됩니다.
+    """
     uri = "wss://api.upbit.com/websocket/v1"
     async with websockets.connect(uri) as websocket:
         subscribe_message = [{
@@ -46,8 +55,19 @@ async def fetch_market_data():
             data = json.loads(response)
             print(data)  # 시세 정보 출력 (디버깅 목적)
 
-# 비동기 매수 함수
 async def buy_order(session, market, price, volume):
+    """
+    지정된 시장에 매수 주문을 수행합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+        market (str): 매수할 시장 코드
+        price (float): 주문 가격
+        volume (float): 주문 수량
+    
+    Returns:
+        dict: 매수 주문의 결과를 담고 있는 JSON 응답
+    """
     url = f"{BASE_URL}/orders"
     headers = {
         "Authorization": generate_jwt_token(),
@@ -63,8 +83,19 @@ async def buy_order(session, market, price, volume):
     async with session.post(url, headers=headers, json=payload) as response:
         return await response.json()
 
-# 비동기 매도 함수
 async def sell_order(session, market, price, volume):
+    """
+    지정된 시장에 매도 주문을 수행합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+        market (str): 매도할 시장 코드
+        price (float): 주문 가격
+        volume (float): 주문 수량
+    
+    Returns:
+        dict: 매도 주문의 결과를 담고 있는 JSON 응답
+    """
     url = f"{BASE_URL}/orders"
     headers = {
         "Authorization": generate_jwt_token(),
@@ -80,8 +111,16 @@ async def sell_order(session, market, price, volume):
     async with session.post(url, headers=headers, json=payload) as response:
         return await response.json()
 
-# 비동기 잔고 조회 함수
 async def fetch_balances(session):
+    """
+    현재 계좌의 잔고 정보를 조회합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    
+    Returns:
+        list: 계좌의 잔고 정보를 담고 있는 JSON 응답
+    """
     url = f"{BASE_URL}/accounts"
     headers = {
         "Authorization": generate_jwt_token()
@@ -89,8 +128,16 @@ async def fetch_balances(session):
     async with session.get(url, headers=headers) as response:
         return await response.json()
 
-# 비동기 체결 조회 함수
 async def fetch_orders(session):
+    """
+    현재 계좌의 최근 거래내역을 조회합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    
+    Returns:
+        list: 최근 거래내역을 담고 있는 JSON 응답
+    """
     url = f"{BASE_URL}/orders"
     headers = {
         "Authorization": generate_jwt_token()
@@ -98,15 +145,30 @@ async def fetch_orders(session):
     async with session.get(url, headers=headers) as response:
         return await response.json()
 
-# 비동기 거래대금 1위 종목 조회 함수
 async def fetch_top_traded_ticker(session):
+    """
+    거래대금 1위 종목을 조회합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    
+    Returns:
+        dict: 거래대금 1위 종목의 시세 정보를 담고 있는 JSON 응답
+    """
     url = f"{BASE_URL}/ticker?markets=KRW-BTC,KRW-ETH,KRW-XRP"
     async with session.get(url) as response:
         data = await response.json()
         return max(data, key=lambda x: x['acc_trade_price_24h'])
 
-# 매수/매도 조건 함수
 async def trade_logic(session):
+    """
+    매수 및 매도 로직을 수행합니다.
+    - 거래대금 1위 종목의 잔고 비율이 49% 미만일 경우 매수
+    - 거래대금 1위 종목이 아닌 종목의 잔고나 1위 종목의 잔고 비율이 51%를 초과할 경우 매도
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    """
     balances = await fetch_balances(session)
     top_ticker = await fetch_top_traded_ticker(session)
     total_balance_krw = sum(float(balance['balance']) * float(balance['avg_buy_price']) if balance['currency'] != 'KRW' else float(balance['balance']) for balance in balances)
@@ -138,8 +200,15 @@ async def trade_logic(session):
             sell_volume = sell_amount_krw / float(top_ticker['trade_price'])
             await sell_order(session, top_ticker['market'], float(top_ticker['trade_price']), sell_volume)
 
-# 콘솔 출력 함수
 async def print_console():
+    """
+    콘솔에 계좌 잔고와 최근 거래내역을 출력합니다.
+    - 프로그램의 실행 시간과 경과 시간을 포맷하여 출력
+    - 계좌의 잔고와 각 자산의 원화 환산 금액 출력
+    - 최근 5건의 거래내역을 출력
+    
+    이 함수는 매초 갱신됩니다.
+    """
     start_time = datetime.now()
     while True:
         current_time = datetime.now()
@@ -152,7 +221,7 @@ async def print_console():
         minutes = (total_seconds % 3600) // 60
         seconds = total_seconds % 60
         
-        elapsed_time_formatted = f"{days:02d}-{hours:02d}-{minutes:02d}-{seconds:02d}"
+        elapsed_time_formatted = f"{days:02d} {hours:02d}:{minutes:02d}:{seconds:02d}"
 
         # current_time을 초 단위로 변환하고, 소수점 둘째 자리까지 반올림
         current_time_str = current_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -207,6 +276,12 @@ async def print_console():
         await asyncio.sleep(1)
 
 async def main():
+    """
+    비동기적으로 주요 기능을 실행합니다.
+    - WebSocket을 통해 시세 데이터를 조회
+    - 콘솔에 계좌 잔고 및 최근 거래내역을 출력
+    - 매수 및 매도 로직을 수행
+    """
     async with aiohttp.ClientSession() as session:
         await asyncio.gather(
             fetch_market_data(),
