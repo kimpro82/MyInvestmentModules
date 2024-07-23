@@ -52,8 +52,8 @@ async def fetch_market_data():
         await websocket.send(json.dumps(subscribe_message))
         while True:
             response = await websocket.recv()
-            data = json.loads(response)
-            print(data)  # 시세 정보 출력 (디버깅 목적)
+            # data = json.loads(response)
+            # print(data)  # 시세 정보 출력 (디버깅 목적)
 
 async def buy_order(session, market, price, volume):
     """
