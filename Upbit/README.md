@@ -12,7 +12,7 @@
 
 ## [Simple Trading Program v0.1 (2024.07.23)](#list)
 
-- Features
+- Features  
   ![Upbit_SimpleSystem_0.1](./Images/Upbit_SimpleSystem_0.1.gif)
   - Fetch real-time market data using WebSocket
   - Buy/Sell Conditions (temporary for testing purposes)
