@@ -12,17 +12,21 @@
 
 ## [Simple Trading Program v0.1 (2024.07.23)](#list)
 
-- Features  
+- Features
+
   ![Upbit_SimpleSystem_0.1](./Images/Upbit_SimpleSystem_0.1.gif)
+
   - Fetch real-time market data using WebSocket
   - Buy/Sell Conditions (temporary for testing purposes)
     - If the balance of the top-traded asset is below 49% of the account's total value, buy enough to reach 50%
     - If the balance of non-top-traded assets or the top-traded asset's value exceeds 51% of the account's total value, sell the excess amount above 50%
   - Display account balances and recent orders on the console, refreshing every second
+
 - Future Improvements
   - Refine trading conditions
   - Update balance evaluation criteria: Use current `market price * quantity` instead of `average buy price * quantity`
   - Refactor: Break down functions into more readable and manageable units
+
 - Code
   <details>
       <summary>simple_system_0_1.py</summary>
