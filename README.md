@@ -3,12 +3,26 @@
 Someday these will be an integrated trading system, but not now. So I am sad.
 
 
-## [*eBest DDE*](/eBest_DDE/)
+
+## Crypto Currency
+
+
+### [*Upbit Open API*](/Upbit)
+
+- [Simple Trading Program v0.1 (2024.07.23)](/Upbit/README.md#simple-trading-program-v01-20240723)
+- [Init. (2023.04.27)](/Upbit/README.md#init-20230427)
+
+
+
+## Stock
+
+
+### [*eBest DDE*](/eBest_DDE/)
 
 - [Real-time Current Price Data with DDE (2023.12.21)](/eBest_DDE/README.md#real-time-current-price-data-with-dde-20231221)
 
 
-## [*eBest OPEN API*](/eBest_OpenAPI/)
+### [*eBest OPEN API*](/eBest_OpenAPI/)
 
 - [Request 외인기관종목별동향(t1716) TR (2023.07.25)](/eBest_OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
 - [Request TR 2 (2023.07.25)](/eBest_OpenAPI/README.md#request-tr-2-20230725)
@@ -20,7 +34,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - [Oauth (2023.07.11)](/eBest_OpenAPI/README.md#oauth-20230711)
 
 
-## [*eBest xingAPI*](/XingAPI)
+### [*eBest xingAPI*](/XingAPI)
 
 **\<VBA>**
 
@@ -37,25 +51,23 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 | v0.1 | Login 1.0 | 2021.11.08 | | [Link](/XingAPI/README.md#v01--login-10-20211108) |
 
 
-## [*KIS Developers*](/KIS_Developers)
+### [*KIS Developers*](/KIS_Developers)
 
 - [`mojito` - The First Attempt (2022.04.27)](/KIS_Developers/README.md#mojito---the-first-attempt-20220427)
 - [Inquire Price (2022.04.26)](/KIS_Developers/README.md#inquire-price-20220426)
 - [Oauth (2022.04.19)](/KIS_Developers/README.md#oauth-20220419)
 
 
-## [*Upbit Open API*](/Upbit)
 
-- [Init. (2023.04.27)](/Upbit/README.md#init-20230427)
+## Others
 
-
-## [*Python* Modules](/Python)
+### [*Python* Modules](/Python)
 
 - [**Beautiful Soup** : Crawling the **Top Market Cap.** Stocks from ***KOSPI*** (2021.12.22)](/Python/README.md#beautiful-soup--crawling-the-top-market-cap-stocks-from-kospi-20211222)
 - [**Numpy Financial** : **TVM** (2021.11.08)](/Python/README.md#numpy-financial--tvm-20211108)
 
 
-## [*R* Modules](/R)
+### [*R* Modules](/R)
 
 - [Download Stock Price Data with `tidyquant` (2023.06.18)](/R/README.md#download-stock-price-data-with-tidyquant-20230618)
 - [Arithmetic Mean vs Geometrical Mean 2 (2023.01.24)](/R/README.md#arithmetic-mean-vs-geometrical-mean-2-20230124)
@@ -64,7 +76,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 - [Boxplot (2018.01.11)](/R/README.md#boxplot-20180111)
 
 
-## [*ChatGPT*'s Answers](/ChatGPT/)
+### [*ChatGPT*'s Answers](/ChatGPT/)
 
 Written by *ChatGPT* (not 100% accuracy guaranteed)
 
