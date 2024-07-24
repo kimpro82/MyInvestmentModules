@@ -27,9 +27,9 @@
   - Update balance evaluation criteria: Use current `market price * quantity` instead of `average buy price * quantity`
   - Refactor: Break down functions into more readable and manageable units
 
-- Code
+- Code : simple_system_0_1.py
   <details>
-      <summary>simple_system_0_1.py</summary>
+    <summary>header</summary>
 
     ```py
     import asyncio
@@ -44,6 +44,10 @@
 
     BASE_URL = "https://api.upbit.com/v1"
     ```
+  </details>
+  <details>
+    <summary>generate_jwt_token()</summary>
+
     ```py
     def generate_jwt_token():
         """
@@ -59,6 +63,10 @@
         token = jwt.encode(payload, UPBIT_SECRET_KEY, algorithm='HS256')
         return f"Bearer {token}"
     ```
+  </details>
+  <details>
+    <summary>fetch_market_data()</summary>
+
     ```py
     async def fetch_market_data():
         """
@@ -80,6 +88,10 @@
                 # data = json.loads(response)
                 # print(data)  # 시세 정보 출력 (디버깅 목적)
     ```
+  </details>
+  <details>
+    <summary>buy_order()</summary>
+
     ```py
     async def buy_order(session, market, price, volume):
         """
@@ -109,6 +121,10 @@
         async with session.post(url, headers=headers, json=payload) as response:
             return await response.json()
     ```
+  </details>
+  <details>
+    <summary>sell_order()</summary>
+
     ```py
     async def sell_order(session, market, price, volume):
         """
@@ -138,6 +154,10 @@
         async with session.post(url, headers=headers, json=payload) as response:
             return await response.json()
     ```
+  </details>
+  <details>
+    <summary>fetch_balances()</summary>
+
     ```py
     async def fetch_balances(session):
         """
@@ -156,6 +176,10 @@
         async with session.get(url, headers=headers) as response:
             return await response.json()
     ```
+  </details>
+  <details>
+    <summary>fetch_orders()</summary>
+
     ```py
     async def fetch_orders(session):
         """
@@ -174,6 +198,10 @@
         async with session.get(url, headers=headers) as response:
             return await response.json()
     ```
+  </details>
+  <details>
+    <summary>fetch_top_traded_ticker()</summary>
+
     ```py
     async def fetch_top_traded_ticker(session):
         """
@@ -190,6 +218,10 @@
             data = await response.json()
             return max(data, key=lambda x: x['acc_trade_price_24h'])
     ```
+  </details>
+  <details>
+    <summary>trade_logic()</summary>
+
     ```py
     async def trade_logic(session):
         """
@@ -231,6 +263,10 @@
                 sell_volume = sell_amount_krw / float(top_ticker['trade_price'])
                 await sell_order(session, top_ticker['market'], float(top_ticker['trade_price']), sell_volume)
     ```
+  </details>
+  <details>
+    <summary>print_console()</summary>
+
     ```py
     async def print_console():
         """
@@ -307,6 +343,10 @@
 
             await asyncio.sleep(1)
     ```
+  </details>
+  <details>
+    <summary>main()</summary>
+
     ```py
     async def main():
         """
