@@ -29,7 +29,7 @@
 
 - Code : simple_system_0_1.py
   <details>
-    <summary>header</summary>
+    <summary>modules & constants</summary>
 
     ```py
     import asyncio
@@ -83,10 +83,6 @@
                 "isOnlyRealtime": True
             }]
             await websocket.send(json.dumps(subscribe_message))
-            while True:
-                response = await websocket.recv()
-                # data = json.loads(response)
-                # print(data)  # 시세 정보 출력 (디버깅 목적)
     ```
   </details>
   <details>
