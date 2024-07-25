@@ -718,10 +718,10 @@
 ## [Init. (2023.04.27)](#list)
 
 - Practices to get balance, ticker, candle data(minute) and orderbook by *Upbit Open API*
-- Use the original API code, not `pyupbit`
-
+- Use the original API directly, not `pyupbit`
+- Code
   <details>
-      <summary>Code : key_sample.py</summary>
+      <summary>key_sample.py</summary>
 
   ```python
   import os
@@ -738,7 +738,7 @@
   </details>
 
   <details>
-      <summary>Code : test_balance.py</summary>
+      <summary>test_balance.py</summary>
 
   ```python
   import os
@@ -786,7 +786,7 @@
   ```
   </details>
   <details>
-    <summary>Code : test_ticker.py</summary>
+    <summary>test_ticker.py</summary>
 
   ```python
   import pprint
@@ -819,7 +819,7 @@
   ```
   </details>
   <details>
-      <summary>Code : test_orderbook.py</summary>
+      <summary>test_orderbook.py</summary>
 
   ```python
   import pprint
@@ -855,7 +855,7 @@
   ```
   </details>
   <details>
-      <summary>Code : test_candle_minute.py</summary>
+      <summary>test_candle_minute.py</summary>
 
   ```python
   import pprint
