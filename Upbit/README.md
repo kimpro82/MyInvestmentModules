@@ -37,8 +37,8 @@
       ├── generate_balances_output
       └── generate_orders_output
   ```
-  - The execution results displayed on the console remain unchanged from [the previous version *0.1*](#simple-trading-program-v01-20240723).
-- Mainly changed code : simple_system_0_1_1.py (partial)
+  - The execution results displayed on the console remain unchanged from [Simple Trading Program v0.1 (2024.07.23)](#simple-trading-program-v01-20240723).
+- Mainly changed code : `simple_system_0_1_1.py` (partial)
   <details>
     <summary>trade_logic()</summary>
 
@@ -375,9 +375,9 @@
 - Future Improvements
   - Refine trading conditions
   - Update balance evaluation criteria: Use current `market price * quantity` instead of `average buy price * quantity`
-  - Refactor: Break down functions into more readable and manageable units
+  - Refactor: Break down functions into more readable and manageable units → Done ([Simple Trading Program v0.1.1 (2024.07.25)](#simple-trading-program-v011-20240725))
 
-- Code : simple_system_0_1.py
+- Code : `simple_system_0_1.py`
   <details>
     <summary>modules & constants</summary>
 
