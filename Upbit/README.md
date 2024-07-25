@@ -259,7 +259,7 @@
                 list: 콘솔에 출력할 정보 리스트
             """
             return [
-                "Upbit Auto Trader Version 0.1 / Author : kimpro82\n\n",
+                "Upbit Auto Trader Version 0.1.1 / Author : kimpro82\n\n",
                 f"프로그램 실행 시작 시간 : {start_time.strftime('%Y-%m-%d %H:%M:%S')}\n",
                 f"실행 후  경과 시간      : {elapsed_time_formatted}\n",
                 f"현재화면 출력 시간      : {current_time_str}\n",
