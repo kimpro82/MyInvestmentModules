@@ -33,7 +33,7 @@
   │
   └── print_console
       ├── format_elapsed_time
-      ├── generate_console_basic_output
+      ├── generate_console_output
       ├── generate_balances_output
       └── generate_orders_output
   ```
@@ -181,7 +181,7 @@
         def format_elapsed_time(elapsed_time):
             ……
 
-        def generate_console_basic_output(start_time, elapsed_time_formatted, current_time_str):
+        def generate_console_output(start_time, elapsed_time_formatted, current_time_str):
             ……
 
         def generate_balances_output(balances):
@@ -196,7 +196,7 @@
             elapsed_time_formatted = format_elapsed_time(elapsed_time)
             current_time_str = current_time.strftime("%Y-%m-%d %H:%M:%S")
 
-            output = generate_console_basic_output(start_time, elapsed_time_formatted, current_time_str)
+            output = generate_console_output(start_time, elapsed_time_formatted, current_time_str)
 
             async with aiohttp.ClientSession() as session:
                 balances = await fetch_balances(session)
@@ -240,13 +240,13 @@
     ```
   </details>
   <details>
-    <summary>print_console() > generate_console_basic_output()</summary>
+    <summary>print_console() > generate_console_output()</summary>
 
     ```py
     async def print_console():
         ……
 
-        def generate_console_basic_output(start_time, elapsed_time_formatted, current_time_str):
+        def generate_console_output(start_time, elapsed_time_formatted, current_time_str):
             """
             콘솔에 출력할 기본 정보를 생성합니다.
             
