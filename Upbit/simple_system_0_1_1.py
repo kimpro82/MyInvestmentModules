@@ -1,10 +1,39 @@
 """
-Upbit Auto Trader Version 0.1 / Author : kimpro82
+Upbit Auto Trader Version 0.1.1 / Author : kimpro82
+2024.07.25
 
+[설명]
 이 모듈은 Upbit의 REST API 및 WebSocket을 사용하여 자동으로 암호화폐 매매를 수행하는 프로그램입니다.
 - 실시간 시세 데이터를 WebSocket을 통해 조회
 - 계좌 잔고 및 최근 거래내역을 콘솔에 출력
-- 매수 및 매도 로직을 정의하여 거래를 자동으로 실행
+- (테스트용) 매수 및 매도 로직을 정의하여 거래를 자동으로 실행
+
+[히스토리]
+- 0.1   2024.07.23 Init.
+- 0.1.1 2024.07.25 Refactoring : 함수 분할 및 계층화
+
+[함수 계층 구조]
+main
+│
+├── generate_jwt_token
+│
+├── fetch_market_data
+├── fetch_top_traded_ticker
+├── fetch_balances
+├── fetch_orders
+│
+├── trade_logic
+│   ├── calculate_top_ticker_balance
+│   ├── perform_buy_logic
+│   └── perform_sell_logic
+├── buy_order
+├── sell_order
+│
+└── print_console
+    ├── format_elapsed_time
+    ├── generate_balances_output
+    ├── generate_console_output
+    └── generate_orders_output
 """
 
 import asyncio
