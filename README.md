@@ -9,6 +9,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 
 ### [*Upbit Open API*](/Upbit)
 
+- [Simple Trading Program v0.1.1 (2024.07.25)](/Upbit/README.md#simple-trading-program-v011-20240725)
 - [Simple Trading Program v0.1 (2024.07.23)](/Upbit/README.md#simple-trading-program-v01-20240723)
 - [Init. (2023.04.27)](/Upbit/README.md#init-20230427)
 
