@@ -22,17 +22,17 @@ main
 ├── fetch_balances
 ├── fetch_orders
 │
+├── buy_order
+├── sell_order
 ├── trade_logic
 │   ├── calculate_top_ticker_balance
 │   ├── perform_buy_logic
 │   └── perform_sell_logic
-├── buy_order
-├── sell_order
 │
 └── print_console
     ├── format_elapsed_time
-    ├── generate_balances_output
     ├── generate_console_output
+    ├── generate_balances_output
     └── generate_orders_output
 """
 
@@ -77,6 +77,55 @@ async def fetch_market_data():
             "isOnlyRealtime": True
         }]
         await websocket.send(json.dumps(subscribe_message))
+
+async def fetch_top_traded_ticker(session):
+    """
+    거래대금 1위 종목을 조회합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    
+    Returns:
+        dict: 거래대금 1위 종목의 시세 정보를 담고 있는 JSON 응답
+    """
+    url = f"{BASE_URL}/ticker?markets=KRW-BTC,KRW-ETH,KRW-XRP"
+    async with session.get(url) as response:
+        data = await response.json()
+        return max(data, key=lambda x: x['acc_trade_price_24h'])
+
+async def fetch_balances(session):
+    """
+    현재 계좌의 잔고 정보를 조회합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    
+    Returns:
+        list: 계좌의 잔고 정보를 담고 있는 JSON 응답
+    """
+    url = f"{BASE_URL}/accounts"
+    headers = {
+        "Authorization": generate_jwt_token()
+    }
+    async with session.get(url, headers=headers) as response:
+        return await response.json()
+
+async def fetch_orders(session):
+    """
+    현재 계좌의 최근 거래내역을 조회합니다.
+    
+    Args:
+        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
+    
+    Returns:
+        list: 최근 거래내역을 담고 있는 JSON 응답
+    """
+    url = f"{BASE_URL}/orders"
+    headers = {
+        "Authorization": generate_jwt_token()
+    }
+    async with session.get(url, headers=headers) as response:
+        return await response.json()
 
 async def buy_order(session, market, price, volume):
     """
@@ -133,55 +182,6 @@ async def sell_order(session, market, price, volume):
     }
     async with session.post(url, headers=headers, json=payload) as response:
         return await response.json()
-
-async def fetch_balances(session):
-    """
-    현재 계좌의 잔고 정보를 조회합니다.
-    
-    Args:
-        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
-    
-    Returns:
-        list: 계좌의 잔고 정보를 담고 있는 JSON 응답
-    """
-    url = f"{BASE_URL}/accounts"
-    headers = {
-        "Authorization": generate_jwt_token()
-    }
-    async with session.get(url, headers=headers) as response:
-        return await response.json()
-
-async def fetch_orders(session):
-    """
-    현재 계좌의 최근 거래내역을 조회합니다.
-    
-    Args:
-        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
-    
-    Returns:
-        list: 최근 거래내역을 담고 있는 JSON 응답
-    """
-    url = f"{BASE_URL}/orders"
-    headers = {
-        "Authorization": generate_jwt_token()
-    }
-    async with session.get(url, headers=headers) as response:
-        return await response.json()
-
-async def fetch_top_traded_ticker(session):
-    """
-    거래대금 1위 종목을 조회합니다.
-    
-    Args:
-        session (aiohttp.ClientSession): 비동기 HTTP 요청을 위한 세션
-    
-    Returns:
-        dict: 거래대금 1위 종목의 시세 정보를 담고 있는 JSON 응답
-    """
-    url = f"{BASE_URL}/ticker?markets=KRW-BTC,KRW-ETH,KRW-XRP"
-    async with session.get(url) as response:
-        data = await response.json()
-        return max(data, key=lambda x: x['acc_trade_price_24h'])
 
 async def trade_logic(session):
     """
