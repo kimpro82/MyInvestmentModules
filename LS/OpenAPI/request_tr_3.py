@@ -22,13 +22,14 @@ import requests
 import oauth_3 as oauth
 
 
-def request_tr(_results, _real=False):
+def request_tr(_results, _real=False, _timeout=1):
     """
     eBest Open API에서 TR을 호출하여 데이터를 조회하는 함수입니다.
 
     Parameters:
-        _results (dict)     : t****() 함수의 리턴값인 딕셔너리입니다.
-        _real (bool)        : 실서버(True)/모의서버(False) 여부를 지정하는 매개변수입니다.
+        _results(dict)  : t****() 함수의 리턴값인 딕셔너리입니다.
+        _real   (bool)  : 실서버(True)/모의서버(False) 여부를 지정하는 매개변수입니다.
+        _timeout(int)   : requests.post()에 전달할 매개변수입니다.
 
     Returns:
         list                : 조회된 데이터를 담고 있는 pandas DataFrame 객체의 리스트.
@@ -47,8 +48,9 @@ def request_tr(_results, _real=False):
     _header["authorization"] = f"Bearer {oauth.oauth(_real=_real)}"
 
     # TR 요청을 POST 방식으로 전송
-    _res = requests.post(_url, headers=_header, data=json.dumps(_body), timeout=1)
+    _res = requests.post(_url, headers=_header, data=json.dumps(_body), timeout=_timeout)
     _json_data = _res.json()
+    # print(_json_data)                                     # Ok
 
     # 결과 블록 태그가 단일 문자열인 경우 리스트로 변환
     if isinstance(_out_block_tag, str):
