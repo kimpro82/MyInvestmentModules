@@ -1,10 +1,10 @@
-# [My `eBest OPEN API` Application Modules](../README.md#my-ebest-open-api-application-modules)
+# [My `LS OPEN API` Application Modules](/README.md#ls-open-api)
 
-Codes with `OPEN API` from *eBest Investment & Securities Co., Ltd.*
+Codes with `OPEN API` from *LS Securities Co., Ltd.*
 
 
 ### \<Reference>
-- eBest OPEN API Portal https://openapi.ebestsec.co.kr/ 
+- LS OPEN API Portal https://openapi.ls-sec.co.kr/ 
 
 ### \<List>
 - [Request 외인기관종목별동향(t1716) TR (2023.07.25)](#request-외인기관종목별동향t1716-tr-20230725)

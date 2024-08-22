@@ -1,16 +1,17 @@
-# [My `eBest` DDE Application Modules](../README.md#ebest-dde)
+# [My `eBest` DDE Application Modules](/README.md#ls-dde)
 
-**Excel VBA** Code with **DDE** from *eBest Investment & Securities Co., Ltd.*
+**Excel VBA** Code with **DDE** from *LS Securities Co., Ltd.*
 
 
 ### \<List>
+
 - [Real-time Current Price Data with DDE (2023.12.21)](#real-time-current-price-data-with-dde-20231221)
 
 
 ## [Real-time Current Price Data with DDE (2023.12.21)](#list)
 
 - Practice DDE and VBA integration to maximize productivity
-  - Replace to request data from [*XingAPI*](/XingAPI/README.md)
+  - Replace to request data from [*XingAPI*](/LS/XingAPI/README.md)
 
   ![Output](./Images/DDE_CurrentPrice.gif)
 
