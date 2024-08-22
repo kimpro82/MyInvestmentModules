@@ -18,24 +18,24 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 ## Stock
 
 
-### [*eBest DDE*](/eBest_DDE/)
+### [*LS DDE*](/LS/DDE)
 
-- [Real-time Current Price Data with DDE (2023.12.21)](/eBest_DDE/README.md#real-time-current-price-data-with-dde-20231221)
-
-
-### [*eBest OPEN API*](/eBest_OpenAPI/)
-
-- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](/eBest_OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
-- [Request TR 2 (2023.07.25)](/eBest_OpenAPI/README.md#request-tr-2-20230725)
-- [외인기관종목별동향 2 (t1716, 2023.07.25)](/eBest_OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
-- [Request TR (2023.07.21)](/eBest_OpenAPI/README.md#request-tr-20230721)
-- [외인기관종목별동향 (t1716, 2023.07.21)](/eBest_OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
-- [Oauth 2 (2023.07.21)](/eBest_OpenAPI/README.md#oauth-2-20230721)
-- [재무순위종합(t3341, 2023.07.14)](/eBest_OpenAPI/README.md#재무순위종합t3341-20230714)
-- [Oauth (2023.07.11)](/eBest_OpenAPI/README.md#oauth-20230711)
+- [Real-time Current Price Data with DDE (2023.12.21)](/LS/DDE/README.md#real-time-current-price-data-with-dde-20231221)
 
 
-### [*eBest xingAPI*](/XingAPI)
+### [*LS OPEN API*](/LS/OpenAPI)
+
+- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](/LS/OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
+- [Request TR 2 (2023.07.25)](/LS/OpenAPI/README.md#request-tr-2-20230725)
+- [외인기관종목별동향 2 (t1716, 2023.07.25)](/LS/OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
+- [Request TR (2023.07.21)](/LS/OpenAPI/README.md#request-tr-20230721)
+- [외인기관종목별동향 (t1716, 2023.07.21)](/LS/OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
+- [Oauth 2 (2023.07.21)](/LS/OpenAPI/README.md#oauth-2-20230721)
+- [재무순위종합(t3341, 2023.07.14)](/LS/OpenAPI/README.md#재무순위종합t3341-20230714)
+- [Oauth (2023.07.11)](/LS/OpenAPI/README.md#oauth-20230711)
+
+
+### [*LS XingAPI*](/LS/XingAPI)
 
 **\<VBA>**
 
