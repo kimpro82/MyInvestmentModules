@@ -1,4 +1,4 @@
-# [My `eBest` DDE Application Modules](/README.md#ls-dde)
+# [My *LS* DDE Application Modules](/README.md#ls-dde)
 
 **Excel VBA** Code with **DDE** from *LS Securities Co., Ltd.*
 
