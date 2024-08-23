@@ -17,9 +17,11 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 - [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
 - [재무순위종합 (t3341, 2023.07.14)](#재무순위종합-t3341-20230714)
 #### Request TR & Save to CSV
+- [Request TR 3 (2024.08.22)](#request-tr-3-20240822)
 - [Request TR 2 (2023.07.25)](#request-tr-2-20230725)
 - [Request TR (2023.07.21)](#request-tr-20230721)
 #### OAuth
+- [Oauth 3 (2024.08.22)](#oauth-3-20240822)
 - [Oauth 2 (2023.07.21)](#oauth-2-20230721)
 - [Oauth (2023.07.11)](#oauth-20230711)
 
@@ -205,7 +207,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 - Call the **t1716** TR from *eBest Open API* with `t1716()` and `request_tr_2.py`
 - Updates
-  - Advanced from `t1716.py` in [외인기관종목별동향(t1716, 2023.07.21)](#외인기관종목별동향t1716-20230721)
+  - Advanced from `t1716.py` in [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
   - `t1716_2.py` : Change `t1716()`'s return type : *tuple* → *dictionary*
 - `t1716_2.py`
   <details>
@@ -550,6 +552,80 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 
 
+## [Request TR 3 (2024.08.22)](#list)
+
+- Advanced from [Request TR 2 (2023.07.25)](#request-tr-2-20230725)
+  - Passed the real/mock server flag (`_real`) to `oauth.oauth()`
+  - Added support for multiple `t****OutBlock*`
+  - Added an optional `_timeout` parameter (int) for `requests.post()`
+- Code and Results
+  <details>
+    <summary>request_tr_3.py (mainly changed parts)</summary>
+
+  ```python
+  ……
+  import oauth_3 as oauth
+  ```
+  ```py
+  def request_tr(_results, _real=False, _timeout=1):
+
+      ……
+
+      # OAuth 토큰을 헤더에 추가
+      _header["authorization"] = f"Bearer {oauth.oauth(_real=_real)}"
+
+      # TR 요청을 POST 방식으로 전송
+      _res = requests.post(_url, headers=_header, data=json.dumps(_body), timeout=_timeout)
+      ……
+
+      # 결과 블록 태그가 단일 문자열인 경우 리스트로 변환
+      if isinstance(_out_block_tag, str):
+          _out_block_tag = [_out_block_tag]
+
+      _data_frames = []
+
+      # 각 블록 태그에 대해 데이터프레임 생성
+      for _out_block in _out_block_tag:
+          _data_frame = pd.json_normalize(_json_data[f"{_tr_name}{_out_block}"])
+          _data_frames.append(_data_frame)
+
+      return _data_frames, _tr_name, _shcode
+  ```
+  ```py
+  def save_csv(_data_frames, _tr_name, _shcode=""):
+
+      ……
+
+      # 각 데이터프레임을 CSV 파일로 저장
+      for i, _data_frame in enumerate(_data_frames):
+          if _shcode:
+              _path = f'Data/{_tr_name.upper()}_{_shcode}_{_time_stamp}_{i}.csv'
+          else:
+              _path = f'Data/{_tr_name.upper()}_{_time_stamp}_{i}.csv'
+
+          ……
+  ```
+  </details>
+  <details open="">
+    <summary>Results</summary>
+
+  ```txt
+  date,close,sign,change,diff,volume,krx_0008,krx_0018,krx_0009,pgmvol,fsc_listing,fsc_sjrate,fsc_0009,gm_volume,gm_value
+  20240822,78300,3,0,0.00,8138752,152259,-937901,-175582,485762,3358830711,56.26,373805,37485,2927
+  20240821,78300,5,-600,-0.76,7799774,-200013,24803,-70499,152840,3357971144,56.25,-88399,11227,878
+  20240820,78900,2,600,0.77,10213542,-783354,-1060351,6133,918352,3357906703,56.25,10331,5113,405
+  20240819,78300,5,-1900,-2.37,14124565,1735237,134441,-995169,-473472,3356978020,56.23,-1112469,6504,509
+  20240816,80200,2,3000,3.89,20895904,-7324889,-993805,4628772,1911883,3358563961,56.26,4626870,63672,5048
+  20240814,77200,2,1100,1.45,13176220,-2154441,-928285,1357217,697682,3352025208,56.15,1416317,73153,5651
+  20240813,76100,2,600,0.79,10696333,-1579019,-568949,1491290,366354,3349911209,56.11,1716690,13720,1042
+  20240812,75500,2,800,1.07,9629370,-539380,-431124,-69985,543883,3347828165,56.08,-216025,14656,1108
+  ```
+  ```txt
+  파일 저장을 완료하였습니다. : Data/T1716_005930_20240822_220936_0.csv
+  ```
+  </details>
+
+
 ## [Request TR 2 (2023.07.25)](#list)
 
 - Advanced from [Request TR (2023.07.21)](#request-tr-20230721)
@@ -557,7 +633,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   - `save_csv()`  : Exclude *pandas.DataFrame*'s index values when saving
 - Code and Results
   <details>
-    <summary>request_tr_2.py (Mainly changed Code)</summary>
+    <summary>request_tr_2.py (mainly changed parts)</summary>
 
   ```python
   def request_tr(results):
@@ -733,6 +809,70 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   ```
   ```txt
   파일 저장을 완료하였습니다. : Data/T1716_005930_20230722_173359.csv
+  ```
+  </details>
+
+
+## [Oauth 3 (2024.08.22)](#list)
+
+- Advanced from [Oauth 2 (2023.07.21)](#oauth-2-20230721)
+  - `oauth_3.py`
+    - Added a `_real` parameter to distinguish between real and mock servers
+    - Modified the `URL` string (due to the company name change)
+  - `key.py` : Added `KEY` and `SECRET` for the real server and `USER_ID` for the *t1859* TR
+- Code and Results
+  <details>
+    <summary>Code : key.py (not uploaded)</summary>
+
+  ```py
+  KEY = "{your app key}"
+  SECRET = "{your secret key}"
+  MOCK_KEY = "{your app key}"
+  MOCK_SECRET = "{your secret key}"
+
+  USER_ID = "{your ID}"
+  ```
+  </details>
+  <details>
+    <summary>Code : oauth_3.py (mainly changed parts)</summary>
+
+  ```py
+  # OAuth 토큰을 요청할 기본 URL
+  URL = "https://openapi.ls-sec.co.kr:8080/oauth2/token"
+  ```
+  ```python
+  def oauth(_test=False, _real=False):
+
+      ……
+
+      # 실서버 또는 모의서버에 따라 앱 키와 시크릿 키를 설정
+      if _real is True:
+          _app_key = key.KEY
+          _app_secret = key.SECRET
+      else:
+          _app_key = key.MOCK_KEY
+          _app_secret = key.MOCK_SECRET
+
+      ……
+  ```
+  ```py
+  if __name__ == "__main__":
+      # 테스트 모드로 OAuth 함수 호출하여 액세스 토큰과 요청/응답 데이터를 출력
+      url, res, _ = oauth(_test=True)
+      ……
+  ```
+  </details>
+  <details open = "">
+    <summary>Results</summary>
+
+  ```txt
+  URL      : https://openapi.ls-sec.co.kr:8080/oauth2/token 
+
+  OAuth 응답 내용:
+  {'access_token': '********',
+  'expires_in': 58023,
+  'scope': 'oob',
+  'token_type': 'Bearer'}
   ```
   </details>
 
