@@ -208,7 +208,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 - Advanced from `t1716.py` in [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
   - `t1716_2.py` : Change `t1716()`'s return type : *tuple* → *dictionary*
-  - Use `request_tr_2.py`
+  - Import `request_tr_2`
 - Code and Results
   - `t1716_2.py`
     <details>
