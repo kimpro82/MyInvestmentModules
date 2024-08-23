@@ -10,6 +10,7 @@ History :
                     save_csv()  : 저장시 pandas.DataFrame의 index 값 제외
     3   2024.08.22  실서버/모의서버 여부(_real)를 oauth.oauth()에 전달
                     복수 t****OutBlock* 대응 : request_tr(), save_csv()
+                    _timeout(int, optional)을 requests.post()에 전달
 """
 
 
