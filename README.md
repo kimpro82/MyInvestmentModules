@@ -18,27 +18,28 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 ## Stock
 
 
-### [*eBest DDE*](/eBest_DDE/)
+### [*LS OPEN API*](/LS/OpenAPI)
 
-- [Real-time Current Price Data with DDE (2023.12.21)](/eBest_DDE/README.md#real-time-current-price-data-with-dde-20231221)
+#### TR
+- [서버저장조건 조건검색 (t1859, 2024.08.22)](/LS/OpenAPI/README.md#서버저장조건-조건검색-t1859-20240822)
+- [외인기관종목별동향 2 (t1716, 2023.07.25)](/LS/OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
+- [외인기관종목별동향 (t1716, 2023.07.21)](/LS/OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
+- [재무순위종합 (t3341, 2023.07.14)](/LS/OpenAPI/README.md#재무순위종합-t3341-20230714)
+
+#### Request TR & Save to CSV
+- [Request TR 3 (2024.08.22)](/LS/OpenAPI/README.md#request-tr-3-20240822)
+- [Request TR 2 (2023.07.25)](/LS/OpenAPI/README.md#request-tr-2-20230725)
+- [Request TR (2023.07.21)](/LS/OpenAPI/README.md#request-tr-20230721)
+
+#### OAuth
+- [Oauth 3 (2024.08.22)](/LS/OpenAPI/README.md#oauth-3-20240822)
+- [Oauth 2 (2023.07.21)](/LS/OpenAPI/README.md#oauth-2-20230721)
+- [Oauth (2023.07.11)](/LS/OpenAPI/README.md#oauth-20230711)
 
 
-### [*eBest OPEN API*](/eBest_OpenAPI/)
+### [*LS XingAPI*](/LS/XingAPI)
 
-- [Request 외인기관종목별동향(t1716) TR (2023.07.25)](/eBest_OpenAPI/README.md#request-외인기관종목별동향t1716-tr-20230725)
-- [Request TR 2 (2023.07.25)](/eBest_OpenAPI/README.md#request-tr-2-20230725)
-- [외인기관종목별동향 2 (t1716, 2023.07.25)](/eBest_OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
-- [Request TR (2023.07.21)](/eBest_OpenAPI/README.md#request-tr-20230721)
-- [외인기관종목별동향 (t1716, 2023.07.21)](/eBest_OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
-- [Oauth 2 (2023.07.21)](/eBest_OpenAPI/README.md#oauth-2-20230721)
-- [재무순위종합(t3341, 2023.07.14)](/eBest_OpenAPI/README.md#재무순위종합t3341-20230714)
-- [Oauth (2023.07.11)](/eBest_OpenAPI/README.md#oauth-20230711)
-
-
-### [*eBest xingAPI*](/XingAPI)
-
-**\<VBA>**
-
+#### VBA
 | Main Version | Component | Date | Latest | Link |
 |:-:|:--|:-:|:-:|:-:|
 | v0.311 | Current Price - T1101 2.1 | 2022.06.16 | ○ | [Link](/XingAPI/README.md#v0311--current-price---t1101-21-20220617) |
@@ -52,6 +53,11 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 | v0.1 | Login 1.0 | 2021.11.08 | | [Link](/XingAPI/README.md#v01--login-10-20211108) |
 
 
+### [*LS DDE*](/LS/DDE)
+
+- [Real-time Current Price Data with DDE (2023.12.21)](/LS/DDE/README.md#real-time-current-price-data-with-dde-20231221)
+
+
 ### [*KIS Developers*](/KIS_Developers)
 
 - [`mojito` - The First Attempt (2022.04.27)](/KIS_Developers/README.md#mojito---the-first-attempt-20220427)
@@ -61,6 +67,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 
 
 ## Others
+
 
 ### [*Python* Modules](/Python)
 
@@ -80,6 +87,5 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 ### [*ChatGPT*'s Answers](/ChatGPT/)
 
 Written by *ChatGPT* (not 100% accuracy guaranteed)
-
 - [10 Effective Short-Term Timeframe Investment Strategies (2023.06.12)](/ChatGPT/ShortTermTimeframe/README.md)
 - [Gurus' Strategies (2023.02.27)](/ChatGPT/GurusStrategies/README.md)

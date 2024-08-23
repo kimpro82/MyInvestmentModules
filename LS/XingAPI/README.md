@@ -1,13 +1,13 @@
-# My `xingAPI` Application Modules
+# [My `XingAPI` Application Modules](/README.md#ls-xingapi)
 
-Codes with `xingAPI` from **eBest Investment & Securities**
+Codes with `XingAPI` from **LS Securities**
 
 
 ### **\<Reference>**
 
-- xingAPI 홈페이지 ☞ https://www.ebestsec.co.kr/xingapi/xingMain.jsp  
-- xingAPI 도움말 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp  
-- xingAPI COM 개발가이드 ☞ https://www.ebestsec.co.kr/apiguide/guide.jsp?cno=200
+- xingAPI 홈페이지 ☞ https://www.ls-secc.co.kr/xingapi/xingMain.jsp  
+- xingAPI 도움말 ☞ https://www.ls-sec.co.kr/apiguide/guide.jsp  
+- xingAPI COM 개발가이드 ☞ https://www.ls-sec.co.kr/apiguide/guide.jsp?cno=200
 
 ### **\<Architecture>**
 
