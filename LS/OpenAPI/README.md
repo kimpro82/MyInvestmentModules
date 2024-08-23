@@ -29,6 +29,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 ## [서버저장조건 조건검색 (t1859, 2024.08.22)](#list)
 
+- [LS OPEN API > API가이드 > 주식 > [주식] 종목검색](https://openapi.ls-sec.co.kr/apiservice?api_id=6b67369a-dc7a-4cc7-8c33-71bb6336b6bf) > 서버저장조건 조건검색 (t1859)
 - Call the **t1866** and **t1859** TR from *LS Open API* with `request_tr_3` and `oauth_3`
 - Code : `t1859.py`
   <details>
@@ -205,147 +206,147 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 ## [외인기관종목별동향 2 (t1716, 2023.07.25)](#list)
 
-- Call the **t1716** TR from *eBest Open API* with `t1716()` and `request_tr_2.py`
-- Updates
-  - Advanced from `t1716.py` in [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
+- Advanced from `t1716.py` in [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
   - `t1716_2.py` : Change `t1716()`'s return type : *tuple* → *dictionary*
-- `t1716_2.py`
-  <details>
-    <summary>Code (Mainly changed part)</summary>
+  - Use `request_tr_2.py`
+- Code and Results
+  - `t1716_2.py`
+    <details>
+      <summary>Code (Mainly changed part)</summary>
 
-  ```python
-  def t1716(shcode = "005930", todt = "", period = 366):
-      """
-      ……
+    ```python
+    def t1716(shcode = "005930", todt = "", period = 366):
+        """
+        ……
 
-      Returns     :
-          dict                    : 함수 호출 시 반환되는 값들을 딕셔너리로 묶어 반환합니다.
-      """
+        Returns     :
+            dict                    : 함수 호출 시 반환되는 값들을 딕셔너리로 묶어 반환합니다.
+        """
 
-      ……
+        ……
 
-      return {
-          'url'           : _url,
-          'header'        : _header,
-          'body'          : _body,
-          'tr_name'       : t1716.__name__,
-          'out_block_tag' : _out_block_tag,
-          'shcode'        : shcode
-      }
-  ```
-  ```py
-  if __name__ == "__main__":
+        return {
+            'url'           : _url,
+            'header'        : _header,
+            'body'          : _body,
+            'tr_name'       : t1716.__name__,
+            'out_block_tag' : _out_block_tag,
+            'shcode'        : shcode
+        }
+    ```
+    ```py
+    if __name__ == "__main__":
 
-      ……
+        ……
 
-      results = t1716()                                       # 함수 호출 결과를 딕셔너리로 받음
-      pprint.pprint(results)
-  ```
-  </details>
-  <details open="">
-    <summary>Results</summary>
+        results = t1716()                                       # 함수 호출 결과를 딕셔너리로 받음
+        pprint.pprint(results)
+    ```
+    </details>
+    <details open="">
+      <summary>Results</summary>
 
-  ```txt
-  {'body': {'t1716InBlock': {'frggubun': '1',
-                            'fromdt': '20220725',
-                            'gubun': '0',
-                            'orggubun': '1',
-                            'prapp': 100,
-                            'prgubun': '1',
-                            'shcode': '005930',
-                            'todt': '20230726'}},
-  'header': {'authorization': None,
-              'content-type': 'application/json; charset=UTF-8',
-              'mac_address': '',
-              'tr_cd': 't1716',
-              'tr_cont': 'N',
-              'tr_cont_key': ''},
-  'out_block_tag': 'OutBlock',
-  'shcode': '005930',
-  'tr_name': 't1716',
-  'url': 'https://openapi.ebestsec.co.kr:8080/stock/frgr-itt'}
-  ```
-  </details>
-- `request_t1716.py`
-  <details>
-    <summary>Code (New)</summary>
+    ```txt
+    {'body': {'t1716InBlock': {'frggubun': '1',
+                              'fromdt': '20220725',
+                              'gubun': '0',
+                              'orggubun': '1',
+                              'prapp': 100,
+                              'prgubun': '1',
+                              'shcode': '005930',
+                              'todt': '20230726'}},
+    'header': {'authorization': None,
+                'content-type': 'application/json; charset=UTF-8',
+                'mac_address': '',
+                'tr_cd': 't1716',
+                'tr_cont': 'N',
+                'tr_cont_key': ''},
+    'out_block_tag': 'OutBlock',
+    'shcode': '005930',
+    'tr_name': 't1716',
+    'url': 'https://openapi.ebestsec.co.kr:8080/stock/frgr-itt'}
+    ```
+    </details>
+  - `request_t1716.py`
+    <details>
+      <summary>Code (New)</summary>
 
-  ```py
-  """
-  eBest Open API / 외인기관종목별동향 (t1716) 실행
-  2023.07.25
+    ```py
+    """
+    eBest Open API / 외인기관종목별동향 (t1716) 실행
+    2023.07.25
 
-  이 코드는 eBest Open API에서 t1716 TR을 호출하여 주어진 종목 코드와 조회 기간에 따른 외인과 기관의 순매매 정보를 조회하고,
-  이를 하나의 DataFrame으로 병합한 뒤 하나의 CSV 파일로 저장하는 작업을 수행합니다.
+    이 코드는 eBest Open API에서 t1716 TR을 호출하여 주어진 종목 코드와 조회 기간에 따른 외인과 기관의 순매매 정보를 조회하고,
+    이를 하나의 DataFrame으로 병합한 뒤 하나의 CSV 파일로 저장하는 작업을 수행합니다.
 
-  Parameters  :
-      TR_NAME (str)       : TR을 호출하는 함수의 이름으로 사용될 문자열입니다.
-      shcodes (list)      : 조회할 종목 코드들이 담긴 리스트입니다.
-      todts (list)        : 조회를 종료할 날짜들이 담긴 리스트입니다.
-      YEARS (int)         : 조회 기간의 연도 수를 나타내는 정수입니다.
-      PERIOD (int)        : 조회 기간을 나타내는 정수로, 최대 366일까지 조회가 가능합니다.
-      unique_keys (list)  : 중복된 열을 제거하기 위해 사용될 DataFrame의 열 이름들이 담긴 리스트입니다.
+    Parameters  :
+        TR_NAME (str)       : TR을 호출하는 함수의 이름으로 사용될 문자열입니다.
+        shcodes (list)      : 조회할 종목 코드들이 담긴 리스트입니다.
+        todts (list)        : 조회를 종료할 날짜들이 담긴 리스트입니다.
+        YEARS (int)         : 조회 기간의 연도 수를 나타내는 정수입니다.
+        PERIOD (int)        : 조회 기간을 나타내는 정수로, 최대 366일까지 조회가 가능합니다.
+        unique_keys (list)  : 중복된 열을 제거하기 위해 사용될 DataFrame의 열 이름들이 담긴 리스트입니다.
 
-  Returns     :
-      None
-  """
-  ```
-  ```py
-  import time
-  import t1716_2 as t1716
-  import request_tr_2 as request_tr
-  import pandas as pd
-  ```
-  ```py
-  if __name__ == "__main__":
+    Returns     :
+        None
+    """
+    ```
+    ```py
+    import time
+    import t1716_2 as t1716
+    import request_tr_2 as request_tr
+    import pandas as pd
+    ```
+    ```py
+    if __name__ == "__main__":
 
-      TR_NAME = "t1716"
-      shcodes = ["122630", "252670", "233740", "251340"]
-      todts   = []
-      YEARS   = 10
-      for i in range(0, YEARS):
-          todts.append(str(2022 - i) + "1231")
-      PERIOD  = 366
-          # It seems to have a maximum value of 366 (why not 365? considering leap years)
-      unique_keys = ["shcode", "date"]                                            # to remove duplicated columns
+        TR_NAME = "t1716"
+        shcodes = ["122630", "252670", "233740", "251340"]
+        todts   = []
+        YEARS   = 10
+        for i in range(0, YEARS):
+            todts.append(str(2022 - i) + "1231")
+        PERIOD  = 366
+            # It seems to have a maximum value of 366 (why not 365? considering leap years)
+        unique_keys = ["shcode", "date"]                                            # to remove duplicated columns
 
-      # print(todts)                                                              # Ok
+        # print(todts)                                                              # Ok
 
-      merged_df = pd.DataFrame()
-      for shcode in shcodes:
-          merged_df_2 = pd.DataFrame()
-          for todt in todts:
-              results = request_tr.request_tr(t1716.t1716(shcode=shcode, todt=todt, period=PERIOD))
-              merged_df_2 = pd.concat([merged_df_2, results[0]])
-              print(f"{TR_NAME} / {shcode} 종목 / {todt} 데이터를 수신하였습니다.")
-              time.sleep(1)
-          merged_df_2["shcode"] = shcode
-          merged_df = pd.concat([merged_df, merged_df_2])
-      merged_df.drop_duplicates(subset=unique_keys, keep='first', inplace=True)
-      request_tr.save_csv(data_frame=merged_df, tr_name=TR_NAME)
-  ```
+        merged_df = pd.DataFrame()
+        for shcode in shcodes:
+            merged_df_2 = pd.DataFrame()
+            for todt in todts:
+                results = request_tr.request_tr(t1716.t1716(shcode=shcode, todt=todt, period=PERIOD))
+                merged_df_2 = pd.concat([merged_df_2, results[0]])
+                print(f"{TR_NAME} / {shcode} 종목 / {todt} 데이터를 수신하였습니다.")
+                time.sleep(1)
+            merged_df_2["shcode"] = shcode
+            merged_df = pd.concat([merged_df, merged_df_2])
+        merged_df.drop_duplicates(subset=unique_keys, keep='first', inplace=True)
+        request_tr.save_csv(data_frame=merged_df, tr_name=TR_NAME)
+    ```
 
-  </details>
-  <details open="">
-    <summary>Results</summary>
+    </details>
+    <details open="">
+      <summary>Results</summary>
 
-  ```txt
-  t1716 / 122630 종목 / 20221231 데이터를 수신하였습니다.
-  t1716 / 122630 종목 / 20211231 데이터를 수신하였습니다.
-  ……
-  t1716 / 251340 종목 / 20131231 데이터를 수신하였습니다.
-  파일 저장을 완료하였습니다. : Data/T1716_20230726_092217.csv
-  ```
-  ```csv
-  date,close,sign,change,diff,volume,krx_0008,krx_0018,krx_0009,pgmvol,fsc_listing,fsc_sjrate,fsc_0009,gm_volume,gm_value,shcode
-  20221229,12805,5,-480,-3.61,18306241,3703971,-3248809,-571027,0,56568,0.04,-171027,0,0,122630
-  20221228,13285,5,-275,-2.03,16378432,2235121,-1599598,-688470,0,227595,0.16,-1088470,0,0,122630
-  20221227,13560,2,185,1.38,17776955,-772417,805734,155566,0,1316065,0.91,155566,0,0,122630
-  20221226,13375,3,0,0.00,10881566,-288532,-14282,294974,0,1160499,0.85,294974,0,0,122630
-  ……
-  20160810,9890,5,-110,-1.10,347391,41873,-41873,0,0,0,0.00,0,0,0,251340
-  ```
-  </details>
+    ```txt
+    t1716 / 122630 종목 / 20221231 데이터를 수신하였습니다.
+    t1716 / 122630 종목 / 20211231 데이터를 수신하였습니다.
+    ……
+    t1716 / 251340 종목 / 20131231 데이터를 수신하였습니다.
+    파일 저장을 완료하였습니다. : Data/T1716_20230726_092217.csv
+    ```
+    ```csv
+    date,close,sign,change,diff,volume,krx_0008,krx_0018,krx_0009,pgmvol,fsc_listing,fsc_sjrate,fsc_0009,gm_volume,gm_value,shcode
+    20221229,12805,5,-480,-3.61,18306241,3703971,-3248809,-571027,0,56568,0.04,-171027,0,0,122630
+    20221228,13285,5,-275,-2.03,16378432,2235121,-1599598,-688470,0,227595,0.16,-1088470,0,0,122630
+    20221227,13560,2,185,1.38,17776955,-772417,805734,155566,0,1316065,0.91,155566,0,0,122630
+    20221226,13375,3,0,0.00,10881566,-288532,-14282,294974,0,1160499,0.85,294974,0,0,122630
+    ……
+    20160810,9890,5,-110,-1.10,347391,41873,-41873,0,0,0,0.00,0,0,0,251340
+    ```
+    </details>
 
 
 ## [외인기관종목별동향 (t1716, 2023.07.21)](#list)
