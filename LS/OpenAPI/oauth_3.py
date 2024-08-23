@@ -1,12 +1,12 @@
 """
-eBest Open API / 접근토큰 발급 (token) 3
+LS Open API / 접근토큰 발급 (token) 3
 2024.08.22
 
-이 코드는 eBest Open API 서버에 OAuth 토큰을 요청하는 함수를 포함한 코드입니다.
+이 코드는 LS Open API 서버에 OAuth 토큰을 요청하는 함수를 포함한 코드입니다.
 OAuth 토큰은 API를 호출할 때 인증 정보로 사용되며, API 호출을 위해 반드시 필요합니다.
 
 사용 전 준비사항:
-1. eBest Open API 개발자 센터에서 앱 키와 시크릿 키를 발급받아야 합니다.
+1. LS Open API 개발자 센터에서 앱 키와 시크릿 키를 발급받아야 합니다.
 2. key.py 파일에 발급받은 앱 키와 시크릿 키를 저장해야 합니다. (예: KEY, SECRET)
 
 히스토리:
@@ -29,7 +29,7 @@ URL = "https://openapi.ls-sec.co.kr:8080/oauth2/token"
 
 def oauth(_test=False, _real=False):
     """
-    eBest Open API 서버에 OAuth 토큰을 요청하는 함수입니다.
+    LS Open API 서버에 OAuth 토큰을 요청하는 함수입니다.
 
     Parameters:
         _test (bool): 테스트 모드 여부를 설정하는 매개변수입니다. 기본값은 False입니다.

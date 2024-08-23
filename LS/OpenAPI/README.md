@@ -30,7 +30,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 ## [서버저장조건 조건검색 (t1859, 2024.08.22)](#list)
 
 - Call the **t1866** and **t1859** TR from *LS Open API* with `request_tr_3` and `oauth_3`
-- Code : `request_t1716.py`
+- Code : `t1859.py`
   <details>
     <summary>Import modules and Declare constants</summary>
 
@@ -168,7 +168,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 - Results
   <details open="">
-    <summary>T1866</summary>
+    <summary>t1866</summary>
 
   ```txt
   result_count,cont,contkey
@@ -183,7 +183,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   ```
   </details>
   <details open="">
-    <summary>T1859</summary>
+    <summary>t1859</summary>
 
   ```txt
   result_count,result_time,text

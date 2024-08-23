@@ -1,8 +1,8 @@
 """
-eBest Open API / request_tr 3
+LS Open API / request_tr 3
 2024.08.22
 
-이 코드는 eBest Open API에서 TR을 호출하여 데이터를 조회하고 CSV 파일로 저장하는 코드입니다.
+이 코드는 LS Open API에서 TR을 호출하여 데이터를 조회하고 CSV 파일로 저장하는 코드입니다.
 
 History :
     1   2023.07.21  최초 작성
@@ -25,7 +25,7 @@ import oauth_3 as oauth
 
 def request_tr(_results, _real=False, _timeout=1):
     """
-    eBest Open API에서 TR을 호출하여 데이터를 조회하는 함수입니다.
+    LS Open API에서 TR을 호출하여 데이터를 조회하는 함수입니다.
 
     Parameters:
         _results(dict)  : t****() 함수의 리턴값인 딕셔너리입니다.
