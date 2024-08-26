@@ -41,7 +41,7 @@ def request_tr(_results, _real=False, _timeout=1):
     # 요청에 필요한 정보를 설정
     _url = _results["url"]
     _tr_name = _results["tr_name"]
-    
+
     # 헤더가 딕셔너리에 포함되어 있지 않으면 기본 헤더를 설정
     if not "_header" in _results:
         _header = {
