@@ -116,19 +116,19 @@ if __name__ == "__main__":
     # CSPAQ12300 TR 요청을 위한 파라미터 설정 및 결과 출력
     cspaq12300_params = CSPAQ12300()
     # pprint.pprint(cspaq12300_params)
-    results1 = request_tr.request_tr(cspaq12300_params, _real=True, _timeout=3)
-    # pprint.pprint(results1)
+    results1 = request_tr.request_tr(cspaq12300_params, _real=False, _timeout=3)
+    pprint.pprint(results1)
 
     # 결과를 CSV 파일로 저장
     request_tr.save_csv(_data_frames=results1[0], _tr_name=results1[1])
 
     # t0424 TR 요청을 위한 파라미터 설정 및 결과 출력
     t0424_params = t0424(_cts_expcode="")
-    results2 = request_tr.request_tr(t0424_params, _real=True, _timeout=3)
+    results2 = request_tr.request_tr(t0424_params, _real=False, _timeout=3)
 
     # 첫 번째 결과 블록의 첫 번째 데이터와 두 번째 데이터를 출력
-    # pprint.pprint(results2[0][0])
-    # pprint.pprint(results2[0][1])
+    pprint.pprint(results2[0][0])
+    pprint.pprint(results2[0][1])
 
     # 결과를 CSV 파일로 저장
     request_tr.save_csv(_data_frames=results2[0], _tr_name=results2[1])
