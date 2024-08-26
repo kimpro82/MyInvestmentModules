@@ -21,12 +21,14 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 ### [*LS OPEN API*](/LS/OpenAPI)
 
 #### TR
+- [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](/LS/OpenAPI/README.md#현물계좌-잔고내역cspaq12300-주식잔고2t0424-20240826)
 - [서버저장조건 조건검색 (t1859, 2024.08.22)](/LS/OpenAPI/README.md#서버저장조건-조건검색-t1859-20240822)
 - [외인기관종목별동향 2 (t1716, 2023.07.25)](/LS/OpenAPI/README.md#외인기관종목별동향-2-t1716-20230725)
 - [외인기관종목별동향 (t1716, 2023.07.21)](/LS/OpenAPI/README.md#외인기관종목별동향-t1716-20230721)
 - [재무순위종합 (t3341, 2023.07.14)](/LS/OpenAPI/README.md#재무순위종합-t3341-20230714)
 
 #### Request TR & Save to CSV
+- [Request TR 4 (2024.08.26)](/LS/OpenAPI/README.md#request-tr-4-20240826)
 - [Request TR 3 (2024.08.22)](/LS/OpenAPI/README.md#request-tr-3-20240822)
 - [Request TR 2 (2023.07.25)](/LS/OpenAPI/README.md#request-tr-2-20230725)
 - [Request TR (2023.07.21)](/LS/OpenAPI/README.md#request-tr-20230721)
