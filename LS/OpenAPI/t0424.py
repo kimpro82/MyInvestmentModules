@@ -14,6 +14,50 @@ import request_tr_3 as request_tr
 # API 요청을 위한 기본 URL 설정
 URL = "https://openapi.ls-sec.co.kr:8080/stock/accno"
 
+
+def cspaq12300(_cts_expcode=""):
+    """
+
+    """
+
+    # TR 요청을 위한 URL 설정
+    _url = URL
+    _tr_cd = "CSPAQ12300"  # TR 코드 설정
+
+    # 요청에 필요한 헤더 설정
+    _header = {
+        "content-type": "application/json; charset=utf-8",  # 콘텐츠 타입
+        "authorization": None,  # 인증 토큰 (실제 요청 시 추가 필요)
+        "tr_cd": _tr_cd,  # TR 코드
+        "tr_cont": "N",  # 연속 조회 여부 (기본값: N)
+        "tr_cont_key": "",  # 연속 조회 키 (필요시 사용)
+        "mac_address": ""  # MAC 주소 (필요시 사용)
+    }
+
+    # 요청 바디 설정
+    _body = {
+        "t10424InBlock": {
+            "BalCreTp": "0",
+            "CmsnAppTpCode": "0",
+            "D2balBaseQryTp": "0",
+            "UprcTpCode": "0",
+        }
+    }
+
+    # 출력 블록 태그 (결과 데이터를 참조하기 위한 키)
+    _out_block_tag = ["OutBlock1", "OutBlock2", "OutBlock3"]
+
+    # TR 요청에 필요한 정보를 딕셔너리로 반환
+    return {
+        'url': _url,              # 요청 URL
+        'header': _header,        # 요청 헤더
+        'body': _body,            # 요청 바디
+        'tr_name': _tr_cd,        # TR 코드 이름
+        'out_block_tag': _out_block_tag,  # 출력 블록 태그
+        'shcode': None,           # 종목 코드 (필요시 사용)
+    }
+
+
 def t0424(_cts_expcode=""):
     """
     t0424 TR 요청을 위한 함수.
@@ -68,15 +112,22 @@ def t0424(_cts_expcode=""):
 if __name__ == "__main__":
     import pprint
 
+    cspaq12300_params = cspaq12300(_cts_expcode="")
+    results1 = request_tr.request_tr(cspaq12300_params, _real=False, _timeout=3)
+    pprint.pprint(results1[0][0])
+    pprint.pprint(results1[0][1])
+    pprint.pprint(results1[0][2])
+    request_tr.save_csv(_data_frames=results1[0], _tr_name="CSPAQ12300")
+
     # t0424 TR 요청을 위한 파라미터 설정
-    t0424_params = t0424(_cts_expcode="")
+    # t0424_params = t0424(_cts_expcode="")
 
     # TR 요청 및 결과 출력
-    results = request_tr.request_tr(t0424_params, _real=False, _timeout=3)
+    # results2 = request_tr.request_tr(t0424_params, _real=False, _timeout=3)
     
     # 첫 번째 결과 블록의 첫 번째 데이터와 두 번째 데이터를 출력
-    pprint.pprint(results[0][0])
-    pprint.pprint(results[0][1])
+    # pprint.pprint(results2[0][0])
+    # pprint.pprint(results2[0][1])
     
     # 결과를 CSV 파일로 저장
-    request_tr.save_csv(_data_frames=results[0], _tr_name="t0424")
+    # request_tr.save_csv(_data_frames=results2[0], _tr_name="t0424")
