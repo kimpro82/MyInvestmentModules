@@ -18,6 +18,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 - [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
 - [재무순위종합 (t3341, 2023.07.14)](#재무순위종합-t3341-20230714)
 #### Request TR & Save to CSV
+- [Request TR 4 (2024.08.26)](#request-tr-4-20240826)
 - [Request TR 3 (2024.08.22)](#request-tr-3-20240822)
 - [Request TR 2 (2023.07.25)](#request-tr-2-20230725)
 - [Request TR (2023.07.21)](#request-tr-20230721)
@@ -178,6 +179,10 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   <details open="">
     <summary>CSPAQ12300</summary>
 
+  ```txt
+  RecCnt,AcntNo,Pwd,BalCreTp,CmsnAppTpCode,D2balBaseQryTp,UprcTpCode
+  1,55503048401,0000,,,,
+  ```
   ```txt
   RecCnt,BrnNm,AcntNm,MnyOrdAbleAmt,MnyoutAbleAmt,SeOrdAbleAmt,KdqOrdAbleAmt,HtsOrdAbleAmt,MgnRat100pctOrdAbleAmt,BalEvalAmt,PchsAmt,RcvblAmt,PnlRat,InvstOrgAmt,InvstPlAmt,CrdtPldgOrdAmt,Dps,D1Dps,D2Dps,OrdDt,MnyMgn,SubstMgn,SubstAmt,PrdayBuyExecAmt,PrdaySellExecAmt,CrdayBuyExecAmt,CrdaySellExecAmt,EvalPnlSum,DpsastTotamt,Evrprc,RuseAmt,EtclndAmt,PrcAdjstAmt,D1CmsnAmt,D2CmsnAmt,D1EvrTax,D2EvrTax,D1SettPrergAmt,D2SettPrergAmt,PrdayKseMnyMgn,PrdayKseSubstMgn,PrdayKseCrdtMnyMgn,PrdayKseCrdtSubstMgn,CrdayKseMnyMgn,CrdayKseSubstMgn,CrdayKseCrdtMnyMgn,CrdayKseCrdtSubstMgn,PrdayKdqMnyMgn,PrdayKdqSubstMgn,PrdayKdqCrdtMnyMgn,PrdayKdqCrdtSubstMgn,CrdayKdqMnyMgn,CrdayKdqSubstMgn,CrdayKdqCrdtMnyMgn,CrdayKdqCrdtSubstMgn,PrdayFrbrdMnyMgn,PrdayFrbrdSubstMgn,CrdayFrbrdMnyMgn,CrdayFrbrdSubstMgn,PrdayCrbmkMnyMgn,PrdayCrbmkSubstMgn,CrdayCrbmkMnyMgn,CrdayCrbmkSubstMgn,DpspdgQty,BuyAdjstAmtD2,SellAdjstAmtD2,RepayRqrdAmtD1,RepayRqrdAmtD2,LoanAmt
   1,,김프로,100000000,100000000,0,0,0,100000000,0,0,0,0.000000,0,0,0,100000000,100000000,100000000,,0,0,0,0,0,0,0,0,100000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -721,6 +726,75 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   99   100    파크시스템스        41.89                 80.00                173.67              32.17          3336.79  3233.76  17183.96  21.40  140860  58.79  11.06   2.57
 
   [100 rows x 14 columns]
+  ```
+  </details>
+
+
+## [Request TR 4 (2024.08.26)](#list)
+
+- Advanced from [Request TR 3 (2024.08.22)](#request-tr-3-20240822)
+  - Set `_header` directly in `request_tr()`, no longer receiving it from `t****()`
+- Code and Results
+  <details>
+    <summary>request_tr_4.py (mainly changed parts)</summary>
+
+  ```py
+  def request_tr(_results, _real=False, _timeout=1):
+
+      ……
+
+      # 요청에 필요한 정보를 설정
+      _url = _results["url"]
+      _tr_name = _results["tr_name"]
+
+      # 헤더가 딕셔너리에 포함되어 있지 않으면 기본 헤더를 설정
+      if not "_header" in _results:
+          _header = {
+              "content-type": "application/json; charset=utf-8",  # 콘텐츠 타입
+              "authorization": None,  # OAuth 토큰 (추후 추가)
+              "tr_cd": _tr_name,  # TR 코드
+              "tr_cont": "N",  # 연속 조회 여부 (기본값: N)
+              "tr_cont_key": "",  # 연속 조회 키 (필요시 사용)
+              "mac_address": ""  # MAC 주소 (필요시 사용)
+          }
+      else:
+          _header = _results["header"]
+
+      # OAuth 토큰을 설정
+      _header["authorization"] = f"Bearer {oauth.oauth(_real=_real)}"
+
+      # 바디, 출력 블록 태그, 종목 코드 설정
+      _body = _results["body"]
+      _out_block_tags = _results["out_block_tags"]
+      _shcode = _results["shcode"]
+
+      ……
+  ```
+  ```py
+  if __name__ == "__main__":
+      ……
+      import tr_stock_accno
+
+      # CSPAQ12300 TR 요청 및 결과 확인
+      tr_outputs = request_tr(tr_stock_accno.CSPAQ12300())
+      ……
+
+      ……
+  ```
+  </details>
+  <details open="">
+    <summary>Results</summary>
+
+  ```txt
+  RecCnt,AcntNo,Pwd,BalCreTp,CmsnAppTpCode,D2balBaseQryTp,UprcTpCode
+  1,55503048401,0000,,,,
+  ```
+  ```txt
+  RecCnt,BrnNm,AcntNm,MnyOrdAbleAmt,MnyoutAbleAmt,SeOrdAbleAmt,KdqOrdAbleAmt,HtsOrdAbleAmt,MgnRat100pctOrdAbleAmt,BalEvalAmt,PchsAmt,RcvblAmt,PnlRat,InvstOrgAmt,InvstPlAmt,CrdtPldgOrdAmt,Dps,D1Dps,D2Dps,OrdDt,MnyMgn,SubstMgn,SubstAmt,PrdayBuyExecAmt,PrdaySellExecAmt,CrdayBuyExecAmt,CrdaySellExecAmt,EvalPnlSum,DpsastTotamt,Evrprc,RuseAmt,EtclndAmt,PrcAdjstAmt,D1CmsnAmt,D2CmsnAmt,D1EvrTax,D2EvrTax,D1SettPrergAmt,D2SettPrergAmt,PrdayKseMnyMgn,PrdayKseSubstMgn,PrdayKseCrdtMnyMgn,PrdayKseCrdtSubstMgn,CrdayKseMnyMgn,CrdayKseSubstMgn,CrdayKseCrdtMnyMgn,CrdayKseCrdtSubstMgn,PrdayKdqMnyMgn,PrdayKdqSubstMgn,PrdayKdqCrdtMnyMgn,PrdayKdqCrdtSubstMgn,CrdayKdqMnyMgn,CrdayKdqSubstMgn,CrdayKdqCrdtMnyMgn,CrdayKdqCrdtSubstMgn,PrdayFrbrdMnyMgn,PrdayFrbrdSubstMgn,CrdayFrbrdMnyMgn,CrdayFrbrdSubstMgn,PrdayCrbmkMnyMgn,PrdayCrbmkSubstMgn,CrdayCrbmkMnyMgn,CrdayCrbmkSubstMgn,DpspdgQty,BuyAdjstAmtD2,SellAdjstAmtD2,RepayRqrdAmtD1,RepayRqrdAmtD2,LoanAmt
+  1,,김프로,100000000,100000000,0,0,0,100000000,0,0,0,0.000000,0,0,0,100000000,100000000,100000000,,0,0,0,0,0,0,0,0,100000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ```
+  ```txt
+  (No balance in the account)
   ```
   </details>
 
