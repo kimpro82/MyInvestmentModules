@@ -12,11 +12,13 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 ### \<List>
 
 #### TR
-- [서버저장조건 조건검색 (t1859, 2024.08.22)](#서버저장조건-조건검색-t1859-20240822)
-- [외인기관종목별동향 2 (t1716, 2023.07.25)](#외인기관종목별동향-2-t1716-20230725)
-- [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
-- [재무순위종합 (t3341, 2023.07.14)](#재무순위종합-t3341-20230714)
+- [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](#현물계좌-잔고내역cspaq12300-주식잔고2t0424-20240826)
+- [서버저장조건 조건검색 (`t1859`, 2024.08.22)](#서버저장조건-조건검색-t1859-20240822)
+- [외인기관종목별동향 2 (`t1716`, 2023.07.25)](#외인기관종목별동향-2-t1716-20230725)
+- [외인기관종목별동향 (`t1716`, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
+- [재무순위종합 (`t3341`, 2023.07.14)](#재무순위종합-t3341-20230714)
 #### Request TR & Save to CSV
+- [Request TR 4 (2024.08.26)](#request-tr-4-20240826)
 - [Request TR 3 (2024.08.22)](#request-tr-3-20240822)
 - [Request TR 2 (2023.07.25)](#request-tr-2-20230725)
 - [Request TR (2023.07.21)](#request-tr-20230721)
@@ -26,8 +28,185 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 - [Oauth (2023.07.11)](#oauth-20230711)
 
 
+## [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](#list)
 
-## [서버저장조건 조건검색 (t1859, 2024.08.22)](#list)
+- [LS증권 OPEN API](https://openapi.ls-sec.co.kr/) > [API가이드](https://openapi.ls-sec.co.kr/apiservice) > [[주식] 계좌](https://openapi.ls-sec.co.kr/apiservice?api_id=37d22d4d-83cd-40a4-a375-81b010a4a627) > 현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`)
+- Call the **CSPAQ12300** and **t0424** TR from *LS Open API* with `request_tr_4` and `oauth_3`
+  - **CSPAQ12300** can distinguish between different accounts
+  - **t0424** in XingAPI includes an `accno` field, but this field is absent in the Open API, making it impossible to specify an account for trading
+- Code : `tr_stock_accno.py`
+  <details>
+    <summary>Import modules and Declare constants</summary>
+
+  ```py
+  import sys
+  import request_tr_4 as request_tr
+  ```
+  ```py
+  # API 요청을 위한 기본 URL 설정
+  URL = "https://openapi.ls-sec.co.kr:8080/stock/accno"
+  ```
+  </details>
+  <details>
+    <summary>CSPAQ12300()</summary>
+
+  ```py
+  def CSPAQ12300(_BalCreTp="0", _CmsnAppTpCode="0", _D2balBaseQryTp="0", _UprcTpCode="0"):
+      """
+      CSPAQ12300 TR 요청을 위한 함수.
+
+      이 함수는 CSPAQ12300 TR에 필요한 요청 URL, 바디 및 출력 블록 태그를 설정하고 반환합니다.
+      주식 계좌와 관련된 잔고 및 수수료 정보 조회에 사용됩니다.
+
+      Args:
+          _BalCreTp (str, optional): 잔고 구분 타입. 기본값은 '0'.
+          _CmsnAppTpCode (str, optional): 수수료 적용 타입 코드. 기본값은 '0'.
+          _D2balBaseQryTp (str, optional): D2잔고 기준 조회 타입. 기본값은 '0'.
+          _UprcTpCode (str, optional): 단가 타입 코드. 기본값은 '0'.
+
+      Returns:
+          dict: CSPAQ12300 TR 요청에 필요한 정보가 담긴 딕셔너리.
+      """
+
+      # TR 요청을 위한 URL 설정
+      _url = URL
+
+      # 요청 바디 설정
+      _body = {
+          "t10424InBlock": {
+              "BalCreTp": _BalCreTp,
+              "CmsnAppTpCode": _CmsnAppTpCode,
+              "D2balBaseQryTp": _D2balBaseQryTp,
+              "UprcTpCode": _UprcTpCode,
+          }
+      }
+
+      # 함수 이름으로 TR 이름 설정
+      _tr_name = sys._getframe().f_code.co_name
+
+      # 출력 블록 태그 (결과 데이터를 참조하기 위한 키) 설정
+      _out_block_tags = []
+      for i in range(1, 4):
+          _out_block_tags.append(f"{_tr_name}OutBlock{i}")
+
+      # TR 요청에 필요한 정보를 딕셔너리로 반환
+      return {
+          'url': _url,              # 요청 URL
+          'body': _body,            # 요청 바디
+          'tr_name': _tr_name,      # TR 코드 이름
+          'out_block_tags': _out_block_tags,  # 출력 블록 태그
+          'shcode': None,           # 종목 코드 (필요시 사용)
+      }
+  ```
+  </details>
+  <details>
+    <summary>t0424()</summary>
+
+  ```py
+  def t0424(_cts_expcode=""):
+      """
+      t0424 TR 요청을 위한 함수.
+
+      이 함수는 t0424 TR에 필요한 요청 URL, 바디 및 출력 블록 태그를 설정하고 반환합니다.
+      주식 계좌와 관련된 정보 조회에 사용됩니다.
+      
+      Args:
+          _cts_expcode (str, optional): 연속 조회를 위한 종목 코드. 기본값은 빈 문자열입니다.
+
+      Returns:
+          dict: t0424 TR 요청에 필요한 정보가 담긴 딕셔너리.
+      """
+
+      # TR 요청을 위한 URL 설정
+      _url = URL
+
+      # 함수 이름으로 TR 이름 설정
+      _tr_name = sys._getframe().f_code.co_name
+
+      # 요청 바디 설정
+      _body = {
+          "t10424InBlock": {
+              "prcgb": "",  # 가격 구분
+              "chegb": "",  # 체결 구분
+              "dangb": "",  # 당일/전일 구분
+              "charge": "",  # 수수료 구분
+              "cts_expcode": _cts_expcode,  # 연속 조회를 위한 종목 코드
+          }
+      }
+
+      # 출력 블록 태그 (결과 데이터를 참조하기 위한 키) 설정
+      _out_block_tags = []
+      for i in ["", "1"]:
+          _out_block_tags.append(f"{_tr_name}OutBlock{i}")
+
+      # TR 요청에 필요한 정보를 딕셔너리로 반환
+      return {
+          'url': _url,              # 요청 URL
+          'body': _body,            # 요청 바디
+          'tr_name': _tr_name,      # TR 코드 이름
+          'out_block_tags': _out_block_tags,  # 출력 블록 태그
+          'shcode': None,           # 종목 코드 (필요시 사용)
+      }
+  ```
+  </details>
+  <details>
+    <summary>Run</summary>
+
+  ```py
+  if __name__ == "__main__":
+      import pprint
+
+      # CSPAQ12300 TR 요청을 위한 파라미터 설정 및 결과 출력
+      cspaq12300_params = CSPAQ12300()
+      # pprint.pprint(cspaq12300_params)
+      results1 = request_tr.request_tr(cspaq12300_params, _real=False, _timeout=3)
+      pprint.pprint(results1)
+
+      # 결과를 CSV 파일로 저장
+      request_tr.save_csv(_data_frames=results1[0], _tr_name=results1[1])
+
+      # t0424 TR 요청을 위한 파라미터 설정 및 결과 출력
+      t0424_params = t0424(_cts_expcode="")
+      results2 = request_tr.request_tr(t0424_params, _real=False, _timeout=3)
+
+      # 첫 번째 결과 블록의 첫 번째 데이터와 두 번째 데이터를 출력
+      pprint.pprint(results2[0][0])
+      pprint.pprint(results2[0][1])
+
+      # 결과를 CSV 파일로 저장
+      request_tr.save_csv(_data_frames=results2[0], _tr_name=results2[1])
+  ```
+  </details>
+- Results
+  <details open="">
+    <summary>CSPAQ12300</summary>
+
+  ```txt
+  RecCnt,AcntNo,Pwd,BalCreTp,CmsnAppTpCode,D2balBaseQryTp,UprcTpCode
+  1,55503048401,0000,,,,
+  ```
+  ```txt
+  RecCnt,BrnNm,AcntNm,MnyOrdAbleAmt,MnyoutAbleAmt,SeOrdAbleAmt,KdqOrdAbleAmt,HtsOrdAbleAmt,MgnRat100pctOrdAbleAmt,BalEvalAmt,PchsAmt,RcvblAmt,PnlRat,InvstOrgAmt,InvstPlAmt,CrdtPldgOrdAmt,Dps,D1Dps,D2Dps,OrdDt,MnyMgn,SubstMgn,SubstAmt,PrdayBuyExecAmt,PrdaySellExecAmt,CrdayBuyExecAmt,CrdaySellExecAmt,EvalPnlSum,DpsastTotamt,Evrprc,RuseAmt,EtclndAmt,PrcAdjstAmt,D1CmsnAmt,D2CmsnAmt,D1EvrTax,D2EvrTax,D1SettPrergAmt,D2SettPrergAmt,PrdayKseMnyMgn,PrdayKseSubstMgn,PrdayKseCrdtMnyMgn,PrdayKseCrdtSubstMgn,CrdayKseMnyMgn,CrdayKseSubstMgn,CrdayKseCrdtMnyMgn,CrdayKseCrdtSubstMgn,PrdayKdqMnyMgn,PrdayKdqSubstMgn,PrdayKdqCrdtMnyMgn,PrdayKdqCrdtSubstMgn,CrdayKdqMnyMgn,CrdayKdqSubstMgn,CrdayKdqCrdtMnyMgn,CrdayKdqCrdtSubstMgn,PrdayFrbrdMnyMgn,PrdayFrbrdSubstMgn,CrdayFrbrdMnyMgn,CrdayFrbrdSubstMgn,PrdayCrbmkMnyMgn,PrdayCrbmkSubstMgn,CrdayCrbmkMnyMgn,CrdayCrbmkSubstMgn,DpspdgQty,BuyAdjstAmtD2,SellAdjstAmtD2,RepayRqrdAmtD1,RepayRqrdAmtD2,LoanAmt
+  1,,김프로,100000000,100000000,0,0,0,100000000,0,0,0,0.000000,0,0,0,100000000,100000000,100000000,,0,0,0,0,0,0,0,0,100000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ```
+  ```txt
+  (No balance in the account)
+  ```
+  </details>
+  <details open="">
+    <summary>t0424</summary>
+
+  ```txt
+  sunamt,dtsunik,mamt,sunamt1,cts_expcode,tappamt,tdtsunik
+  100000000,0,0,100000000,,0,0
+  ```
+  ```txt
+  (No balance in the account)
+  ```
+  </details>
+
+
+## [서버저장조건 조건검색 (`t1859`, 2024.08.22)](#list)
 
 - [LS OPEN API > API가이드 > 주식 > [주식] 종목검색](https://openapi.ls-sec.co.kr/apiservice?api_id=6b67369a-dc7a-4cc7-8c33-71bb6336b6bf) > 서버저장조건 조건검색 (t1859)
 - Call the **t1866** and **t1859** TR from *LS Open API* with `request_tr_3` and `oauth_3`
@@ -204,7 +383,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 
 
-## [외인기관종목별동향 2 (t1716, 2023.07.25)](#list)
+## [외인기관종목별동향 2 (`t1716`, 2023.07.25)](#list)
 
 - Advanced from `t1716.py` in [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
   - `t1716_2.py` : Change `t1716()`'s return type : *tuple* → *dictionary*
@@ -349,7 +528,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
     </details>
 
 
-## [외인기관종목별동향 (t1716, 2023.07.21)](#list)
+## [외인기관종목별동향 (`t1716`, 2023.07.21)](#list)
 
 - [eBest OPEN API](https://openapi.ls-sec.co.kr) > [API 가이드 > 주식 > [주식] 외인/기관](https://openapi.ls-sec.co.kr/apiservice?group_id=73142d9f-1983-48d2-8543-89b75535d34c&api_id=90378c39-f93e-4f95-9670-f76e5c924cc6) > 외인기관종목별동향 (t1716)
 - Only save parameters, that will be called by `request_tr()` in [Request TR (2023.07.21)](#request-tr-20230721)
@@ -479,7 +658,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 
 
-## [재무순위종합 (t3341, 2023.07.14)](#list)
+## [재무순위종합 (`t3341`, 2023.07.14)](#list)
 
 - [eBest OPEN API](https://openapi.ls-sec.co.kr) > [API 가이드 > 주식 > [주식] 투자정보](https://openapi.ls-sec.co.kr/apiservice#G_73142d9f-1983-48d2-8543-89b75535d34c#A_580d2770-a7a9-49e3-9ec1-49ed8bc734a2) > 재무순위종합
 - Code and Results
@@ -549,6 +728,75 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   99   100    파크시스템스        41.89                 80.00                173.67              32.17          3336.79  3233.76  17183.96  21.40  140860  58.79  11.06   2.57
 
   [100 rows x 14 columns]
+  ```
+  </details>
+
+
+## [Request TR 4 (2024.08.26)](#list)
+
+- Advanced from [Request TR 3 (2024.08.22)](#request-tr-3-20240822)
+  - Set `_header` directly in `request_tr()`, no longer receiving it from `t****()`
+- Code and Results
+  <details>
+    <summary>request_tr_4.py (mainly changed parts)</summary>
+
+  ```py
+  def request_tr(_results, _real=False, _timeout=1):
+
+      ……
+
+      # 요청에 필요한 정보를 설정
+      _url = _results["url"]
+      _tr_name = _results["tr_name"]
+
+      # 헤더가 딕셔너리에 포함되어 있지 않으면 기본 헤더를 설정
+      if not "_header" in _results:
+          _header = {
+              "content-type": "application/json; charset=utf-8",  # 콘텐츠 타입
+              "authorization": None,  # OAuth 토큰 (추후 추가)
+              "tr_cd": _tr_name,  # TR 코드
+              "tr_cont": "N",  # 연속 조회 여부 (기본값: N)
+              "tr_cont_key": "",  # 연속 조회 키 (필요시 사용)
+              "mac_address": ""  # MAC 주소 (필요시 사용)
+          }
+      else:
+          _header = _results["header"]
+
+      # OAuth 토큰을 설정
+      _header["authorization"] = f"Bearer {oauth.oauth(_real=_real)}"
+
+      # 바디, 출력 블록 태그, 종목 코드 설정
+      _body = _results["body"]
+      _out_block_tags = _results["out_block_tags"]
+      _shcode = _results["shcode"]
+
+      ……
+  ```
+  ```py
+  if __name__ == "__main__":
+      ……
+      import tr_stock_accno
+
+      # CSPAQ12300 TR 요청 및 결과 확인
+      tr_outputs = request_tr(tr_stock_accno.CSPAQ12300())
+      ……
+
+      ……
+  ```
+  </details>
+  <details open="">
+    <summary>Results</summary>
+
+  ```txt
+  RecCnt,AcntNo,Pwd,BalCreTp,CmsnAppTpCode,D2balBaseQryTp,UprcTpCode
+  1,55503048401,0000,,,,
+  ```
+  ```txt
+  RecCnt,BrnNm,AcntNm,MnyOrdAbleAmt,MnyoutAbleAmt,SeOrdAbleAmt,KdqOrdAbleAmt,HtsOrdAbleAmt,MgnRat100pctOrdAbleAmt,BalEvalAmt,PchsAmt,RcvblAmt,PnlRat,InvstOrgAmt,InvstPlAmt,CrdtPldgOrdAmt,Dps,D1Dps,D2Dps,OrdDt,MnyMgn,SubstMgn,SubstAmt,PrdayBuyExecAmt,PrdaySellExecAmt,CrdayBuyExecAmt,CrdaySellExecAmt,EvalPnlSum,DpsastTotamt,Evrprc,RuseAmt,EtclndAmt,PrcAdjstAmt,D1CmsnAmt,D2CmsnAmt,D1EvrTax,D2EvrTax,D1SettPrergAmt,D2SettPrergAmt,PrdayKseMnyMgn,PrdayKseSubstMgn,PrdayKseCrdtMnyMgn,PrdayKseCrdtSubstMgn,CrdayKseMnyMgn,CrdayKseSubstMgn,CrdayKseCrdtMnyMgn,CrdayKseCrdtSubstMgn,PrdayKdqMnyMgn,PrdayKdqSubstMgn,PrdayKdqCrdtMnyMgn,PrdayKdqCrdtSubstMgn,CrdayKdqMnyMgn,CrdayKdqSubstMgn,CrdayKdqCrdtMnyMgn,CrdayKdqCrdtSubstMgn,PrdayFrbrdMnyMgn,PrdayFrbrdSubstMgn,CrdayFrbrdMnyMgn,CrdayFrbrdSubstMgn,PrdayCrbmkMnyMgn,PrdayCrbmkSubstMgn,CrdayCrbmkMnyMgn,CrdayCrbmkSubstMgn,DpspdgQty,BuyAdjstAmtD2,SellAdjstAmtD2,RepayRqrdAmtD1,RepayRqrdAmtD2,LoanAmt
+  1,,김프로,100000000,100000000,0,0,0,100000000,0,0,0,0.000000,0,0,0,100000000,100000000,100000000,,0,0,0,0,0,0,0,0,100000000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+  ```
+  ```txt
+  (No balance in the account)
   ```
   </details>
 
