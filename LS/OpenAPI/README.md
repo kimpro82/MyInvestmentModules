@@ -32,6 +32,8 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 - [LS증권 OPEN API](https://openapi.ls-sec.co.kr/) > [API가이드](https://openapi.ls-sec.co.kr/apiservice) > [[주식] 계좌](https://openapi.ls-sec.co.kr/apiservice?api_id=37d22d4d-83cd-40a4-a375-81b010a4a627) > 현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`)
 - Call the **CSPAQ12300** and **t0424** TR from *LS Open API* with `request_tr_4` and `oauth_3`
+  - **CSPAQ12300** can distinguish between different accounts
+  - **t0424** in XingAPI includes an `accno` field, but this field is absent in the Open API, making it impossible to specify an account for trading
 - Code : `tr_stock_accno.py`
   <details>
     <summary>Import modules and Declare constants</summary>
