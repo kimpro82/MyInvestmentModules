@@ -13,10 +13,10 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 #### TR
 - [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](#현물계좌-잔고내역cspaq12300-주식잔고2t0424-20240826)
-- [서버저장조건 조건검색 (t1859, 2024.08.22)](#서버저장조건-조건검색-t1859-20240822)
-- [외인기관종목별동향 2 (t1716, 2023.07.25)](#외인기관종목별동향-2-t1716-20230725)
-- [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
-- [재무순위종합 (t3341, 2023.07.14)](#재무순위종합-t3341-20230714)
+- [서버저장조건 조건검색 (`t1859`, 2024.08.22)](#서버저장조건-조건검색-t1859-20240822)
+- [외인기관종목별동향 2 (`t1716`, 2023.07.25)](#외인기관종목별동향-2-t1716-20230725)
+- [외인기관종목별동향 (`t1716`, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
+- [재무순위종합 (`t3341`, 2023.07.14)](#재무순위종합-t3341-20230714)
 #### Request TR & Save to CSV
 - [Request TR 4 (2024.08.26)](#request-tr-4-20240826)
 - [Request TR 3 (2024.08.22)](#request-tr-3-20240822)
@@ -206,7 +206,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 
 
-## [서버저장조건 조건검색 (t1859, 2024.08.22)](#list)
+## [서버저장조건 조건검색 (`t1859`, 2024.08.22)](#list)
 
 - [LS OPEN API > API가이드 > 주식 > [주식] 종목검색](https://openapi.ls-sec.co.kr/apiservice?api_id=6b67369a-dc7a-4cc7-8c33-71bb6336b6bf) > 서버저장조건 조건검색 (t1859)
 - Call the **t1866** and **t1859** TR from *LS Open API* with `request_tr_3` and `oauth_3`
@@ -383,7 +383,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 
 
-## [외인기관종목별동향 2 (t1716, 2023.07.25)](#list)
+## [외인기관종목별동향 2 (`t1716`, 2023.07.25)](#list)
 
 - Advanced from `t1716.py` in [외인기관종목별동향 (t1716, 2023.07.21)](#외인기관종목별동향-t1716-20230721)
   - `t1716_2.py` : Change `t1716()`'s return type : *tuple* → *dictionary*
@@ -528,7 +528,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
     </details>
 
 
-## [외인기관종목별동향 (t1716, 2023.07.21)](#list)
+## [외인기관종목별동향 (`t1716`, 2023.07.21)](#list)
 
 - [eBest OPEN API](https://openapi.ls-sec.co.kr) > [API 가이드 > 주식 > [주식] 외인/기관](https://openapi.ls-sec.co.kr/apiservice?group_id=73142d9f-1983-48d2-8543-89b75535d34c&api_id=90378c39-f93e-4f95-9670-f76e5c924cc6) > 외인기관종목별동향 (t1716)
 - Only save parameters, that will be called by `request_tr()` in [Request TR (2023.07.21)](#request-tr-20230721)
@@ -658,7 +658,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   </details>
 
 
-## [재무순위종합 (t3341, 2023.07.14)](#list)
+## [재무순위종합 (`t3341`, 2023.07.14)](#list)
 
 - [eBest OPEN API](https://openapi.ls-sec.co.kr) > [API 가이드 > 주식 > [주식] 투자정보](https://openapi.ls-sec.co.kr/apiservice#G_73142d9f-1983-48d2-8543-89b75535d34c#A_580d2770-a7a9-49e3-9ec1-49ed8bc734a2) > 재무순위종합
 - Code and Results
