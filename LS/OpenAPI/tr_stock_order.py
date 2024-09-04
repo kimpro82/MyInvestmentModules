@@ -94,6 +94,7 @@ def CSPAT00801(_body):
 
 
 if __name__ == "__main__":
+    import time
     import pprint
 
     cspat00601_body = {
@@ -114,6 +115,27 @@ if __name__ == "__main__":
     # pprint.pprint(results1[0])
     OrdNo = results1[0][1]["OrdNo"].values[0]
     print(OrdNo)
+    time.sleep(1)
+
+    # {
+    #   "CSPAT00701InBlock1" : {
+    #     "RecCnt" : 1,
+    #     "OrgOrdNo" : 84005,
+    #     "IsuNo" : "A005930",
+    #     "OrdQty" : 1,
+    #     "OrdprcPtnCode" : "00",
+    #     "OrdCndiTpCode" : "0",
+    #     "OrdPrc" : 8350.0,
+    #     "CommdaCode" : "41",
+    #     "StrtgCode" : " ",
+    #     "GrpId" : " ",
+    #     "OrdSeqNo" : 0,
+    #     "PtflNo" : 0,
+    #     "BskNo" : 0,
+    #     "TrchNo" : 0,
+    #     "ItemNo" : 0
+    #   }
+    # }
 
     cspat00701_body = {
         "CSPAT00701InBlock1": {
@@ -123,14 +145,24 @@ if __name__ == "__main__":
             "OrdprcPtnCode": "00",          # 호가유형코드 (00:지정가, 03:시장가 등)
             "OrdCndiTpCode": "0",           # 주문조건구분 (0:없음, 1:IOC, 2:FOK)
             "OrdPrc": 61000.0,              # 주문가
+            "RecCnt" : 1,
+            "CommdaCode" : "41",
+            "StrtgCode" : " ",
+            "GrpId" : " ",
+            "OrdSeqNo" : 0,
+            "PtflNo" : 0,
+            "BskNo" : 0,
+            "TrchNo" : 0,
+            "ItemNo" : 0
         }
     }
     cspat00701_params = CSPAT00701(cspat00701_body)
     pprint.pprint(cspat00701_params)
     results2 = request_tr.request_tr(cspat00701_params, _real=False, _timeout=3)
     pprint.pprint(results2)
-    OrdNo2 = results1[0][1]["OrdNo"].values[0]
+    OrdNo2 = results2[0][1]["OrdNo"].values[0]
     print(OrdNo2)
+    time.sleep(1)
 
     cspat00801_body = {
         "CSPAT00801InBlock1": {
