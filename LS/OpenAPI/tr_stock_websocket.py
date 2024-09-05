@@ -194,7 +194,23 @@ def SC4(_body="", _real=False):
 
 if __name__ == "__main__":
     import pprint
+    import tr_stock_order
 
+    cspat00601_body = {
+        "CSPAT00601InBlock1": {
+            "IsuNo": "A005930",             # 종목번호 (모의투자: A+종목코드)
+            "OrdQty": 1,                    # 주문수량
+            "OrdPrc": 60000.0,              # 주문가
+            "BnsTpCode": "2",               # 매매구분 (1:매도, 2:매수)
+            "OrdprcPtnCode": "00",          # 호가유형코드 (00:지정가, 03:시장가 등)
+            "MgntrnCode": "000",            # 신용거래코드 (000:보통)
+            "LoanDt": "",                   # 대출일
+            "OrdCndiTpCode": "0",           # 주문조건구분 (0:없음, 1:IOC, 2:FOK)
+        }
+    }
+    cspat00601_params = tr_stock_order.CSPAT00601(cspat00601_body)
+    # pprint.pprint(cspat00601_params)
+    results1 = request_tr.request_tr(cspat00601_params, _real=False, _timeout=3)
     cs0_params = SC0(_real=False)
     pprint.pprint(cs0_params)
     results0 = request_tr.request_tr(cs0_params, _real=False, _timeout=3)
