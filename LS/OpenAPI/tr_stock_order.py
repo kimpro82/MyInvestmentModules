@@ -27,7 +27,7 @@ def CSPAT00601(_body):
     _tr_name = sys._getframe().f_code.co_name
 
     # 출력 블록 태그 (결과 데이터를 참조하기 위한 키) 설정
-    _out_block_tags = []
+    _out_block_tags = ["rsp_cd", "rsp_msg"]
     for i in range(1, 3):
         _out_block_tags.append(f"{_tr_name}OutBlock{i}")
 
@@ -94,87 +94,64 @@ def CSPAT00801(_body):
 
 
 if __name__ == "__main__":
-    import time
     import pprint
+
+    REAL = True
+    IsuNo = "005930"
+    OrdprcPtnCode = "82"
+    OrdPrc1 = 65000.0
+    OrdPrc2 = 64000.0
+    OrdQty = 1
 
     cspat00601_body = {
         "CSPAT00601InBlock1": {
-            "IsuNo": "A005930",             # 종목번호 (모의투자: A+종목코드)
-            "OrdQty": 1,                    # 주문수량
-            "OrdPrc": 60000.0,              # 주문가
+            "IsuNo": IsuNo,                 # 종목번호 (모의투자: A+종목코드)
+            "OrdQty": OrdQty,               # 주문수량
+            "OrdPrc": OrdPrc1,              # 주문가
             "BnsTpCode": "2",               # 매매구분 (1:매도, 2:매수)
-            "OrdprcPtnCode": "00",          # 호가유형코드 (00:지정가, 03:시장가 등)
+            "OrdprcPtnCode": OrdprcPtnCode, # 호가유형코드 (00:지정가, 03:시장가 등)
             "MgntrnCode": "000",            # 신용거래코드 (000:보통)
             "LoanDt": "",                   # 대출일
             "OrdCndiTpCode": "0",           # 주문조건구분 (0:없음, 1:IOC, 2:FOK)
         }
     }
     cspat00601_params = CSPAT00601(cspat00601_body)
-    # pprint.pprint(cspat00601_params)
-    results1 = request_tr.request_tr(cspat00601_params, _real=False, _timeout=3)
-    # pprint.pprint(results1[0])
-    OrdNo = results1[0][1]["OrdNo"].values[0]
+    pprint.pprint(cspat00601_params)
+    results1 = request_tr.request_tr(cspat00601_params, _real=REAL, _timeout=3)
+    pprint.pprint(results1[0])
+    OrdNo = int(results1[0][1]["OrdNo"].values[0])
     print(OrdNo)
-    time.sleep(1)
-
-    # {
-    #   "CSPAT00701InBlock1" : {
-    #     "RecCnt" : 1,
-    #     "OrgOrdNo" : 84005,
-    #     "IsuNo" : "A005930",
-    #     "OrdQty" : 1,
-    #     "OrdprcPtnCode" : "00",
-    #     "OrdCndiTpCode" : "0",
-    #     "OrdPrc" : 8350.0,
-    #     "CommdaCode" : "41",
-    #     "StrtgCode" : " ",
-    #     "GrpId" : " ",
-    #     "OrdSeqNo" : 0,
-    #     "PtflNo" : 0,
-    #     "BskNo" : 0,
-    #     "TrchNo" : 0,
-    #     "ItemNo" : 0
-    #   }
-    # }
 
     cspat00701_body = {
         "CSPAT00701InBlock1": {
             "OrgOrdNo": OrdNo,              # 원주문번호
-            "IsuNo": "A005930",             # 종목번호 (모의투자: A+종목코드)
-            "OrdQty": 1,                    # 주문수량
-            "OrdprcPtnCode": "00",          # 호가유형코드 (00:지정가, 03:시장가 등)
+            "IsuNo": IsuNo,                 # 종목번호 (모의투자: A+종목코드)
+            "OrdQty": OrdQty,               # 주문수량
+            "OrdprcPtnCode": OrdprcPtnCode, # 호가유형코드 (00:지정가, 03:시장가 등)
             "OrdCndiTpCode": "0",           # 주문조건구분 (0:없음, 1:IOC, 2:FOK)
-            "OrdPrc": 61000.0,              # 주문가
-            "RecCnt" : 1,
-            "CommdaCode" : "41",
-            "StrtgCode" : " ",
-            "GrpId" : " ",
-            "OrdSeqNo" : 0,
-            "PtflNo" : 0,
-            "BskNo" : 0,
-            "TrchNo" : 0,
-            "ItemNo" : 0
+            "OrdPrc": OrdPrc2,              # 주문가
         }
     }
     cspat00701_params = CSPAT00701(cspat00701_body)
     pprint.pprint(cspat00701_params)
-    results2 = request_tr.request_tr(cspat00701_params, _real=False, _timeout=3)
-    pprint.pprint(results2)
-    OrdNo2 = results2[0][1]["OrdNo"].values[0]
+    results2 = request_tr.request_tr(cspat00701_params, _real=REAL, _timeout=3)
+    pprint.pprint(results2[0])
+    OrdNo2 = int(results2[0][1]["OrdNo"].values[0])
     print(OrdNo2)
-    time.sleep(1)
 
     cspat00801_body = {
         "CSPAT00801InBlock1": {
             "OrgOrdNo": OrdNo2,             # 원주문번호
-            "IsuNo": "A005930",             # 종목번호 (모의투자: A+종목코드)
-            "OrdQty": 1,                    # 주문수량
+            "IsuNo": IsuNo,                 # 종목번호 (모의투자: A+종목코드)
+            "OrdQty": OrdQty,               # 주문수량
         }
     }
-    cspat00801_params = CSPAT00701(cspat00801_body)
+    cspat00801_params = CSPAT00801(cspat00801_body)
     pprint.pprint(cspat00801_params)
-    results3 = request_tr.request_tr(cspat00801_params, _real=False, _timeout=3)
-    pprint.pprint(results3)
+    results3 = request_tr.request_tr(cspat00801_params, _real=REAL, _timeout=3)
+    pprint.pprint(results3[0])
 
-    # 결과를 CSV 파일로 저장
-    # request_tr.save_csv(_data_frames=results1[0], _tr_name=results1[1])
+    # # 결과를 CSV 파일로 저장
+    request_tr.save_csv(_data_frames=results1[0], _tr_name=results1[1])
+    request_tr.save_csv(_data_frames=results2[0], _tr_name=results2[1])
+    request_tr.save_csv(_data_frames=results3[0], _tr_name=results3[1])
