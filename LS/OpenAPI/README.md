@@ -12,7 +12,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 ### \<List>
 
 #### TR
-- [현물주문(`CSPAT00601`) 현물정정주문(`CSPAT00701`) 현물취소주문(`CSPAT00801`) (2024.09.06)](#현물주문cspat00601-현물정정주문cspat00701-현물취소주문cspat00801-20240906)
+- [현물주문(`CSPAT00601`), 현물정정주문(`CSPAT00701`), 현물취소주문(`CSPAT00801`) (2024.09.06)](#현물주문cspat00601-현물정정주문cspat00701-현물취소주문cspat00801-20240906)
 - [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](#현물계좌-잔고내역cspaq12300-주식잔고2t0424-20240826)
 - [서버저장조건 조건검색 (`t1859`, 2024.08.22)](#서버저장조건-조건검색-t1859-20240822)
 - [외인기관종목별동향 2 (`t1716`, 2023.07.25)](#외인기관종목별동향-2-t1716-20230725)
@@ -29,7 +29,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 - [Oauth (2023.07.11)](#oauth-20230711)
 
 
-## [현물주문(`CSPAT00601`) 현물정정주문(`CSPAT00701`) 현물취소주문(`CSPAT00801`) (2024.09.06)](#list)
+## [현물주문(`CSPAT00601`), 현물정정주문(`CSPAT00701`), 현물취소주문(`CSPAT00801`) (2024.09.06)](#list)
 
 - [LS증권 OPEN API](https://openapi.ls-sec.co.kr/) > [API가이드](https://openapi.ls-sec.co.kr/apiservice) > [[주식] 주문](https://openapi.ls-sec.co.kr/apiservice?api_id=d0e216e0-10d9-479f-8a4d-e175b8bae307) > 현물주문(`CSPAT00601`), 현물정정주문(`CSPAT00701`), 현물취소주문(`CSPAT00801`)
 - Code : `tr_stock_order.py`
