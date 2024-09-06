@@ -6,7 +6,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 
 ### \<Reference>
 
-- LS OPEN API Portal https://openapi.ls-sec.co.kr/ 
+- LS OPEN API Portal ☞ https://openapi.ls-sec.co.kr/ 
 
 
 ### \<List>
