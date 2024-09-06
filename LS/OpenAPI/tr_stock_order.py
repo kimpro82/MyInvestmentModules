@@ -1,9 +1,9 @@
 """
 LS Open API / [주식] 주문 TR 요청 모듈
-2024.08.28
+2024.09.06
 
 히스토리:
-1   2024.08.28 최초 작성
+1   2024.09.06 최초 작성
 """
 
 
@@ -27,7 +27,8 @@ def CSPAT00601(_body):
     _tr_name = sys._getframe().f_code.co_name
 
     # 출력 블록 태그 (결과 데이터를 참조하기 위한 키) 설정
-    _out_block_tags = ["rsp_cd", "rsp_msg"]
+    # _out_block_tags = ["rsp_cd", "rsp_msg"]
+    _out_block_tags = []
     for i in range(1, 3):
         _out_block_tags.append(f"{_tr_name}OutBlock{i}")
 
@@ -53,9 +54,10 @@ def CSPAT00701(_body):
     _tr_name = sys._getframe().f_code.co_name
 
     # 출력 블록 태그 (결과 데이터를 참조하기 위한 키) 설정
-    _out_block_tags = ["rsp_cd", "rsp_msg"]
-    # for i in range(1, 3):
-    #     _out_block_tags.append(f"{_tr_name}OutBlock{i}")
+    # _out_block_tags = ["rsp_cd", "rsp_msg"]
+    _out_block_tags = []
+    for i in range(1, 3):
+        _out_block_tags.append(f"{_tr_name}OutBlock{i}")
 
     # TR 요청에 필요한 정보를 딕셔너리로 반환
     return {
@@ -79,7 +81,8 @@ def CSPAT00801(_body):
     _tr_name = sys._getframe().f_code.co_name
 
     # 출력 블록 태그 (결과 데이터를 참조하기 위한 키) 설정
-    _out_block_tags = ["rsp_cd", "rsp_msg"]
+    # _out_block_tags = ["rsp_cd", "rsp_msg"]
+    _out_block_tags = []
     for i in range(1, 3):
         _out_block_tags.append(f"{_tr_name}OutBlock{i}")
 
@@ -96,11 +99,11 @@ def CSPAT00801(_body):
 if __name__ == "__main__":
     import pprint
 
-    REAL = True
-    IsuNo = "005930"
-    OrdprcPtnCode = "82"
-    OrdPrc1 = 65000.0
-    OrdPrc2 = 64000.0
+    IS_REAL = False
+    IsuNo = "A005930"
+    OrdprcPtnCode = "00"
+    OrdPrc1 = 60000.0
+    OrdPrc2 = 65000.0
     OrdQty = 1
 
     cspat00601_body = {
@@ -116,9 +119,9 @@ if __name__ == "__main__":
         }
     }
     cspat00601_params = CSPAT00601(cspat00601_body)
-    pprint.pprint(cspat00601_params)
-    results1 = request_tr.request_tr(cspat00601_params, _real=REAL, _timeout=3)
-    pprint.pprint(results1[0])
+    # pprint.pprint(cspat00601_params)
+    results1 = request_tr.request_tr(cspat00601_params, _real=IS_REAL, _timeout=3)
+    pprint.pprint(results1)
     OrdNo = int(results1[0][1]["OrdNo"].values[0])
     print(OrdNo)
 
@@ -133,9 +136,9 @@ if __name__ == "__main__":
         }
     }
     cspat00701_params = CSPAT00701(cspat00701_body)
-    pprint.pprint(cspat00701_params)
-    results2 = request_tr.request_tr(cspat00701_params, _real=REAL, _timeout=3)
-    pprint.pprint(results2[0])
+    # pprint.pprint(cspat00701_params)
+    results2 = request_tr.request_tr(cspat00701_params, _real=IS_REAL, _timeout=3)
+    pprint.pprint(results2)
     OrdNo2 = int(results2[0][1]["OrdNo"].values[0])
     print(OrdNo2)
 
@@ -147,9 +150,9 @@ if __name__ == "__main__":
         }
     }
     cspat00801_params = CSPAT00801(cspat00801_body)
-    pprint.pprint(cspat00801_params)
-    results3 = request_tr.request_tr(cspat00801_params, _real=REAL, _timeout=3)
-    pprint.pprint(results3[0])
+    # pprint.pprint(cspat00801_params)
+    results3 = request_tr.request_tr(cspat00801_params, _real=IS_REAL, _timeout=3)
+    pprint.pprint(results3)
 
     # # 결과를 CSV 파일로 저장
     request_tr.save_csv(_data_frames=results1[0], _tr_name=results1[1])
