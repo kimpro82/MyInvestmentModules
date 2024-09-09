@@ -1,273 +1,134 @@
-"""
-LS Open API / [주식] 실시간 시세 TR 요청 모듈
-2024.09.06
-
-히스토리:
-1   2024.09.06 최초 작성
-"""
-
-
 import sys
+import asyncio
+import aiohttp
 import oauth_3 as oauth
-import request_tr_4 as request_tr
+import tr_stock_order
+if __name__ == "__main__":
+    import pprint
 
 
 # API 요청을 위한 기본 URL 설정
-URL = "https://openapi.ls-sec.co.kr:9443/stock/websocket"
+URL      = "https://openapi.ls-sec.co.kr:9443/stock/websocket"
 MOCK_URL = "https://openapi.ls-sec.co.kr:29443/stock/websocket"
 
 
-def SC0(_body="", _real=False):
-    """
-
-    """
-
-    _tr_name = sys._getframe().f_code.co_name
-
-    # TR 요청을 위한 URL 설정
-    if not _real:
-        _url = URL
-    else:
-        _url = MOCK_URL
-
-    _header = {
-        "token": f"Bearer {oauth.oauth(_real=_real)}",
-        "tr_type": "1",
-    }
-
-    if _body == "":
-        _body = {
-            "tr_cd": _tr_name,
-            "tr_key": "",
-        }
-
-    # TR 요청에 필요한 정보를 딕셔너리로 반환
-    return {
-        'url': _url,              # 요청 URL
-        'header': _header,        # 요청 header
-        'body': _body,            # 요청 바디
-        'tr_name': _tr_name,      # TR 코드 이름
-        'out_block_tags': ["header", "body"],  # 출력 블록 태그
-        'shcode': None,           # 종목 코드 (필요시 사용)
-    }
+async def async_request_tr(params):
+    """비동기식으로 TR 요청을 처리하는 함수"""
+    async with aiohttp.ClientSession() as session:
+        async with session.post(params['url'], headers=params['header'], json=params['body']) as response:
+            response_data = await response.json()
+            return response_data
 
 
-def SC1(_body="", _real=False):
-    """
+async def request_template(_real=False, _body=None):
+    """TR 요청을 위한 공통 템플릿 함수"""
+    _tr_name = sys._getframe(1).f_code.co_name              # 호출한 함수명을 가져옴
+    # print(_tr_name)                                       # Ok
 
-    """
-
-    _tr_name = sys._getframe().f_code.co_name
-
-    # TR 요청을 위한 URL 설정
-    if not _real:
-        _url = URL
-    else:
-        _url = MOCK_URL
+    _url = URL if _real else MOCK_URL
 
     _header = {
         "token": f"Bearer {oauth.oauth(_real=_real)}",
         "tr_type": "1",
     }
 
-    if _body == "":
+    if _body is None:
         _body = {
             "tr_cd": _tr_name,
             "tr_key": "",
         }
 
-    # TR 요청에 필요한 정보를 딕셔너리로 반환
-    return {
-        'url': _url,              # 요청 URL
-        'header': _header,        # 요청 header
-        'body': _body,            # 요청 바디
-        'tr_name': _tr_name,      # TR 코드 이름
-        'out_block_tags': ["header", "body"],  # 출력 블록 태그
-        'shcode': None,           # 종목 코드 (필요시 사용)
+    _params = {
+        'url': _url,
+        'header': _header,
+        'body': _body,
+        'tr_name': _tr_name,
     }
 
+    return await async_request_tr(_params)
 
-def SC2(_body="", _real=False):
-    """
 
-    """
+# SC0 ~ SC4 호출용 함수들
+async def SC0(_body=None, _real=False):
+    return await request_template(_real=_real, _body=_body)
 
-    _tr_name = sys._getframe().f_code.co_name
+async def SC1(_body=None, _real=False):
+    return await request_template(_real=_real, _body=_body)
 
-    # TR 요청을 위한 URL 설정
-    if not _real:
-        _url = URL
-    else:
-        _url = MOCK_URL
+async def SC2(_body=None, _real=False):
+    return await request_template(_real=_real, _body=_body)
 
-    _header = {
-        "token": f"Bearer {oauth.oauth(_real=_real)}",
-        "tr_type": "1",
-    }
+async def SC3(_body=None, _real=False):
+    return await request_template(_real=_real, _body=_body)
 
-    if _body == "":
-        _body = {
-            "tr_cd": _tr_name,
-            "tr_key": "",
+async def SC4(_body=None, _real=False):
+    return await request_template(_real=_real, _body=_body)
+
+
+async def receive_order_response():
+    """주문 응답을 비동기식으로 수신하는 함수"""
+
+    async def handle_response(sc_function):
+        while True:
+            try:
+                result = await sc_function(_real=False)
+                pprint.pprint(result)
+            except Exception as e:
+                print(f"Error while receiving response from {sc_function.__name__}: {e}")
+            await asyncio.sleep(1)  # 잠시 대기 후 다시 요청
+
+    # 각각의 TR 요청을 독립적으로 실행
+    await asyncio.gather(
+        handle_response(SC0),
+        handle_response(SC1),
+        handle_response(SC2),
+        handle_response(SC3),
+        handle_response(SC4),
+    )
+
+
+def send_order(_IsuNo, _OrdQty, _OrdPrc1, _OrdprcPtnCode):
+    """주문 발송 함수"""
+    _cspat00601_body = {
+        "CSPAT00601InBlock1": {
+            "IsuNo": _IsuNo,
+            "OrdQty": _OrdQty,
+            "OrdPrc": _OrdPrc1,
+            "BnsTpCode": "2",
+            "OrdprcPtnCode": _OrdprcPtnCode,
+            "MgntrnCode": "000",
+            "LoanDt": "",
+            "OrdCndiTpCode": "0",
         }
-
-    # TR 요청에 필요한 정보를 딕셔너리로 반환
-    return {
-        'url': _url,              # 요청 URL
-        'header': _header,        # 요청 header
-        'body': _body,            # 요청 바디
-        'tr_name': _tr_name,      # TR 코드 이름
-        'out_block_tags': ["header", "body"],  # 출력 블록 태그
-        'shcode': None,           # 종목 코드 (필요시 사용)
     }
+    return tr_stock_order.CSPAT00601(_cspat00601_body)
 
 
-def SC3(_body="", _real=False):
-    """
+async def main(_IsuNo, _OrdQty, _OrdPrc1, _OrdprcPtnCode):
+    # 주문 응답 수신
+    await receive_order_response()
 
-    """
+    # 주문 발송
+    _cspat00601_params = send_order(_IsuNo, _OrdQty, _OrdPrc1, _OrdprcPtnCode)
 
-    _tr_name = sys._getframe().f_code.co_name
-
-    # TR 요청을 위한 URL 설정
-    if not _real:
-        _url = URL
-    else:
-        _url = MOCK_URL
-
-    _header = {
-        "token": f"Bearer {oauth.oauth(_real=_real)}",
-        "tr_type": "1",
-    }
-
-    if _body == "":
-        _body = {
-            "tr_cd": _tr_name,
-            "tr_key": "",
-        }
-
-    # TR 요청에 필요한 정보를 딕셔너리로 반환
-    return {
-        'url': _url,              # 요청 URL
-        'header': _header,        # 요청 header
-        'body': _body,            # 요청 바디
-        'tr_name': _tr_name,      # TR 코드 이름
-        'out_block_tags': ["header", "body"],  # 출력 블록 태그
-        'shcode': None,           # 종목 코드 (필요시 사용)
-    }
-
-
-def SC4(_body="", _real=False):
-    """
-
-    """
-
-    _tr_name = sys._getframe().f_code.co_name
-
-    # TR 요청을 위한 URL 설정
-    if not _real:
-        _url = URL
-    else:
-        _url = MOCK_URL
-
-    _header = {
-        "token": f"Bearer {oauth.oauth(_real=_real)}",
-        "tr_type": "1",
-    }
-
-    if _body == "":
-        _body = {
-            "tr_cd": _tr_name,
-            "tr_key": "",
-        }
-
-    # TR 요청에 필요한 정보를 딕셔너리로 반환
-    return {
-        'url': _url,              # 요청 URL
-        'header': _header,        # 요청 header
-        'body': _body,            # 요청 바디
-        'tr_name': _tr_name,      # TR 코드 이름
-        'out_block_tags': ["header", "body"],  # 출력 블록 태그
-        'shcode': None,           # 종목 코드 (필요시 사용)
-    }
+    # 주문 요청 결과를 비동기로 처리
+    async with aiohttp.ClientSession() as session:
+        async with session.post(_cspat00601_params['url'], headers=_cspat00601_params['header'], json=_cspat00601_params['body']) as response:
+            _results0 = await response.json()
+            pprint.pprint(_results0)
 
 
 if __name__ == "__main__":
-    import asyncio
-    import pprint
-    import tr_stock_order
-
     # 실제 환경 여부 설정 (False: 모의투자)
-    IS_REAL = False
+    IS_REAL = True
 
     # 주식 종목번호 설정 (삼성전자: A005930)
-    if IS_REAL:
-        IsuNo = "005930"
-    else:
-        IsuNo = "A005930"
+    IsuNo = "005930" if IS_REAL else "A005930"
 
     # 호가유형코드 및 주문가 설정
-    OrdprcPtnCode = "00"                    # 지정가
-    OrdPrc1 = 60000.0                       # 최초 주문가
-    OrdPrc2 = 65000.0                       # 정정 주문가
-    OrdQty = 1                              # 주문 수량
+    OrdprcPtnCode = "82"  # 지정가
+    OrdPrc1 = 60000.0     # 최초 주문가
+    OrdQty = 1            # 주문 수량
 
-    def sync_request_tr(params, _real, _timeout):
-        return request_tr.request_tr(params, _real=_real, _timeout=_timeout)
-
-    async def send_order():
-        cspat00601_body = {
-            "CSPAT00601InBlock1": {
-                "IsuNo": IsuNo,                 # 종목번호 (모의투자: A+종목코드)
-                "OrdQty": OrdQty,               # 주문수량
-                "OrdPrc": OrdPrc1,              # 주문가
-                "BnsTpCode": "2",               # 매매구분 (1:매도, 2:매수)
-                "OrdprcPtnCode": OrdprcPtnCode, # 호가유형코드 (00:지정가, 03:시장가 등)
-                "MgntrnCode": "000",            # 신용거래코드 (000:보통)
-                "LoanDt": "",                   # 대출일
-                "OrdCndiTpCode": "0",           # 주문조건구분 (0:없음, 1:IOC, 2:FOK)
-            }
-        }
-
-        # 동기 함수를 비동기로 실행
-        cspat00601_params = tr_stock_order.CSPAT00601(cspat00601_body)
-        loop = asyncio.get_running_loop()
-
-        results0 = await loop.run_in_executor(None, sync_request_tr, cspat00601_params, IS_REAL, 3)
-        pprint.pprint(results0)
-
-        cs0_params = SC0(_real=False)
-        results0r = await loop.run_in_executor(None, sync_request_tr, cs0_params, IS_REAL, 3)
-        pprint.pprint(results0r)
-
-    async def main():
-        await asyncio.gather(
-            send_order(),
-        )
-
-    # cs1_params = SC1(_real=False)
-    # pprint.pprint(cs1_params)
-    # results1 = request_tr.request_tr(cs1_params, _real=IS_REAL, _timeout=3)
-    # pprint.pprint(results1)
-
-    # cs2_params = SC2(_real=False)
-    # pprint.pprint(cs2_params)
-    # results2 = request_tr.request_tr(cs2_params, _real=IS_REAL, _timeout=3)
-    # pprint.pprint(results2)
-
-    # cs3_params = SC3(_real=False)
-    # pprint.pprint(cs3_params)
-    # results3 = request_tr.request_tr(cs3_params, _real=IS_REAL, _timeout=3)
-    # pprint.pprint(results3)
-
-    # cs4_params = SC4(_real=False)
-    # pprint.pprint(cs4_params)
-    # results4 = request_tr.request_tr(cs4_params, _real=IS_REAL, _timeout=3)
-    # pprint.pprint(results4)
-
-    # 결과를 CSV 파일로 저장
-    # request_tr.save_csv(_data_frames=results0r, _tr_name="SC0")
-    # request_tr.save_csv(_data_frames=results1r, _tr_name="SC1")
-    # request_tr.save_csv(_data_frames=results2r, _tr_name="SC2")
-    # request_tr.save_csv(_data_frames=results3r, _tr_name="SC3")
-    # request_tr.save_csv(_data_frames=results4r, _tr_name="SC4")
+    # 메인 실행
+    asyncio.run(main(IsuNo, OrdQty, OrdPrc1, OrdprcPtnCode))
