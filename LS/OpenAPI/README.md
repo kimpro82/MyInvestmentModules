@@ -52,28 +52,48 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
   ```
   </details>
   <details>
+    <summary>async def send_api_request()</summary>
+
+  ```py
+  async def send_api_request(url, headers, body):
+      """
+      API 요청을 비동기 방식으로 발송하고 응답을 반환하는 함수
+
+      Args:
+          url (str): 요청할 API의 URL.
+          headers (dict): 요청 헤더.
+          body (dict): 요청 본문.
+
+      Returns:
+          dict: API 응답을 포함한 JSON 객체.
+      """
+      async with aiohttp.ClientSession() as session:
+          async with session.post(url, headers=headers, json=body) as response:
+              return await response.json()
+  ```
+  </details>
+  <details>
     <summary>async def send_order_async()</summary>
 
   ```py
   async def send_order_async(_real=False, _IsuNo=None, _OrdQty=None, _OrdPrc1=None, _OrdprcPtnCode=None):
       """
-      비동기 정정 주문 함수
+      비동기 주문 발송 함수
 
-      이미 발송된 주식 주문을 정정하는 요청을 비동기 방식으로 처리합니다.
+      주식 주문을 비동기 방식으로 LS Open API에 요청합니다.
 
       Args:
-          _real (bool): 실제 환경 여부.
+          _real (bool): 실제 환경 여부. True는 실제 환경, False는 모의 투자.
           _IsuNo (str): 종목 번호 (예: '005930').
-          _OrdNo (str): 주문 번호 (기존 주문 번호).
-          _OrdQty (int): 정정할 주문 수량.
-          _OrdPrc2 (float): 정정할 주문 가격.
+          _OrdQty (int): 주문 수량.
+          _OrdPrc1 (float): 주문 가격.
           _OrdprcPtnCode (str): 호가유형코드 (예: '00' - 지정가, '03' - 시장가).
 
       Returns:
-          dict: 정정 주문 결과를 포함한 JSON 응답.
+          dict: 주문 결과를 포함한 JSON 응답. 응답에는 주문 번호 등이 포함됩니다.
       
       주의:
-          - 정정 가능한 주문만 대상으로 합니다. 이미 체결된 주문은 정정할 수 없습니다.
+          - 네트워크 요청 실패 시 예외가 발생할 수 있으므로 try-except로 처리하는 것이 좋습니다.
       """
 
       # OAuth 토큰 발급
@@ -104,9 +124,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
       }
 
       # API 요청 발송
-      async with aiohttp.ClientSession() as session:
-          async with session.post(ORDER_URL, headers=_header, json=_cspat00601_body) as response:
-              return await response.json()
+      return await send_api_request(ORDER_URL, _header, _cspat00601_body)
   ```
   </details>
   <details>
@@ -163,9 +181,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
       }
 
       # API 요청 발송
-      async with aiohttp.ClientSession() as session:
-          async with session.post(ORDER_URL, headers=_header, json=_cspat00701_body) as response:
-              return await response.json()
+      return await send_api_request(ORDER_URL, _header, _cspat00701_body)
   ```
   </details>
   <details>
@@ -214,9 +230,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
       }
 
       # API 요청 발송
-      async with aiohttp.ClientSession() as session:
-          async with session.post(ORDER_URL, headers=_header, json=_cspat00801) as response:
-              return await response.json()
+      return await send_api_request(ORDER_URL, _header, _cspat00801)
   ```
   </details>
   <details>
