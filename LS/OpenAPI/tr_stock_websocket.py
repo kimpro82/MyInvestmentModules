@@ -146,7 +146,7 @@ async def correct_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=Non
     _cspat00701_body = {
         "CSPAT00701InBlock1": {
             "IsuNo": _IsuNo,
-            "OrdNo": _OrdNo,  # 주문번호
+            "OrgOrdNo": _OrdNo,  # 주문번호
             "OrdQty": _OrdQty,  # 정정할 주문 수량
             "OrdPrc": _OrdPrc2,  # 정정할 주문가
             "BnsTpCode": "2",  # 매수/매도 구분
@@ -163,7 +163,7 @@ async def correct_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=Non
             return await response.json()
 
 
-async def cancel_order_async(_real=False, _IsuNo=None, _OrdNo=None):
+async def cancel_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=None):
     """비동기 취소 주문 함수"""
     
     # OAuth 토큰 발급
@@ -183,8 +183,8 @@ async def cancel_order_async(_real=False, _IsuNo=None, _OrdNo=None):
     _cspat00801 = {
         "CSPAT00801InBlock1": {
             "IsuNo": _IsuNo,
-            "OrdNo": _OrdNo,  # 주문번호
-            "BnsTpCode": "2",  # 매수/매도 구분
+            "OrgOrdNo": _OrdNo,  # 주문번호
+            "OrdQty": _OrdQty,
         }
     }
 
@@ -202,18 +202,19 @@ async def main(_real=False, _IsuNo=None, _OrdQty=None, _OrdPrc1=None, _OrdPrc2=N
     # 주문 발송
     _cspat00601_params = await send_order_async(_real, _IsuNo, _OrdQty, _OrdPrc1, _OrdprcPtnCode)
     OrdNo1 = _cspat00601_params['CSPAT00601OutBlock2']['OrdNo']
-
-    # 주문 요청 결과를 비동기로 처리
+    # pprint.pprint(_cspat00601_params)
     pprint.pprint(OrdNo1)
 
     # 예시: 1초 후에 정정 주문 발송
     await asyncio.sleep(1)
-    _cspat00701_params = await correct_order_async(_real, _IsuNo, OrdNo1, _OrdQty=2, _OrdPrc2=_OrdPrc2)
+    _cspat00701_params = await correct_order_async(_real, _IsuNo, OrdNo1, _OrdQty, _OrdPrc2, _OrdprcPtnCode)
     pprint.pprint(_cspat00701_params)
+    OrdNo2 = _cspat00701_params['CSPAT00701OutBlock2']['OrdNo']
+    pprint.pprint(OrdNo2)
 
     # 예시: 2초 후에 취소 주문 발송
     await asyncio.sleep(2)
-    _cspat00801_params = await cancel_order_async(_real, _IsuNo, OrdNo1)
+    _cspat00801_params = await cancel_order_async(_real, _IsuNo, OrdNo2, _OrdQty)
     pprint.pprint(_cspat00801_params)
 
     # 주문 응답을 기다림
