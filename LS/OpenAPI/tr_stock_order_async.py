@@ -4,12 +4,14 @@ LS Open API / [주식] 주문 TR 요청 모듈
 
 설명:
 이 모듈은 LS Open API를 통해 주식 주문, 정정 주문, 취소 주문을 비동기 방식으로 처리하는 기능을 제공합니다.
+각 API 요청은 재사용 가능한 `send_api_request()` 함수를 통해 발송됩니다.
 
 구성:
 1. 비동기 주문 발송 함수: send_order_async
 2. 비동기 정정 주문 함수: correct_order_async
 3. 비동기 취소 주문 함수: cancel_order_async
-4. 메인 실행 함수: main
+4. API 요청 발송 함수: send_api_request
+5. 메인 실행 함수: main
 
 사용 예:
 비동기 함수는 메인 실행 함수(main)에서 순차적으로 호출되어 주문, 정정, 취소 요청을 진행합니다.
@@ -18,6 +20,7 @@ LS Open API / [주식] 주문 TR 요청 모듈
 1   2024.09.06 최초 작성
 2   2024.09.30 비동기식으로 재구현
 """
+
 
 import asyncio
 import pprint
@@ -28,6 +31,23 @@ import oauth_3 as oauth
 URL      = "https://openapi.ls-sec.co.kr:9443/stock/websocket"
 MOCK_URL = "https://openapi.ls-sec.co.kr:29443/stock/websocket"
 ORDER_URL = "https://openapi.ls-sec.co.kr:8080/stock/order"
+
+
+async def send_api_request(url, headers, body):
+    """
+    API 요청을 비동기 방식으로 발송하고 응답을 반환하는 함수
+
+    Args:
+        url (str): 요청할 API의 URL.
+        headers (dict): 요청 헤더.
+        body (dict): 요청 본문.
+
+    Returns:
+        dict: API 응답을 포함한 JSON 객체.
+    """
+    async with aiohttp.ClientSession() as session:
+        async with session.post(url, headers=headers, json=body) as response:
+            return await response.json()
 
 
 async def send_order_async(_real=False, _IsuNo=None, _OrdQty=None, _OrdPrc1=None, _OrdprcPtnCode=None):
@@ -78,9 +98,7 @@ async def send_order_async(_real=False, _IsuNo=None, _OrdQty=None, _OrdPrc1=None
     }
 
     # API 요청 발송
-    async with aiohttp.ClientSession() as session:
-        async with session.post(ORDER_URL, headers=_header, json=_cspat00601_body) as response:
-            return await response.json()
+    return await send_api_request(ORDER_URL, _header, _cspat00601_body)
 
 
 async def correct_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=None, _OrdPrc2=None, _OrdprcPtnCode=None):
@@ -133,9 +151,7 @@ async def correct_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=Non
     }
 
     # API 요청 발송
-    async with aiohttp.ClientSession() as session:
-        async with session.post(ORDER_URL, headers=_header, json=_cspat00701_body) as response:
-            return await response.json()
+    return await send_api_request(ORDER_URL, _header, _cspat00701_body)
 
 
 async def cancel_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=None):
@@ -180,9 +196,7 @@ async def cancel_order_async(_real=False, _IsuNo=None, _OrdNo=None, _OrdQty=None
     }
 
     # API 요청 발송
-    async with aiohttp.ClientSession() as session:
-        async with session.post(ORDER_URL, headers=_header, json=_cspat00801) as response:
-            return await response.json()
+    return await send_api_request(ORDER_URL, _header, _cspat00801)
 
 
 async def main(_real=False, _IsuNo=None, _OrdQty=None, _OrdPrc1=None, _OrdPrc2=None, _OrdprcPtnCode=None):
