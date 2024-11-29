@@ -9,15 +9,15 @@ WebSocket을 통해 실시간 데이터를 지속적으로 수신하며, 사용�
 
 구성:
 1. API 설정 클래스: APIConfig
-2. 요청 및 응답 데이터 클래스: T1860Request, ATRRequest, APIResponse
+2. 요청 및 응답 데이터 클래스: T1860Request, AFRRequest, APIResponse
 3. LS Open API 클라이언트 클래스: LSOpenAPI
    - t1860 TR 요청 메서드: request_t1860
-   - 실시간 ATR 데이터 수신 메서드: receive_atr_data
+   - 실시간 AFR 데이터 수신 메서드: receive_afr_data
 4. 메인 실행 함수: main
 
 사용 예:
 메인 실행 함수(main)에서 LSOpenAPI 클래스의 인스턴스를 생성하고,
-t1860 TR 요청 후 받은 알림 번호로 실시간 ATR 데이터 수신을 시작합니다.
+t1860 TR 요청 후 받은 알림 번호로 실시간 AFR 데이터 수신을 시작합니다.
 
 주의사항:
 - 'oauth_3', 'request_tr_4', 'key' 모듈이 필요합니다.
@@ -55,8 +55,8 @@ class T1860Request:
     query_index: str
 
 @dataclass
-class ATRRequest:
-    """ATR (실시간) 데이터 요청 구조"""
+class AFRRequest:
+    """AFR (실시간) 데이터 요청 구조"""
     tr_type: str
     tr_cd: str
     tr_key: str
@@ -111,11 +111,11 @@ class LSOpenAPI:
             print(f"request_t1860 오류: {e}")
         return None
 
-    async def receive_atr_data(self, alert_num: str) -> None:
-        """실시간 ATR 데이터 수신 및 출력"""
+    async def receive_afr_data(self, alert_num: str) -> None:
+        """실시간 AFR 데이터 수신 및 출력"""
         async with aiohttp.ClientSession() as session:
             async with session.ws_connect(config.websocket_url, headers=self.headers) as ws:
-                atr_request = ATRRequest(
+                afr_request = AFRRequest(
                     tr_type="3",
                     tr_cd="AFR",
                     tr_key=alert_num
@@ -123,11 +123,11 @@ class LSOpenAPI:
                 request_data: Dict[str, Any] = {
                     "header": {
                         "token": self.access_token,
-                        "tr_type": atr_request.tr_type
+                        "tr_type": afr_request.tr_type
                     },
                     "body": {
-                        "tr_cd": atr_request.tr_cd,
-                        "tr_key": atr_request.tr_key
+                        "tr_cd": afr_request.tr_cd,
+                        "tr_key": afr_request.tr_key
                     }
                 }
                 await ws.send_json(request_data)
@@ -136,13 +136,13 @@ class LSOpenAPI:
                         msg = await ws.receive()
                         if msg.type == aiohttp.WSMsgType.TEXT:
                             response = APIResponse(**json.loads(msg.data))
-                            print("수신된 ATR 데이터:")
+                            print("수신된 AFR 데이터:")
                             pprint.pprint(asdict(response))
                         elif msg.type in (aiohttp.WSMsgType.CLOSED, aiohttp.WSMsgType.ERROR):
                             print("WebSocket 연결 종료")
                             break
                 except asyncio.CancelledError:
-                    print("ATR 데이터 수신 취소됨")
+                    print("AFR 데이터 수신 취소됨")
                 finally:
                     await ws.close()
 
@@ -152,7 +152,7 @@ async def main(_test: bool = False) -> None:
     alert_num = await api.request_t1860("0000")
     if alert_num:
         print(f"수신된 sAlertNum: {alert_num}")
-        receive_task = asyncio.create_task(api.receive_atr_data(alert_num))
+        receive_task = asyncio.create_task(api.receive_afr_data(alert_num))
         try:
             await asyncio.Event().wait()
         except asyncio.CancelledError:
