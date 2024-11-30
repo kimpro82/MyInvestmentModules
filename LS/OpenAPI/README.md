@@ -12,6 +12,7 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 ### \<List>
 
 #### TR
+- [서버저장조건 실시간검색(`t1860`), API사용자조건검색실시간(`AFR`) (2024.11.29)](#서버저장조건-실시간검색t1860-api사용자조건검색실시간afr-20241129)
 - [현물주문(`CSPAT00601`) 外 : 비동기식 (2024.09.30)](#현물주문cspat00601-外--비동기식-20240930)
 - [현물주문(`CSPAT00601`) 外 : 동기식 (2024.09.06)](#현물주문cspat00601-外--동기식-20240906)
 - [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](#현물계좌-잔고내역cspaq12300-주식잔고2t0424-20240826)
@@ -29,6 +30,178 @@ Code with `OPEN API` from *LS Securities Co., Ltd.*
 - [Oauth 2 (2023.07.21)](#oauth-2-20230721)
 - [Oauth (2023.07.11)](#oauth-20230711)
 
+
+## [서버저장조건 실시간검색(`t1860`), API사용자조건검색실시간(`AFR`) (2024.11.29)](#list)
+
+- Receive real-time conditional search results by passing the real-time key (`sAlertNum`) value received from `t1860` TR to `AFR` TR
+- Improve code readability and maintainability by applying `@dataclass` and `typing` library
+- Be aware that search conditions are **only** available in the real environment
+- Future Improvements
+  - Make it independent of the `request_tr_4` module
+  - Apply `@dataclass` to other TRs as well
+- Code and Results
+  <details>
+    <summary>Code : t1860_ATR_async.py</summary>
+
+  ```py
+  import pprint
+  import asyncio
+  from dataclasses import dataclass, asdict
+  from typing import Optional, Dict, Any
+  import json
+  import aiohttp
+  import oauth_3 as oauth
+  from request_tr_4 import request_tr
+  import key
+  ```
+  ```py
+  @dataclass
+  class APIConfig:
+      """LS Open API 설정"""
+      is_real: bool
+      base_url: str
+      websocket_url: str
+      stock_item_search_url: str
+
+  @dataclass
+  class T1860Request:
+      """T1860 TR 요청 구조"""
+      sSysUserFlag: str
+      sFlag: str
+      sAlertNum: str
+      query_index: str
+
+  @dataclass
+  class AFRRequest:
+      """AFR (실시간) 데이터 요청 구조"""
+      tr_type: str
+      tr_cd: str
+      tr_key: str
+
+  @dataclass
+  class APIResponse:
+      """일반 API 응답 구조"""
+      header: Dict[str, Any]
+      body: Optional[Dict[str, Any]]
+
+  # API 설정
+  config = APIConfig(
+      is_real=True,
+      base_url="https://openapi.ls-sec.co.kr:8080",
+      websocket_url="wss://openapi.ls-sec.co.kr:9443/websocket",
+      stock_item_search_url="https://openapi.ls-sec.co.kr:8080/stock/item-search"
+  )
+  ```
+  ```py
+  class LSOpenAPI:
+      """LS Open API 클라이언트: 주식 데이터 요청 및 실시간 데이터 수신 처리"""
+
+      def __init__(self):
+          """API 클라이언트 초기화: 접근 토큰 및 헤더 설정"""
+          self.access_token: str = oauth.oauth(_real=config.is_real)
+          self.headers: Dict[str, str] = {
+              "content-type": "application/json; charset=utf-8",
+              "authorization": self.access_token
+          }
+
+      async def request_t1860(self, query_index: str) -> Optional[str]:
+          """T1860 TR 데이터 요청 및 알림 번호 반환"""
+          t1860_request = T1860Request(
+              sSysUserFlag="U",
+              sFlag="E",
+              sAlertNum="",
+              query_index=f"{key.USER_ID:8}{query_index}"
+          )
+
+          t1860_input: Dict[str, Any] = {
+              "url": config.stock_item_search_url,
+              "tr_name": "t1860",
+              "body": {"t1860InBlock": asdict(t1860_request)},
+              "out_block_tags": ["t1860OutBlock"],
+              "shcode": ""
+          }
+
+          try:
+              data_frames, _, _ = request_tr(t1860_input, _real=config.is_real)
+              if data_frames and len(data_frames) > 0:
+                  return data_frames[0]['sAlertNum'].iloc[0]
+          except Exception as e:
+              print(f"request_t1860 오류: {e}")
+          return None
+
+      async def receive_afr_data(self, alert_num: str) -> None:
+          """실시간 AFR 데이터 수신 및 출력"""
+          async with aiohttp.ClientSession() as session:
+              async with session.ws_connect(config.websocket_url, headers=self.headers) as ws:
+                  afr_request = AFRRequest(
+                      tr_type="3",
+                      tr_cd="AFR",
+                      tr_key=alert_num
+                  )
+                  request_data: Dict[str, Any] = {
+                      "header": {
+                          "token": self.access_token,
+                          "tr_type": afr_request.tr_type
+                      },
+                      "body": {
+                          "tr_cd": afr_request.tr_cd,
+                          "tr_key": afr_request.tr_key
+                      }
+                  }
+                  await ws.send_json(request_data)
+                  try:
+                      while True:
+                          msg = await ws.receive()
+                          if msg.type == aiohttp.WSMsgType.TEXT:
+                              response = APIResponse(**json.loads(msg.data))
+                              print("수신된 AFR 데이터:")
+                              pprint.pprint(asdict(response))
+                          elif msg.type in (aiohttp.WSMsgType.CLOSED, aiohttp.WSMsgType.ERROR):
+                              print("WebSocket 연결 종료")
+                              break
+                  except asyncio.CancelledError:
+                      print("AFR 데이터 수신 취소됨")
+                  finally:
+                      await ws.close()
+  ```
+  ```py
+  async def main(_test: bool = False) -> None:
+      """API 클라이언트 실행 메인 함수"""
+      api = LSOpenAPI()
+      alert_num = await api.request_t1860("0000")
+      if alert_num:
+          print(f"수신된 sAlertNum: {alert_num}")
+          receive_task = asyncio.create_task(api.receive_afr_data(alert_num))
+          try:
+              await asyncio.Event().wait()
+          except asyncio.CancelledError:
+              print("메인 태스크 취소됨")
+          finally:
+              receive_task.cancel()
+              await asyncio.gather(receive_task, return_exceptions=True)
+      else:
+          print("sAlertNum 수신 실패")
+
+  if __name__ == "__main__":
+      try:
+          asyncio.run(main())
+      except KeyboardInterrupt:
+          print("사용자에 의해 프로그램 종료됨")
+  ```
+  </details>
+  <details open="">
+    <summary>Results</summary>
+
+  ```txt
+  수신된 sAlertNum: 1639410200I
+  수신된 AFR 데이터:
+  {'body': None,
+  'header': {'rsp_cd': '00000',
+            'rsp_msg': '정상처리되었습니다',
+            'tr_cd': 'AFR',
+            'tr_type': '3'}}
+  ```
+  </details>
 
 
 ## [현물주문(`CSPAT00601`) 外 : 비동기식 (2024.09.30)](#list)
