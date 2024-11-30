@@ -21,6 +21,7 @@ Someday these will be an integrated trading system, but not now. So I am sad.
 ### [*LS OPEN API*](/LS/OpenAPI)
 
 #### TR
+- [서버저장조건 실시간검색(`t1860`), API사용자조건검색실시간(`AFR`) (2024.11.29)](/LS/OpenAPI/README.md#서버저장조건-실시간검색t1860-api사용자조건검색실시간afr-20241129)
 - [현물주문(`CSPAT00601`) 外 : 비동기식 (2024.09.30)](/LS/OpenAPI/README.md#현물주문cspat00601-外--비동기식-20240930)
 - [현물주문(`CSPAT00601`) 外 : 동기식 (2024.09.06)](/LS/OpenAPI/README.md#현물주문cspat00601-外--동기식-20240906)
 - [현물계좌 잔고내역(`CSPAQ12300`), 주식잔고2(`t0424`) (2024.08.26)](/LS/OpenAPI/README.md#현물계좌-잔고내역cspaq12300-주식잔고2t0424-20240826)
