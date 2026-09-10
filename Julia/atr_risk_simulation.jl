@@ -70,7 +70,7 @@ function plot_3d(stop_rate, pos_value)
                            title="POSITION_VALUE Landscape",
                            xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="POSITION_VALUE (KRW)",
                            color=:viridis, zformatter=comma_format, right_margin=15Plots.mm,
-                           bottom_margin=8Plots.mm, size=(900, 700), camera=(30, 40))
+                           bottom_margin=8Plots.mm, size=(900, 700), camera=(30, 40), fillalpha=0.60)
 
     stop_surface = surface(ATR_VALUES, budget_pcts, stop_rate,
                             title="STOP_RATE Landscape",
