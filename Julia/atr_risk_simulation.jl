@@ -15,6 +15,9 @@ Pkg.activate(@__DIR__)
 using Plots
 gr()
 
+"Format a number with thousands separators, e.g. 10000 -> \"10,000\"."
+comma_format(x) = replace(string(round(Int, x)), r"(?<=[0-9])(?=(?:[0-9]{3})+(?!\d))" => ",")
+
 const REFERENCE_PRICE = 10_000.0      # KRW, used to convert ATR into a rate
 const TOTAL_BUDGET_LIMIT = 100_000_000.0  # KRW
 const MIN_STOP_RATE = 0.005           # 0.5% mandatory floor
@@ -46,7 +49,7 @@ end
 "Build the 2-row multi-panel line plot (POSITION_VALUE / STOP_RATE vs ATR, grouped by risk budget)."
 function plot_2d(stop_rate, pos_value)
     top = plot(title="POSITION_VALUE vs ATR", xlabel="ATR (KRW)", ylabel="POSITION_VALUE (KRW)",
-               legend=:outertopright, legendtitle="Risk Budget")
+               legend=:outertopright, legendtitle="Risk Budget", yformatter=comma_format)
     bottom = plot(title="STOP_RATE vs ATR", xlabel="ATR (KRW)", ylabel="STOP_RATE (%)",
                   legend=:outertopright, legendtitle="Risk Budget")
 
@@ -66,12 +69,12 @@ function plot_3d(stop_rate, pos_value)
     pos_surface = surface(ATR_VALUES, budget_pcts, pos_value,
                            title="POSITION_VALUE Landscape",
                            xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="POSITION_VALUE (KRW)",
-                           color=:viridis)
+                           color=:viridis, zformatter=comma_format, right_margin=15Plots.mm)
 
     stop_surface = surface(ATR_VALUES, budget_pcts, stop_rate,
                             title="STOP_RATE Landscape",
                             xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="STOP_RATE (%)",
-                            color=:plasma)
+                            color=:plasma, camera=(120, 30))
 
     return pos_surface, stop_surface
 end
