@@ -19,8 +19,8 @@ gr()
 "Format a number with thousands separators, e.g. 10000 -> \"10,000\"."
 comma_format(x) = replace(string(round(Int, x)), r"(?<=[0-9])(?=(?:[0-9]{3})+(?!\d))" => ",")
 
-const REFERENCE_PRICE = 100_000.0     # KRW, used to convert ATR into a rate
-const TOTAL_BUDGET_LIMIT = 100_000_000.0  # KRW
+const REFERENCE_PRICE = 10_000.0     # KRW, used to convert ATR into a rate
+const TOTAL_BUDGET_LIMIT = 1_000_000.0  # KRW
 const MIN_STOP_RATE = 0.005           # 0.5% mandatory floor
 const MAN_WON = 10_000.0              # display unit for POSITION_VALUE (만원)
 
