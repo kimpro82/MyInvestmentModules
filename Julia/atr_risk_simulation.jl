@@ -25,7 +25,7 @@ const MIN_STOP_RATE = 0.005           # 0.5% mandatory floor
 const MAN_WON = 10_000.0              # display unit for POSITION_VALUE (만원)
 
 const ATR_VALUES = 100:100:1000                 # KRW, 10 points
-const RISK_BUDGET_PCTS = 0.005:0.005:0.05        # fraction, 0.5%~5.0%, 10 points
+const RISK_BUDGET_PCTS = 0.003:0.003:0.03        # fraction, 0.3%~3.0%, 10 points
 
 "Effective stop rate: ATR normalized to REFERENCE_PRICE, floored at MIN_STOP_RATE."
 effective_stop_rate(atr::Real) = max(atr / REFERENCE_PRICE, MIN_STOP_RATE)
@@ -61,7 +61,7 @@ function plot_2d(stop_rate, pos_value)
         plot!(bottom, ATR_VALUES, stop_rate[j, :], label=label, marker=:circle, linewidth=2)
     end
 
-    return plot(top, bottom, layout=(2, 1), size=(1000, 1200))
+    return plot(top, bottom, layout=(2, 1), size=(1000, 1200), left_margin=15Plots.mm)
 end
 
 "Build the 3D surface plots for POSITION_VALUE and STOP_RATE over the ATR x risk-budget grid."
@@ -71,12 +71,14 @@ function plot_3d(stop_rate, pos_value)
     pos_surface = surface(ATR_VALUES, budget_pcts, pos_value,
                            title="POSITION_VALUE Landscape",
                            xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="POSITION_VALUE (x10,000 KRW)",
-                           color=:viridis, zformatter=comma_format, right_margin=15Plots.mm)
+                           color=:viridis, zformatter=comma_format, right_margin=15Plots.mm,
+                           bottom_margin=8Plots.mm, size=(900, 700), camera=(30, 40))
 
     stop_surface = surface(ATR_VALUES, budget_pcts, stop_rate,
                             title="STOP_RATE Landscape",
                             xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="STOP_RATE (%)",
-                            color=:plasma, camera=(45, 30))
+                            color=:plasma, camera=(-45, 30), bottom_margin=15Plots.mm, size=(900, 700),
+                            guidefontsize=9)
 
     return pos_surface, stop_surface
 end
