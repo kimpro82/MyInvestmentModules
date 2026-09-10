@@ -8,7 +8,6 @@
 # Assumptions (not explicitly given in the PRD, confirmed with stakeholder):
 #   - REFERENCE_PRICE   : 100,000 KRW, used to convert ATR (KRW) into a raw stop rate.
 #   - TOTAL_BUDGET_LIMIT: 100,000,000 KRW, the capital base for ATR_RISK_BUDGET.
-#   - POSITION_VALUE is displayed in units of 10,000 KRW (만원) for readability.
 
 using Pkg
 Pkg.activate(@__DIR__)
@@ -22,7 +21,6 @@ comma_format(x) = replace(string(round(Int, x)), r"(?<=[0-9])(?=(?:[0-9]{3})+(?!
 const REFERENCE_PRICE = 10_000.0     # KRW, used to convert ATR into a rate
 const TOTAL_BUDGET_LIMIT = 1_000_000.0  # KRW
 const MIN_STOP_RATE = 0.005           # 0.5% mandatory floor
-const MAN_WON = 10_000.0              # display unit for POSITION_VALUE (만원)
 
 const ATR_VALUES = 100:100:1000                 # KRW, 10 points
 const RISK_BUDGET_PCTS = 0.003:0.003:0.03        # fraction, 0.3%~3.0%, 10 points
@@ -43,14 +41,14 @@ function simulate()
     pos_value = Matrix{Float64}(undef, n_budget, n_atr)
     for (j, budget) in enumerate(RISK_BUDGET_PCTS), (i, atr) in enumerate(ATR_VALUES)
         stop_rate[j, i] = effective_stop_rate(atr) * 100      # store as %
-        pos_value[j, i] = position_value(atr, budget) / MAN_WON  # store in 만원
+        pos_value[j, i] = position_value(atr, budget)
     end
     return stop_rate, pos_value
 end
 
 "Build the 2-row multi-panel line plot (POSITION_VALUE / STOP_RATE vs ATR, grouped by risk budget)."
 function plot_2d(stop_rate, pos_value)
-    top = plot(title="POSITION_VALUE vs ATR", xlabel="ATR (KRW)", ylabel="POSITION_VALUE (x10,000 KRW)",
+    top = plot(title="POSITION_VALUE vs ATR", xlabel="ATR (KRW)", ylabel="POSITION_VALUE (KRW)",
                legend=:outertopright, legendtitle="Risk Budget", yformatter=comma_format)
     bottom = plot(title="STOP_RATE vs ATR", xlabel="ATR (KRW)", ylabel="STOP_RATE (%)",
                   legend=:outertopright, legendtitle="Risk Budget")
@@ -70,15 +68,15 @@ function plot_3d(stop_rate, pos_value)
 
     pos_surface = surface(ATR_VALUES, budget_pcts, pos_value,
                            title="POSITION_VALUE Landscape",
-                           xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="POSITION_VALUE (x10,000 KRW)",
+                           xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="POSITION_VALUE (KRW)",
                            color=:viridis, zformatter=comma_format, right_margin=15Plots.mm,
                            bottom_margin=8Plots.mm, size=(900, 700), camera=(30, 40))
 
     stop_surface = surface(ATR_VALUES, budget_pcts, stop_rate,
                             title="STOP_RATE Landscape",
                             xlabel="ATR (KRW)", ylabel="ATR_RISK_BUDGET (%)", zlabel="STOP_RATE (%)",
-                            color=:plasma, camera=(-45, 30), bottom_margin=15Plots.mm, size=(900, 700),
-                            guidefontsize=9)
+                            color=:plasma, camera=(-45, 30), bottom_margin=15Plots.mm, top_margin=10Plots.mm,
+                            size=(900, 700), guidefontsize=9, fillalpha=0.60)
 
     return pos_surface, stop_surface
 end
